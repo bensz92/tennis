@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="http://www.w3.org/2001/03/xml.xsd" />
+    <xs:element name="root">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="tennis_seasons" minOccurs="1" maxOccurs="1">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="tennis_season" minOccurs="1" maxOccurs="unbounded">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="tournament" minOccurs="1" maxOccurs="unbounded">
+                                            <xs:complexType>
+                                                <xs:sequence>
+                                                    <xs:element name="finals" minOccurs="1" maxOccurs="1">
+                                                        <xs:complexType>
+                                                            <xs:sequence>
+                                                                <xs:element name="match" minOccurs="1" maxOccurs="1">
+                                                                    <xs:complexType>
+                                                                        <xs:sequence>
+                                                                            <xs:element name="players" minOccurs="1" maxOccurs="1">
+                                                                                <xs:complexType>
+                                                                                    <xs:sequence>
+                                                                                        <xs:element name="player-ref" minOccurs="2" maxOccurs="2">
+                                                                                            <xs:complexType>  
+                                                                                                <xs:sequence>
+                                                                                                </xs:sequence>
+                                                                                                <xs:attribute name="id" use="required" type="xs:IDREF"/>
+                                                                                            </xs:complexType>                                                                                    
+                                                                                        </xs:element>
+                                                                                    </xs:sequence>                                                                                
+                                                                                </xs:complexType>
+                                                                            </xs:element>
+                                                                            <xs:element name="result" minOccurs="1" maxOccurs="1">
+                                                                                <xs:complexType>
+                                                                                    <xs:sequence>
+                                                                                        <xs:element name="set" minOccurs="2" maxOccurs="5"/>
+                                                                                    </xs:sequence>
+                                                                                </xs:complexType>
+                                                                            </xs:element>
+                                                                        </xs:sequence>
+                                                                    </xs:complexType>
+                                                                </xs:element>
+                                                            </xs:sequence>
+                                                        </xs:complexType>
+                                                    </xs:element>
+                                                    <xs:element name="semi-finals" minOccurs="1" maxOccurs="1">
+                                                        <xs:complexType>
+                                                            <xs:sequence>
+                                                                <xs:element name="match" minOccurs="2" maxOccurs="2">
+                                                                    <xs:complexType>
+                                                                        <xs:sequence>
+                                                                            <xs:element name="players" minOccurs="1" maxOccurs="1">
+                                                                                <xs:complexType>
+                                                                                    <xs:sequence>
+                                                                                        <xs:element name="player-ref" minOccurs="2" maxOccurs="2">
+                                                                                            <xs:complexType>  
+                                                                                                <xs:sequence>
+                                                                                                </xs:sequence>
+                                                                                                <xs:attribute name="id" use="required" type="xs:IDREF"/>
+                                                                                            </xs:complexType>                                                                                    
+                                                                                        </xs:element>
+                                                                                    </xs:sequence>
+                                                                                </xs:complexType>
+                                                                            </xs:element>
+                                                                            <xs:element name="result" minOccurs="1" maxOccurs="1">
+                                                                                <xs:complexType>
+                                                                                    <xs:sequence>
+                                                                                        <xs:element name="set" minOccurs="2" maxOccurs="5"/>
+                                                                                    </xs:sequence>
+                                                                                </xs:complexType>
+                                                                            </xs:element>
+                                                                        </xs:sequence>
+                                                                    </xs:complexType>
+                                                                </xs:element>
+                                                            </xs:sequence>
+                                                        </xs:complexType>
+                                                    </xs:element>
+                                                    <xs:element name="quarter-finals" minOccurs="1" maxOccurs="1">
+                                                        <xs:complexType>
+                                                            <xs:sequence>
+                                                                <xs:element name="match" minOccurs="4" maxOccurs="4">
+                                                                    <xs:complexType>
+                                                                        <xs:sequence>
+                                                                            <xs:element name="players" minOccurs="1" maxOccurs="1">
+                                                                                <xs:complexType>
+                                                                                    <xs:sequence>
+                                                                                        <xs:element name="player-ref" minOccurs="2" maxOccurs="2">
+                                                                                            <xs:complexType>  
+                                                                                                <xs:sequence>
+                                                                                                </xs:sequence>
+                                                                                                <xs:attribute name="id" use="required" type="xs:IDREF"/>
+                                                                                            </xs:complexType>                                                                                    
+                                                                                        </xs:element>
+                                                                                    </xs:sequence>
+                                                                                </xs:complexType>
+                                                                            </xs:element>
+                                                                            <xs:element name="result" minOccurs="1" maxOccurs="1">
+                                                                                <xs:complexType>
+                                                                                    <xs:sequence>
+                                                                                        <xs:element name="set" minOccurs="2" maxOccurs="5"/>
+                                                                                    </xs:sequence>
+                                                                                </xs:complexType>
+                                                                            </xs:element>
+                                                                        </xs:sequence>
+                                                                    </xs:complexType>
+                                                                </xs:element>
+                                                            </xs:sequence>
+                                                        </xs:complexType>
+                                                    </xs:element>
+                                                </xs:sequence>
+                                                <xs:attribute name="name" type="xs:string" use="required"/>
+                                                <xs:attribute name="type" type="xs:string" use="required"/>
+                                                <xs:attribute name="surface" type="xs:string" use="required"/>
+                                            </xs:complexType>
+                                        </xs:element>
+                                    </xs:sequence>
+                                    <xs:attribute name="year" type="xs:string" use="required"/>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element> 
+                <xs:element name="players" minOccurs="1" maxOccurs="1">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="player" minOccurs="2" maxOccurs="unbounded">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="name" type="xs:string"/>
+                                        <xs:element name="year_of_birth" type="xs:string"/>
+                                        <xs:element name="birthplace" type="xs:string"/>
+                                        <xs:element name="weight" type="xs:int"/>
+                                        <xs:element name="height" type="xs:int"/>
+                                        <xs:element name="turnedpro" type="xs:string"/>
+                                        <xs:element name="plays" type="xs:string"/>
+                                    </xs:sequence>
+                                    <xs:attribute name="id" type="xs:ID"/>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+        <xs:key name="player-key">
+            <xs:selector xpath="players/player"></xs:selector>
+            <xs:field xpath="@id"></xs:field>
+        </xs:key>
+        <xs:keyref refer="player-key" name="player-keyref">
+            <xs:selector xpath="match/players/player-ref"></xs:selector>
+            <xs:field xpath="@id"></xs:field>
+        </xs:keyref>
+    </xs:element>
+</xs:schema>

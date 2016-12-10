@@ -1,0 +1,1702 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="tennis.xsd" type="application/xml"?>
+<root>
+    <tennis_seasons xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="tennis.xsd">
+           <tennis_season year="2015">
+            <tournament name="Australian_Open" type="Grand_Slam" surface="Hard">               
+                <finals>
+                    <match>
+                        <players>
+                            <player-ref id="Djokovic"/>
+                            <player-ref id="Murray"/>
+                        </players>
+                        <result>
+                            <set>7:6</set>
+                            <set>6:7</set>
+                            <set>6:3</set>
+                            <set>6:0</set>
+                        </result>
+                    </match>
+                </finals>               
+                <semi-finals>       
+                    <match>
+                        <players>         
+                            <player-ref id="Djokovic"/>
+                            <player-ref id="Wawrinka"/>   
+                        </players>
+                        <result>
+                            <set>7:6</set>
+                            <set>3:6</set>
+                            <set>6:4</set>
+                            <set>4:6</set>
+                            <set>6:0</set>
+                        </result>
+                    </match>                   
+                    <match>
+                        <players>
+                            <player-ref id="Murray"/>
+                            <player-ref id="Berdych"/>    
+                        </players>
+                        <result>
+                            <set>6:7</set>
+                            <set>6:0</set>
+                            <set>6:3</set>
+                            <set>7:5</set>
+                            <set>6:2</set>
+                        </result>
+                    </match>                  
+                </semi-finals>                
+                <quarter-finals>                    
+                    <match>
+                        <players>
+                            <player-ref id="Djokovic"/>
+                            <player-ref id="Raonic"/>
+                        </players>
+                        <result>
+                            <set>7:6</set>
+                            <set>6:4</set>
+                            <set>6:2</set>
+                        </result>
+                    </match>
+                    <match>
+                        <players>
+                            <player-ref id="Berdych"/>
+                            <player-ref id="Nadal"/>   
+                        </players>
+                        <result>
+                            <set>6:2</set>
+                            <set>6:0</set>
+                            <set>7:6</set>
+                        </result>
+                    </match>
+                    <match>
+                        <players>
+                            <player-ref id="Wawrinka"/>
+                            <player-ref id="Nishikori"/>
+                        </players>
+                        <result>
+                            <set>6:3</set>
+                            <set>6:4</set>
+                            <set>7:6</set>
+                        </result>
+                    </match>
+                    <match>
+                        <players>
+                            <player-ref id="Murray"/>
+                            <player-ref id="Kyrgios"/>   
+                        </players>
+                        <result>
+                            <set>6:3</set>
+                            <set>7:6</set>
+                            <set>6:3</set>
+                        </result>
+                    </match>                 
+                </quarter-finals>
+            </tournament>
+            <tournament name="Roland_Garros" type="Grand_Slam" surface="Clay">               
+                <finals>
+                    <match>
+                        <players>
+                            <player-ref id="Wawrinka"/>
+                            <player-ref id="Djokovic"/>
+                        </players>
+                        <result>
+                            <set>4:6</set>
+                            <set>6:4</set>
+                            <set>6:3</set>
+                            <set>6:4</set>
+                        </result>
+                    </match>
+                </finals>               
+                <semi-finals>       
+                    <match>
+                        <players>         
+                            <player-ref id="Djokovic"/>
+                            <player-ref id="Murray"/>   
+                        </players>
+                        <result>
+                            <set>6:3</set>
+                            <set>6:3</set>
+                            <set>5:7</set>
+                            <set>5:7</set>
+                            <set>6:1</set>
+                        </result>
+                    </match>                   
+                    <match>
+                        <players>
+                            <player-ref id="Wawrinka"/>
+                            <player-ref id="Tsonga"/>    
+                        </players>
+                        <result>
+                            <set>6:3</set>
+                            <set>6:7</set>
+                            <set>7:6</set>
+                            <set>6:4</set>
+                        </result>
+                    </match>                  
+                </semi-finals>                
+                <quarter-finals>                    
+                    <match>
+                        <players>
+                            <player-ref id="Djokovic"/>
+                            <player-ref id="Nadal"/>
+                        </players>
+                        <result>
+                            <set>7:6</set>
+                            <set>6:3</set>
+                            <set>6:1</set>
+                        </result>
+                    </match>
+                    <match>
+                        <players>
+                            <player-ref id="Wawrinka"/>
+                            <player-ref id="Federer"/>   
+                        </players>
+                        <result>
+                            <set>6:4</set>
+                            <set>6:3</set>
+                            <set>7:6</set>
+                        </result>
+                    </match>
+                    <match>
+                        <players>
+                            <player-ref id="Murray"/>
+                            <player-ref id="Ferrer"/>
+                        </players>
+                        <result>
+                            <set>7:6</set>
+                            <set>6:2</set>
+                            <set>5:7</set>
+                            <set>6:1</set>
+                        </result>
+                    </match>
+                    <match>
+                        <players>
+                            <player-ref id="Tsonga"/>
+                            <player-ref id="Nishikori"/>   
+                        </players>
+                        <result>
+                            <set>6:1</set>
+                            <set>6:4</set>
+                            <set>4:6</set>
+                            <set>3:6</set>
+                            <set>6:3</set>
+                        </result>
+                    </match>                 
+                </quarter-finals>
+            </tournament>
+            
+            <tournament name="Wimbledon" type="Grand_Slam" surface="Grass">               
+                <finals>
+                    <match>
+                        <players>
+                            <player-ref id="Djokovic"/>
+                            <player-ref id="Federer"/>
+                        </players>
+                        <result>
+                            <set>7:6</set>
+                            <set>6:7</set>
+                            <set>6:4</set>
+                            <set>6:3</set>
+                        </result>
+                    </match>
+                </finals>               
+                <semi-finals>       
+                    <match>
+                        <players>         
+                            <player-ref id="Djokovic"/>
+                            <player-ref id="Gasquet"/>   
+                        </players>
+                        <result>
+                            <set>7:6</set>
+                            <set>6:4</set>
+                            <set>6:4</set>
+                        </result>
+                    </match>                   
+                    <match>
+                        <players>
+                            <player-ref id="Federer"/>
+                            <player-ref id="Murray"/>    
+                        </players>
+                        <result>
+                            <set>7:5</set>
+                            <set>7:5</set>
+                            <set>6:4</set>
+                        </result>
+                    </match>                  
+                </semi-finals>                
+                <quarter-finals>                    
+                    <match>
+                        <players>
+                            <player-ref id="Djokovic"/>
+                            <player-ref id="Cilic"/>
+                        </players>
+                        <result>
+                            <set>6:4</set>
+                            <set>6:4</set>
+                            <set>6:4</set>
+                        </result>
+                    </match>
+                    <match>
+                        <players>
+                            <player-ref id="Federer"/>
+                            <player-ref id="Simon"/>   
+                        </players>
+                        <result>
+                            <set>6:3</set>
+                            <set>7:5</set>
+                            <set>6:2</set>
+                        </result>
+                    </match>
+                    <match>
+                        <players>
+                            <player-ref id="Murray"/>
+                            <player-ref id="Pospisil"/>
+                        </players>
+                        <result>
+                            <set>6:4</set>
+                            <set>7:5</set>
+                            <set>6:4</set>
+                        </result>
+                    </match>
+                    <match>
+                        <players>
+                            <player-ref id="Gasquet"/>
+                            <player-ref id="Wawrinka"/>   
+                        </players>
+                        <result>
+                            <set>6:4</set>
+                            <set>4:6</set>
+                            <set>3:6</set>
+                            <set>6:4</set>
+                            <set>11:9</set>
+                        </result>
+                    </match>                 
+                </quarter-finals>
+            </tournament>
+            <tournament name="US Open" type="Grand_Slam" surface="Hard">               
+                <finals>
+                    <match>
+                        <players>
+                            <player-ref id="Djokovic"/>
+                            <player-ref id="Federer"/>
+                        </players>
+                        <result>
+                            <set>6:4</set>
+                            <set>5:7</set>
+                            <set>6:4</set>
+                            <set>6:4</set>
+                        </result>
+                    </match>
+                </finals>               
+                <semi-finals>       
+                    <match>
+                        <players>         
+                            <player-ref id="Djokovic"/>
+                            <player-ref id="Cilic"/>   
+                        </players>
+                        <result>
+                            <set>6:0</set>
+                            <set>6:1</set>
+                            <set>6:2</set>
+                        </result>
+                    </match>                   
+                    <match>
+                        <players>
+                            <player-ref id="Federer"/>
+                            <player-ref id="Wawrinka"/>    
+                        </players>
+                        <result>
+                            <set>6:4</set>
+                            <set>6:3</set>
+                            <set>6:1</set>
+                        </result>
+                    </match>                  
+                </semi-finals>                
+                <quarter-finals>                    
+                    <match>
+                        <players>
+                            <player-ref id="Djokovic"/>
+                            <player-ref id="Lopez"/>
+                        </players>
+                        <result>
+                            <set>6:1</set>
+                            <set>3:6</set>
+                            <set>6:3</set>
+                            <set>7:6</set>
+                        </result>
+                    </match>
+                    <match>
+                        <players>
+                            <player-ref id="Federer"/>
+                            <player-ref id="Gasquet"/>   
+                        </players>
+                        <result>
+                            <set>6:3</set>
+                            <set>6:3</set>
+                            <set>6:1</set>
+                        </result>
+                    </match>
+                    <match>
+                        <players>
+                            <player-ref id="Wawrinka"/>
+                            <player-ref id="Anderson"/>
+                        </players>
+                        <result>
+                            <set>6:4</set>
+                            <set>6:4</set>
+                            <set>6:0</set>
+                        </result>
+                    </match>
+                    <match>
+                        <players>
+                            <player-ref id="Cilic"/>
+                            <player-ref id="Tsonga"/>   
+                        </players>
+                        <result>
+                            <set>6:4</set>
+                            <set>6:4</set>
+                            <set>3:6</set>
+                            <set>6:7</set>
+                            <set>6:4</set>
+                        </result>
+                    </match>                 
+                </quarter-finals>
+            </tournament>
+                <tournament name="Monte-Carlo" type="Masters_1000" surface="Clay">               
+                <finals>
+                    <match>
+                        <players>
+                            <player-ref id="Djokovic"/>
+                            <player-ref id="Berdych"/>
+                        </players>
+                        <result>
+                            <set>7:5</set>
+                            <set>4:6</set>
+                            <set>6:3</set>
+                        </result>
+                    </match>
+                </finals>               
+                <semi-finals>       
+                    <match>
+                        <players>         
+                            <player-ref id="Djokovic"/>
+                            <player-ref id="Nadal"/>   
+                        </players>
+                        <result>
+                            <set>6:3</set>
+                            <set>6:3</set>
+                        </result>
+                    </match>                   
+                    <match>
+                        <players>
+                            <player-ref id="Berdych"/>
+                            <player-ref id="Monfils"/>    
+                        </players>
+                        <result>
+                            <set>6:1</set>
+                            <set>6:4</set>
+                        </result>
+                    </match>                  
+                </semi-finals>                
+                <quarter-finals>                    
+                    <match>
+                        <players>
+                            <player-ref id="Djokovic"/>
+                            <player-ref id="Cilic"/>
+                        </players>
+                        <result>
+                            <set>6:0</set>
+                            <set>6:3</set>
+                        </result>
+                    </match>
+                    <match>
+                        <players>
+                            <player-ref id="Nadal"/>
+                            <player-ref id="Ferrer"/>   
+                        </players>
+                        <result>
+                            <set>6:4</set>
+                            <set>5:7</set>
+                            <set>6:2</set>
+                        </result>
+                    </match>
+                    <match>
+                        <players>
+                            <player-ref id="Berdych"/>
+                            <player-ref id="Raonic"/>
+                        </players>
+                        <result>
+                            <set>5:2</set>
+                            <set>RET</set>
+                        </result>
+                    </match>
+                    <match>
+                        <players>
+                            <player-ref id="Monfils"/>
+                            <player-ref id="Dimitrov"/>   
+                        </players>
+                        <result>
+                            <set>6:1</set>
+                            <set>6:3</set>
+                        </result>
+                    </match>                 
+                </quarter-finals>
+            </tournament>
+            
+            <tournament name="Madrid" type="Masters_1000" surface="Clay">               
+                <finals>
+                    <match>
+                        <players>
+                            <player-ref id="Murray"/>
+                            <player-ref id="Nadal"/>
+                        </players>
+                        <result>
+                            <set>6:3</set>
+                            <set>6:2</set>
+                        </result>
+                    </match>
+                </finals>               
+                <semi-finals>       
+                    <match>
+                        <players>         
+                            <player-ref id="Murray"/>
+                            <player-ref id="Nishikori"/>   
+                        </players>
+                        <result>
+                            <set>6:3</set>
+                            <set>6:4</set>
+                        </result>
+                    </match>                   
+                    <match>
+                        <players>
+                            <player-ref id="Nadal"/>
+                            <player-ref id="Berdych"/>    
+                        </players>
+                        <result>
+                            <set>7:6</set>
+                            <set>6:1</set>
+                        </result>
+                    </match>                  
+                </semi-finals>                
+                <quarter-finals>                    
+                    <match>
+                        <players>
+                            <player-ref id="Murray"/>
+                            <player-ref id="Raonic"/>
+                        </players>
+                        <result>
+                            <set>6:4</set>
+                            <set>7:5</set>
+                        </result>
+                    </match>
+                    <match>
+                        <players>
+                            <player-ref id="Nadal"/>
+                            <player-ref id="Dimitrov"/>   
+                        </players>
+                        <result>
+                            <set>6:3</set>
+                            <set>6:4</set>
+                        </result>
+                    </match>
+                    <match>
+                        <players>
+                            <player-ref id="Nishikori"/>
+                            <player-ref id="Ferrer"/>
+                        </players>
+                        <result>
+                            <set>6:4</set>
+                            <set>6:2</set>
+                        </result>
+                    </match>
+                    <match>
+                        <players>
+                            <player-ref id="Berdych"/>
+                            <player-ref id="Isner"/>   
+                        </players>
+                        <result>
+                            <set>3:6</set>
+                            <set>7:6</set>
+                            <set>7:6</set>
+                        </result>
+                    </match>                 
+                </quarter-finals>
+            </tournament>
+            
+            <tournament name="Cincinnati" type="Masters_1000" surface="Hard">               
+                <finals>
+                    <match>
+                        <players>
+                            <player-ref id="Federer"/>
+                            <player-ref id="Djokovic"/>
+                        </players>
+                        <result>
+                            <set>7:6</set>
+                            <set>6:3</set>
+                        </result>
+                    </match>
+                </finals>               
+                <semi-finals>       
+                    <match>
+                        <players>         
+                            <player-ref id="Djokovic"/>
+                            <player-ref id="Dolgopolov"/>   
+                        </players>
+                        <result>
+                            <set>4:6</set>
+                            <set>7:6</set>
+                            <set>6:2</set>
+                        </result>
+                    </match>                   
+                    <match>
+                        <players>
+                            <player-ref id="Federer"/>
+                            <player-ref id="Murray"/>    
+                        </players>
+                        <result>
+                            <set>6:4</set>
+                            <set>7:6</set>
+                        </result>
+                    </match>                  
+                </semi-finals>                
+                <quarter-finals>                    
+                    <match>
+                        <players>
+                            <player-ref id="Djokovic"/>
+                            <player-ref id="Wawrinka"/>
+                        </players>
+                        <result>
+                            <set>6:4</set>
+                            <set>6:1</set>
+                        </result>
+                    </match>
+                    <match>
+                        <players>
+                            <player-ref id="Federer"/>
+                            <player-ref id="Lopez"/>   
+                        </players>
+                        <result>
+                            <set>6:3</set>
+                            <set>6:4</set>
+                        </result>
+                    </match>
+                    <match>
+                        <players>
+                            <player-ref id="Murray"/>
+                            <player-ref id="Gasquet"/>
+                        </players>
+                        <result>
+                            <set>4:6</set>
+                            <set>6:1</set>
+                            <set>6:4</set>
+                        </result>
+                    </match>
+                    <match>
+                        <players>
+                            <player-ref id="Dolgopolov"/>
+                            <player-ref id="Berdych"/>   
+                        </players>
+                        <result>
+                            <set>6:4</set>
+                            <set>6:2</set>
+                        </result>
+                    </match>                 
+                </quarter-finals>
+            </tournament>
+            
+            <tournament name="Shanghai" type="Masters_1000" surface="Hard">               
+                <finals>
+                    <match>
+                        <players>
+                            <player-ref id="Djokovic"/>
+                            <player-ref id="Tsonga"/>
+                        </players>
+                        <result>
+                            <set>6:2</set>
+                            <set>6:4</set>
+                        </result>
+                    </match>
+                </finals>               
+                <semi-finals>       
+                    <match>
+                        <players>         
+                            <player-ref id="Djokovic"/>
+                            <player-ref id="Murray"/>   
+                        </players>
+                        <result>
+                            <set>6:1</set>
+                            <set>6:3</set>
+                        </result>
+                    </match>                   
+                    <match>
+                        <players>
+                            <player-ref id="Tsonga"/>
+                            <player-ref id="Nadal"/>    
+                        </players>
+                        <result>
+                            <set>6:4</set>
+                            <set>0:6</set>
+                            <set>7:5</set>
+                        </result>
+                    </match>                  
+                </semi-finals>                
+                <quarter-finals>                    
+                    <match>
+                        <players>
+                            <player-ref id="Djokovic"/>
+                            <player-ref id="Tomic"/>
+                        </players>
+                        <result>
+                            <set>7:6</set>
+                            <set>6:1</set>
+                        </result>
+                    </match>
+                    <match>
+                        <players>
+                            <player-ref id="Murray"/>
+                            <player-ref id="Berdych"/>   
+                        </players>
+                        <result>
+                            <set>6:1</set>
+                            <set>6:3</set>
+                        </result>
+                    </match>
+                    <match>
+                        <players>
+                            <player-ref id="Nadal"/>
+                            <player-ref id="Wawrinka"/>
+                        </players>
+                        <result>
+                            <set>6:2</set>
+                            <set>6:1</set>
+                        </result>
+                    </match>
+                    <match>
+                        <players>
+                            <player-ref id="Tsonga"/>
+                            <player-ref id="Anderson"/>   
+                        </players>
+                        <result>
+                            <set>7:6</set>
+                            <set>5:7</set>
+                            <set>6:4</set>
+                        </result>
+                    </match>                 
+                </quarter-finals>
+            </tournament>
+        </tennis_season>
+        <tennis_season year="2016">
+            <tournament name="Australian_Open" type="Grand_Slam" surface="Hard">               
+                <finals>
+                    <match>
+                        <players>
+                            <player-ref id="Djokovic"/>
+                            <player-ref id="Murray"/>
+                        </players>
+                        <result>
+                            <set>6:1</set>
+                            <set>7:5</set>
+                            <set>7:6</set>
+                        </result>
+                    </match>
+                </finals>               
+                <semi-finals>       
+                    <match>
+                        <players>         
+                            <player-ref id="Djokovic"/>
+                            <player-ref id="Federer"/>   
+                        </players>
+                        <result>
+                            <set>6:1</set>
+                            <set>6:2</set>
+                            <set>3:6</set>
+                            <set>6:3</set>
+                        </result>
+                    </match>                   
+                    <match>
+                        <players>
+                            <player-ref id="Murray"/>
+                            <player-ref id="Raonic"/>    
+                        </players>
+                        <result>
+                            <set>4:6</set>
+                            <set>7:5</set>
+                            <set>6:7</set>
+                            <set>6:4</set>
+                            <set>6:2</set>
+                        </result>
+                    </match>                  
+                </semi-finals>                
+                <quarter-finals>                    
+                    <match>
+                        <players>
+                            <player-ref id="Djokovic"/>
+                            <player-ref id="Nishikori"/>
+                        </players>
+                        <result>
+                            <set>6:3</set>
+                            <set>6:2</set>
+                            <set>6:4</set>
+                        </result>
+                    </match>
+                    <match>
+                        <players>
+                            <player-ref id="Murray"/>
+                            <player-ref id="Ferrer"/>   
+                        </players>
+                        <result>
+                            <set>6:3</set>
+                            <set>6:7</set>
+                            <set>6:2</set>
+                            <set>6:3</set>
+                        </result>
+                    </match>
+                    <match>
+                        <players>
+                            <player-ref id="Federer"/>
+                            <player-ref id="Berdych"/>
+                        </players>
+                        <result>
+                            <set>7:6</set>
+                            <set>6:2</set>
+                            <set>6:4</set>
+                        </result>
+                    </match>
+                    <match>
+                        <players>
+                            <player-ref id="Raonic"/>
+                            <player-ref id="Monfils"/>   
+                        </players>
+                        <result>
+                            <set>6:3</set>
+                            <set>3:6</set>
+                            <set>6:3</set>
+                            <set>6:4</set>
+                        </result>
+                    </match>                 
+                </quarter-finals>
+            </tournament>   
+            
+            <tournament name="Roland_Garros" type="Grand_Slam" surface="Clay">               
+                <finals>
+                    <match>
+                        <players>
+                            <player-ref id="Djokovic"/>
+                            <player-ref id="Murray"/>
+                        </players>
+                        <result>
+                            <set>3:6</set>
+                            <set>6:1</set>
+                            <set>6:2</set>
+                            <set>6:4</set>
+                        </result>
+                    </match>
+                </finals>               
+                <semi-finals>       
+                    <match>
+                        <players>         
+                            <player-ref id="Djokovic"/>
+                            <player-ref id="Thiem"/>   
+                        </players>
+                        <result>
+                            <set>6:2</set>
+                            <set>6:1</set>
+                            <set>6:4</set>
+                        </result>
+                    </match>                   
+                    <match>
+                        <players>
+                            <player-ref id="Murray"/>
+                            <player-ref id="Wawrinka"/>    
+                        </players>
+                        <result>
+                            <set>6:4</set>
+                            <set>6:2</set>
+                            <set>4:6</set>
+                            <set>6:2</set>
+                        </result>
+                    </match>                  
+                </semi-finals>                
+                <quarter-finals>                    
+                    <match>
+                        <players>
+                            <player-ref id="Djokovic"/>
+                            <player-ref id="Berdych"/>
+                        </players>
+                        <result>
+                            <set>6:3</set>
+                            <set>7:5</set>
+                            <set>6:3</set>
+                        </result>
+                    </match>
+                    <match>
+                        <players>
+                            <player-ref id="Murray"/>
+                            <player-ref id="Gasquet"/>   
+                        </players>
+                        <result>
+                            <set>5:7</set>
+                            <set>7:6</set>
+                            <set>6:0</set>
+                            <set>6:2</set>
+                        </result>
+                    </match>
+                    <match>
+                        <players>
+                            <player-ref id="Wawrinka"/>
+                            <player-ref id="Vinolas"/>
+                        </players>
+                        <result>
+                            <set>6:2</set>
+                            <set>6:1</set>
+                            <set>7:6</set>
+                        </result>
+                    </match>
+                    <match>
+                        <players>
+                            <player-ref id="Thiem"/>
+                            <player-ref id="Goffin"/>   
+                        </players>
+                        <result>
+                            <set>4:6</set>
+                            <set>7:6</set>
+                            <set>6:4</set>
+                            <set>6:1</set>
+                        </result>
+                    </match>                 
+                </quarter-finals>
+            </tournament>          
+            
+            <tournament name="Wimbledon" type="Grand_Slam" surface="Grass">               
+                <finals>
+                    <match>
+                        <players>
+                            <player-ref id="Murray"/>
+                            <player-ref id="Raonic"/>
+                        </players>
+                        <result>
+                            <set>6:4</set>
+                            <set>7:6</set>
+                            <set>7:6</set>
+                        </result>
+                    </match>
+                </finals>               
+                <semi-finals>       
+                    <match>
+                        <players>         
+                            <player-ref id="Murray"/>
+                            <player-ref id="Berdych"/>   
+                        </players>
+                        <result>
+                            <set>6:3</set>
+                            <set>6:3</set>
+                            <set>6:3</set>
+                        </result>
+                    </match>                   
+                    <match>
+                        <players>
+                            <player-ref id="Raonic"/>
+                            <player-ref id="Federer"/>    
+                        </players>
+                        <result>
+                            <set>6:3</set>
+                            <set>6:7</set>
+                            <set>4:6</set>
+                            <set>7:5</set>
+                            <set>6:3</set>
+                        </result>
+                    </match>                  
+                </semi-finals>                
+                <quarter-finals>                    
+                    <match>
+                        <players>
+                            <player-ref id="Murray"/>
+                            <player-ref id="Tsonga"/>
+                        </players>
+                        <result>
+                            <set>7:6</set>
+                            <set>6:1</set>
+                            <set>3:6</set>
+                            <set>4:6</set>
+                            <set>6:1</set>
+                        </result>
+                    </match>
+                    <match>
+                        <players>
+                            <player-ref id="Federer"/>
+                            <player-ref id="Cilic"/>   
+                        </players>
+                        <result>
+                            <set>6:7</set>
+                            <set>4:6</set>
+                            <set>6:3</set>
+                            <set>7:6</set>
+                            <set>6:3</set>
+                        </result>
+                    </match>
+                    <match>
+                        <players>
+                            <player-ref id="Raonic"/>
+                            <player-ref id="Querry"/>
+                        </players>
+                        <result>
+                            <set>6:4</set>
+                            <set>7:5</set>
+                            <set>5:7</set>
+                            <set>6:4</set>
+                        </result>
+                    </match>
+                    <match>
+                        <players>
+                            <player-ref id="Berdych"/>
+                            <player-ref id="Pouille"/>   
+                        </players>
+                        <result>
+                            <set>7:6</set>
+                            <set>6:3</set>
+                            <set>6:2</set>
+                        </result>
+                    </match>                 
+                </quarter-finals>
+            </tournament> 
+            
+            <tournament name="US_Open" type="Grand_Slam" surface="Hard">               
+                <finals>
+                    <match>
+                        <players>
+                            <player-ref id="Wawrinka"/>
+                            <player-ref id="Djokovic"/>
+                        </players>
+                        <result>
+                            <set>6:7</set>
+                            <set>6:4</set>
+                            <set>7:5</set>
+                            <set>6:3</set>
+                        </result>
+                    </match>
+                </finals>               
+                <semi-finals>       
+                    <match>
+                        <players>         
+                            <player-ref id="Djokovic"/>
+                            <player-ref id="Monfils"/>   
+                        </players>
+                        <result>
+                            <set>6:3</set>
+                            <set>6:2</set>
+                            <set>3:6</set>
+                            <set>6:2</set>
+                        </result>
+                    </match>                   
+                    <match>
+                        <players>
+                            <player-ref id="Wawrinka"/>
+                            <player-ref id="Nishikori"/>    
+                        </players>
+                        <result>
+                            <set>4:6</set>
+                            <set>7:5</set>
+                            <set>6:4</set>
+                            <set>6:2</set>
+                        </result>
+                    </match>                  
+                </semi-finals>                
+                <quarter-finals>                    
+                    <match>
+                        <players>
+                            <player-ref id="Djokovic"/>
+                            <player-ref id="Tsonga"/>
+                        </players>
+                        <result>
+                            <set>6:3</set>
+                            <set>6:2</set>
+                            <set>RET</set>
+                        </result>
+                    </match>
+                    <match>
+                        <players>
+                            <player-ref id="Nishikori"/>
+                            <player-ref id="Murray"/>   
+                        </players>
+                        <result>
+                            <set>1:6</set>
+                            <set>6:4</set>
+                            <set>4:6</set>
+                            <set>6:1</set>
+                            <set>7:5</set>
+                        </result>
+                    </match>
+                    <match>
+                        <players>
+                            <player-ref id="Wawrinka"/>
+                            <player-ref id="del_Potro"/>
+                        </players>
+                        <result>
+                            <set>7:6</set>
+                            <set>4:6</set>
+                            <set>6:3</set>
+                            <set>6:2</set>
+                        </result>
+                    </match>
+                    <match>
+                        <players>
+                            <player-ref id="Monfils"/>
+                            <player-ref id="Pouille"/>   
+                        </players>
+                        <result>
+                            <set>6:4</set>
+                            <set>6:3</set>
+                            <set>6:3</set>
+                        </result>
+                    </match>                 
+                </quarter-finals>
+            </tournament> 
+            
+            <tournament name="Monte-Carlo" type="Masters_1000" surface="Clay">               
+                <finals>
+                    <match>
+                        <players>
+                            <player-ref id="Nadal"/>
+                            <player-ref id="Monfils"/>
+                        </players>
+                        <result>
+                            <set>7:5</set>
+                            <set>5:7</set>
+                            <set>6:0</set>
+                        </result>
+                    </match>
+                </finals>               
+                <semi-finals>       
+                    <match>
+                        <players>         
+                            <player-ref id="Nadal"/>
+                            <player-ref id="Murray"/>   
+                        </players>
+                        <result>
+                            <set>2:6</set>
+                            <set>6:4</set>
+                            <set>6:2</set>
+                        </result>
+                    </match>                   
+                    <match>
+                        <players>
+                            <player-ref id="Monfils"/>
+                            <player-ref id="Tsonga"/>    
+                        </players>
+                        <result>
+                            <set>6:1</set>
+                            <set>6:3</set>
+                        </result>
+                    </match>                  
+                </semi-finals>                
+                <quarter-finals>                    
+                    <match>
+                        <players>
+                            <player-ref id="Murray"/>
+                            <player-ref id="Raonic"/>
+                        </players>
+                        <result>
+                            <set>6:2</set>
+                            <set>6:0</set>
+                        </result>
+                    </match>
+                    <match>
+                        <players>
+                            <player-ref id="Tsonga"/>
+                            <player-ref id="Federer"/>   
+                        </players>
+                        <result>
+                            <set>3:6</set>
+                            <set>6:2</set>
+                            <set>7:5</set>
+                        </result>
+                    </match>
+                    <match>
+                        <players>
+                            <player-ref id="Nadal"/>
+                            <player-ref id="Wawrinka"/>
+                        </players>
+                        <result>
+                            <set>6:1</set>
+                            <set>6:4</set>
+                        </result>
+                    </match>
+                    <match>
+                        <players>
+                            <player-ref id="Monfils"/>
+                            <player-ref id="Granollers"/>   
+                        </players>
+                        <result>
+                            <set>6:2</set>
+                            <set>6:4</set>
+                        </result>
+                    </match>                 
+                </quarter-finals>
+            </tournament> 
+            
+            <tournament name="Madrid" type="Masters_1000" surface="Clay">               
+                <finals>
+                    <match>
+                        <players>
+                            <player-ref id="Djokovic"/>
+                            <player-ref id="Murray"/>
+                        </players>
+                        <result>
+                            <set>6:2</set>
+                            <set>3:6</set>
+                            <set>6:3</set>
+                        </result>
+                    </match>
+                </finals>               
+                <semi-finals>       
+                    <match>
+                        <players>         
+                            <player-ref id="Djokovic"/>
+                            <player-ref id="Nishikori"/>   
+                        </players>
+                        <result>
+                            <set>6:3</set>
+                            <set>7:6</set>
+                        </result>
+                    </match>                   
+                    <match>
+                        <players>
+                            <player-ref id="Murray"/>
+                            <player-ref id="Nadal"/>    
+                        </players>
+                        <result>
+                            <set>7:5</set>
+                            <set>6:4</set>
+                        </result>
+                    </match>                  
+                </semi-finals>                
+                <quarter-finals>                    
+                    <match>
+                        <players>
+                            <player-ref id="Djokovic"/>
+                            <player-ref id="Raonic"/>
+                        </players>
+                        <result>
+                            <set>6:3</set>
+                            <set>6:4</set>
+                        </result>
+                    </match>
+                    <match>
+                        <players>
+                            <player-ref id="Murray"/>
+                            <player-ref id="Berdych"/>   
+                        </players>
+                        <result>
+                            <set>6:3</set>
+                            <set>6:2</set>
+                        </result>
+                    </match>
+                    <match>
+                        <players>
+                            <player-ref id="Nadal"/>
+                            <player-ref id="Sousa"/>
+                        </players>
+                        <result>
+                            <set>6:0</set>
+                            <set>4:6</set>
+                            <set>6:3</set>
+                        </result>
+                    </match>
+                    <match>
+                        <players>
+                            <player-ref id="Nishikori"/>
+                            <player-ref id="Kyrgios"/>   
+                        </players>
+                        <result>
+                            <set>6:7</set>
+                            <set>7:6</set>
+                            <set>6:3</set>
+                        </result>
+                    </match>                 
+                </quarter-finals>
+            </tournament> 
+            
+            <tournament name="Cincinnati" type="Masters_1000" surface="Hard">               
+                <finals>
+                    <match>
+                        <players>
+                            <player-ref id="Cilic"/>
+                            <player-ref id="Murray"/>
+                        </players>
+                        <result>
+                            <set>6:4</set>
+                            <set>7:5</set>
+                        </result>
+                    </match>
+                </finals>               
+                <semi-finals>       
+                    <match>
+                        <players>         
+                            <player-ref id="Murray"/>
+                            <player-ref id="Raonic"/>   
+                        </players>
+                        <result>
+                            <set>6:3</set>
+                            <set>6:3</set>
+                        </result>
+                    </match>                   
+                    <match>
+                        <players>
+                            <player-ref id="Cilic"/>
+                            <player-ref id="Dimitrov"/>    
+                        </players>
+                        <result>
+                            <set>4:6</set>
+                            <set>6:3</set>
+                            <set>7:5</set>
+                        </result>
+                    </match>                  
+                </semi-finals>                
+                <quarter-finals>                    
+                    <match>
+                        <players>
+                            <player-ref id="Murray"/>
+                            <player-ref id="Tomic"/>
+                        </players>
+                        <result>
+                            <set>6:4</set>
+                            <set>6:4</set>
+                        </result>
+                    </match>
+                    <match>
+                        <players>
+                            <player-ref id="Raonic"/>
+                            <player-ref id="Thiem"/>   
+                        </players>
+                        <result>
+                            <set>6:3</set>
+                            <set>6:4</set>
+                        </result>
+                    </match>
+                    <match>
+                        <players>
+                            <player-ref id="Cilic"/>
+                            <player-ref id="Coric"/>
+                        </players>
+                        <result>
+                            <set>6:2</set>
+                            <set>RET</set>
+                        </result>
+                    </match>
+                    <match>
+                        <players>
+                            <player-ref id="Dimitrov"/>
+                            <player-ref id="Johnson"/>   
+                        </players>
+                        <result>
+                            <set>6:7</set>
+                            <set>7:6</set>
+                            <set>6:3</set>
+                        </result>
+                    </match>                 
+                </quarter-finals>
+            </tournament> 
+            
+            <tournament name="Shanghai" type="Masters_1000" surface="Hard">               
+                <finals>
+                    <match>
+                        <players>
+                            <player-ref id="Murray"/>
+                            <player-ref id="Agut"/>
+                        </players>
+                        <result>
+                            <set>7:6</set>
+                            <set>6:1</set>
+                        </result>
+                    </match>
+                </finals>               
+                <semi-finals>       
+                    <match>
+                        <players>         
+                            <player-ref id="Agut"/>
+                            <player-ref id="Djokovic"/>   
+                        </players>
+                        <result>
+                            <set>6:4</set>
+                            <set>6:4</set>
+                        </result>
+                    </match>                   
+                    <match>
+                        <players>
+                            <player-ref id="Murray"/>
+                            <player-ref id="Simon"/>    
+                        </players>
+                        <result>
+                            <set>6:4</set>
+                            <set>6:3</set>
+                        </result>
+                    </match>                  
+                </semi-finals>                
+                <quarter-finals>                    
+                    <match>
+                        <players>
+                            <player-ref id="Djokovic"/>
+                            <player-ref id="Zverev"/>
+                        </players>
+                        <result>
+                            <set>3:6</set>
+                            <set>7:6</set>
+                            <set>6:3</set>
+                        </result>
+                    </match>
+                    <match>
+                        <players>
+                            <player-ref id="Murray"/>
+                            <player-ref id="Goffin"/>   
+                        </players>
+                        <result>
+                            <set>6:2</set>
+                            <set>6:2</set>
+                        </result>
+                    </match>
+                    <match>
+                        <players>
+                            <player-ref id="Agut"/>
+                            <player-ref id="Tsonga"/>
+                        </players>
+                        <result>
+                            <set>6:3</set>
+                            <set>6:4</set>
+                        </result>
+                    </match>
+                    <match>
+                        <players>
+                            <player-ref id="Simon"/>
+                            <player-ref id="Sock"/>   
+                        </players>
+                        <result>
+                            <set>4:6</set>
+                            <set>6:4</set>
+                            <set>7:6</set>
+                        </result>
+                    </match>                 
+                </quarter-finals>
+            </tournament> 
+            
+        </tennis_season>
+    </tennis_seasons>
+    <players>
+        <player id="Djokovic">
+            <name>Novak Djokovic</name>
+            <year_of_birth>1987</year_of_birth>
+            <birthplace>Serbia</birthplace>
+            <weight>78</weight>
+            <height>188</height>
+            <turnedpro>2003</turnedpro>
+            <plays>right-handed</plays>
+        </player>
+        <player id="Federer">
+            <name>Roger Federer</name>
+            <year_of_birth>1981</year_of_birth>
+            <birthplace>Switzerland</birthplace>
+            <weight>85</weight>
+            <height>185</height>
+            <turnedpro>1998</turnedpro>
+            <plays>right-handed</plays>
+        </player>
+        <player id="Murray">
+            <name>Andy Murray</name>
+            <year_of_birth>1987</year_of_birth>
+            <birthplace>Scotland</birthplace>
+            <weight>84</weight>
+            <height>191</height>
+            <turnedpro>2005</turnedpro>
+            <plays>right-handed</plays>
+        </player>
+        <player id="Raonic">
+            <name>Milos Raonic</name>
+            <year_of_birth>1990</year_of_birth>
+            <birthplace>Montenegro</birthplace>
+            <weight>98</weight>
+            <height>196</height>
+            <turnedpro>2008</turnedpro>
+            <plays>right-handed</plays>
+        </player>
+        <player id="Nishikori">
+            <name>Kei Nishikori</name>
+            <year_of_birth>1989</year_of_birth>
+            <birthplace>Japan</birthplace>
+            <weight>75</weight>
+            <height>178</height>
+            <turnedpro>2007</turnedpro>
+            <plays>right-handed</plays>
+        </player>
+        <player id="Ferrer">
+            <name>David Ferrer</name>
+            <year_of_birth>1982</year_of_birth>
+            <birthplace>Spain</birthplace>
+            <weight>73</weight>
+            <height>175</height>
+            <turnedpro>2000</turnedpro>
+            <plays>right-handed</plays>
+        </player>
+        <player id="Berdych">
+            <name>Tomas Berdych</name>
+            <year_of_birth>1985</year_of_birth>
+            <birthplace>Czech Republic</birthplace>
+            <weight>91</weight>
+            <height>196</height>
+            <turnedpro>2002</turnedpro>
+            <plays>right-handed</plays>
+        </player>
+        <player id="Monfils">
+            <name>Gael Monfils</name>
+            <year_of_birth>1986</year_of_birth>
+            <birthplace>France</birthplace>
+            <weight>80</weight>
+            <height>193</height>
+            <turnedpro>2004</turnedpro>
+            <plays>right-handed</plays>
+        </player>
+        <player id="Thiem">
+            <name>Dominic Thiem</name>
+            <year_of_birth>1993</year_of_birth>
+            <birthplace>Austria</birthplace>
+            <weight>82</weight>
+            <height>185</height>
+            <turnedpro>2011</turnedpro>
+            <plays>right-handed</plays>
+        </player>
+        <player id="Wawrinka">
+            <name>Stan Wawrinka</name>
+            <year_of_birth>1985</year_of_birth>
+            <birthplace>Switzerland</birthplace>
+            <weight>81</weight>
+            <height>183</height>
+            <turnedpro>2002</turnedpro>
+            <plays>right-handed</plays>
+        </player>
+        <player id="Gasquet">
+            <name>Richard Gasquet</name>
+            <year_of_birth>1986</year_of_birth>
+            <birthplace>France</birthplace>
+            <weight>75</weight>
+            <height>185</height>
+            <turnedpro>2002</turnedpro>
+            <plays>right-handed</plays>
+        </player>
+        <player id="Vinolas">
+            <name>Ramos-Vinolas</name>
+            <year_of_birth>1988</year_of_birth>
+            <birthplace>Spain</birthplace>
+            <weight>80</weight>
+            <height>188</height>
+            <turnedpro>2007</turnedpro>
+            <plays>left-handed</plays>
+        </player>
+        <player id="Goffin">
+            <name>David Goffin</name>
+            <year_of_birth>1990</year_of_birth>
+            <birthplace>Belgium</birthplace>
+            <weight>68</weight>
+            <height>180</height>
+            <turnedpro>2009</turnedpro>
+            <plays>right-handed</plays>
+        </player>
+        <player id="Tsonga">
+            <name>Jo-Wilfried Tsonga</name>
+            <year_of_birth>1985</year_of_birth>
+            <birthplace>France</birthplace>
+            <weight>91</weight>
+            <height>188</height>
+            <turnedpro>2004</turnedpro>
+            <plays>right-handed</plays>
+        </player>
+        <player id="Cilic">
+            <name>Mairn Cilic</name>
+            <year_of_birth>1988</year_of_birth>
+            <birthplace>Bosnia</birthplace>
+            <weight>89</weight>
+            <height>198</height>
+            <turnedpro>2005</turnedpro>
+            <plays>right-handed</plays>
+        </player>
+        <player id="Querry">
+            <name>Sam Querry</name>
+            <year_of_birth>1987</year_of_birth>
+            <birthplace>USA</birthplace>
+            <weight>95</weight>
+            <height>198</height>
+            <turnedpro>2006</turnedpro>
+            <plays>right-handed</plays>
+        </player>
+        <player id="Pouille">
+            <name>Lucas Pouille</name>
+            <year_of_birth>1994</year_of_birth>
+            <birthplace>France</birthplace>
+            <weight>81</weight>
+            <height>185</height>
+            <turnedpro>2012</turnedpro>
+            <plays>right-handed</plays>
+        </player>
+        <player id="del_Potro">
+            <name>Juan Martin del Potro</name>
+            <year_of_birth>1988</year_of_birth>
+            <birthplace>Argentina</birthplace>
+            <weight>97</weight>
+            <height>198</height>
+            <turnedpro>2005</turnedpro>
+            <plays>right-handed</plays>
+        </player>
+        <player id="Nadal">
+            <name>Rafael Nadal</name>
+            <year_of_birth>1986</year_of_birth>
+            <birthplace>Spain</birthplace>
+            <weight>85</weight>
+            <height>185</height>
+            <turnedpro>2001</turnedpro>
+            <plays>left-handed</plays>
+        </player>
+        <player id="Kyrgios">
+            <name>Nick Kyrgios</name>
+            <year_of_birth>1995</year_of_birth>
+            <birthplace>Australia</birthplace>
+            <weight>85</weight>
+            <height>193</height>
+            <turnedpro>2013</turnedpro>
+            <plays>right-handed</plays>
+        </player>
+        <player id="Simon">
+            <name>Gilles Simon</name>
+            <year_of_birth>1984</year_of_birth>
+            <birthplace>France</birthplace>
+            <weight>70</weight>
+            <height>183</height>
+            <turnedpro>2002</turnedpro>
+            <plays>right-handed</plays>
+        </player>
+        <player id="Pospisil">
+            <name>Basek Pospisil</name>
+            <year_of_birth>1990</year_of_birth>
+            <birthplace>Canada</birthplace>
+            <weight>84</weight>
+            <height>193</height>
+            <turnedpro>2007</turnedpro>
+            <plays>right-handed</plays>
+        </player>
+        <player id="Lopez">
+            <name>Feliciano Lopez</name>
+            <year_of_birth>1981</year_of_birth>
+            <birthplace>Spain</birthplace>
+            <weight>85</weight>
+            <height>188</height>
+            <turnedpro>1997</turnedpro>
+            <plays>left-handed</plays>
+        </player>
+        <player id="Anderson">
+            <name>Kevin Anderson</name>
+            <year_of_birth>1986</year_of_birth>
+            <birthplace>RSA</birthplace>
+            <weight>95</weight>
+            <height>203</height>
+            <turnedpro>2007</turnedpro>
+            <plays>right-handed</plays>
+        </player>
+        <player id="Granollers">
+            <name>Marcel Granollers</name>
+            <year_of_birth>1986</year_of_birth>
+            <birthplace>Spain</birthplace>
+            <weight>77</weight>
+            <height>191</height>
+            <turnedpro>2003</turnedpro>
+            <plays>right-handed</plays>
+        </player>
+        <player id="Dimitrov">
+            <name>Grigor Dimitrov</name>
+            <year_of_birth>1991</year_of_birth>
+            <birthplace>Bulgaria</birthplace>
+            <weight>80</weight>
+            <height>191</height>
+            <turnedpro>2008</turnedpro>
+            <plays>right-handed</plays>
+        </player>
+        <player id="Sousa">
+            <name>Joao Sousa</name>
+            <year_of_birth>1989</year_of_birth>
+            <birthplace>Portugal</birthplace>
+            <weight>74</weight>
+            <height>185</height>
+            <turnedpro>2008</turnedpro>
+            <plays>right-handed</plays>
+        </player>
+        <player id="Isner">
+            <name>John Isner</name>
+            <year_of_birth>1985</year_of_birth>
+            <birthplace>USA</birthplace>
+            <weight>108</weight>
+            <height>208</height>
+            <turnedpro>2007</turnedpro>
+            <plays>right-handed</plays>
+        </player>
+        <player id="Coric">
+            <name>Borna Coric</name>
+            <year_of_birth>1996</year_of_birth>
+            <birthplace>Croatia</birthplace>
+            <weight>79</weight>
+            <height>185</height>
+            <turnedpro>2013</turnedpro>
+            <plays>right-handed</plays>
+        </player>
+        <player id="Tomic">
+            <name>Bernard Tomic</name>
+            <year_of_birth>1992</year_of_birth>
+            <birthplace>Germany</birthplace>
+            <weight>91</weight>
+            <height>196</height>
+            <turnedpro>2008</turnedpro>
+            <plays>right-handed</plays>
+        </player>
+        <player id="Johnson">
+            <name>Steve Johnson</name>
+            <year_of_birth>1989</year_of_birth>
+            <birthplace>USA</birthplace>
+            <weight>86</weight>
+            <height>188</height>
+            <turnedpro>2012</turnedpro>
+            <plays>right-handed</plays>
+        </player>
+        <player id="Dolgopolov">
+            <name>Alexandr Dolgopolov</name>
+            <year_of_birth>1988</year_of_birth>
+            <birthplace>Ukraine</birthplace>
+            <weight>71</weight>
+            <height>180</height>
+            <turnedpro>2006</turnedpro>
+            <plays>right-handed</plays>
+        </player>
+        <player id="Agut">
+            <name>Roberto Bautista Agut</name>
+            <year_of_birth>1988</year_of_birth>
+            <birthplace>Spain</birthplace>
+            <weight>76</weight>
+            <height>183</height>
+            <turnedpro>2005</turnedpro>
+            <plays>right-handed</plays>
+        </player>
+        <player id="Sock">
+            <name>Jack Sock</name>
+            <year_of_birth>1992</year_of_birth>
+            <birthplace>USA</birthplace>
+            <weight>84</weight>
+            <height>191</height>
+            <turnedpro>2011</turnedpro>
+            <plays>right-handed</plays>
+        </player>
+        <player id="Zverev">
+            <name>Misha Zverev</name>
+            <year_of_birth>1987</year_of_birth>
+            <birthplace>Russia</birthplace>
+            <weight>81</weight>
+            <height>191</height>
+            <turnedpro>2005</turnedpro>
+            <plays>left-handed</plays>
+        </player>       
+    </players>
+</root>
