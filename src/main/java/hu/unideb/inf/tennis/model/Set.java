@@ -67,6 +67,6 @@ public class Set{
 
 	@Override
 	public String toString() {
-		return "Set ["+ value +"]";
+		return "("+ value +")";
 	}
 }

@@ -30,6 +30,6 @@ public class PlayerRef {
 
 	@Override
 	public String toString() {
-		return "PlayerRef [playerId=" + playerId + "]";
+		return playerId;
 	}
 }

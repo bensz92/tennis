@@ -110,7 +110,7 @@ public class Player{
 
 	@Override
 	public String toString() {
-		return "Player [id=" + id + ", name=" + name + ", yearOfBirth=" + yearOfBirth + ", birthplace=" + birthplace
-				+ ", weight=" + weight + ", height=" + height + ", turnedPro=" + turnedPro + ", plays=" + plays + "]";
+		return "Player (ID = "+ id +")" + "\n" + "Name: " + name + "\n" + "Year of birth: " + yearOfBirth + "\n" + "Birthplace: " + birthplace + "\n"
+				+ "Weight: " + weight + "kg" + "\n" + "Height: "+ height + "cm" + "\n" + "Turned pro: "+ turnedPro + "\n" + "Plays: " + plays + "\n";
 	}
 }

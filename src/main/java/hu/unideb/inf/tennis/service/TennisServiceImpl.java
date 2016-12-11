@@ -551,7 +551,6 @@ public class TennisServiceImpl implements TennisService{
 		} catch (JAXBException | XQException e) {
 			e.printStackTrace();
 		}
-
 		return seasons;
 	}
 
