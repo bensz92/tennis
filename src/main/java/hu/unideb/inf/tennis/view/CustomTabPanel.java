@@ -39,6 +39,7 @@ public class CustomTabPanel extends JPanel {
 	private JTextField textFieldTournamentName;
 	private JTextField textFieldTournamentYear;
 	private JTextField textFieldSeasonByYear;
+	private JTextField textFieldTournamentJustbyYear;
    
 	private static TennisServiceImpl tennisService;
 	private JTextField textFieldAPid;
