@@ -9,21 +9,27 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.UIManager;
 import javax.xml.xquery.XQConnection;
 import javax.xml.xquery.XQDataSource;
 import javax.xml.xquery.XQException;
 
 import hu.unideb.inf.tennis.model.Player;
+import hu.unideb.inf.tennis.model.Season;
+import hu.unideb.inf.tennis.model.Tournament;
 import hu.unideb.inf.tennis.service.TennisServiceImpl;
 import java.awt.Color;
 
@@ -82,39 +88,63 @@ public class CustomTabPanel extends JPanel {
         
         JTextArea textArea = new JTextArea();
         textArea.setBounds(10, 320, 993, 383);
-        panel.add(textArea);
+        textArea.setEditable(false);
+        
+        JScrollPane scroll = new JScrollPane (textArea);
+        scroll.setBounds(10, 320, 993, 383);
+        scroll.setVerticalScrollBarPolicy ( ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS );
+        
+        panel.add(scroll);
         
         JLabel lblBasicQueries = new JLabel("Basic queries:");
-        lblBasicQueries.setFont(new Font("Tahoma", Font.BOLD, 14));
-        lblBasicQueries.setBounds(10, 11, 108, 14);
+        lblBasicQueries.setFont(new Font("Tahoma", Font.BOLD, 15));
+        lblBasicQueries.setBounds(10, 20, 108, 14);
         panel.add(lblBasicQueries);
         
         JLabel lblFindPlayerBy = new JLabel("Find Player by ID");
-        lblFindPlayerBy.setBounds(10, 44, 108, 14);
+        lblFindPlayerBy.setFont(new Font("Tahoma", Font.PLAIN, 12));
+        lblFindPlayerBy.setBounds(10, 50, 108, 14);
         panel.add(lblFindPlayerBy);
         
         textFieldPlayerId = new JTextField();
-        textFieldPlayerId.setBounds(128, 41, 86, 20);
+        textFieldPlayerId.setBounds(221, 50, 86, 20);
         panel.add(textFieldPlayerId);
         textFieldPlayerId.setColumns(10);
         
         JLabel lblFindAllPlayers = new JLabel("Find all Players");
-        lblFindAllPlayers.setBounds(10, 76, 108, 14);
+        lblFindAllPlayers.setFont(new Font("Tahoma", Font.PLAIN, 12));
+        lblFindAllPlayers.setBounds(10, 80, 108, 14);
         panel.add(lblFindAllPlayers);
         
         JButton btnAllPlayers = new JButton("Go");
-        btnAllPlayers.setBounds(128, 72, 89, 23);
+        btnAllPlayers.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent arg0) {
+        		List<Player> playerList = new ArrayList<>();
+        		textArea.setText("");
+        		if((playerList = tennisService.findAllPlayers()).isEmpty())
+        			textArea.setText("No results for this querry!");
+        		else{
+        			for(Player p : playerList)
+        			{
+        				textArea.append(p.toString() + "\n");
+        			}
+        			textArea.setText(textArea.getText().substring(0,textArea.getText().length()-1));	
+        		}
+        	}
+        });
+        btnAllPlayers.setBounds(330, 80, 89, 23);
         panel.add(btnAllPlayers);
         
         JLabel lblFindTournamentBy = new JLabel("Find Tournament by name and year");
-        lblFindTournamentBy.setBounds(10, 101, 239, 14);
+        lblFindTournamentBy.setFont(new Font("Tahoma", Font.PLAIN, 12));
+        lblFindTournamentBy.setBounds(10, 110, 239, 14);
         panel.add(lblFindTournamentBy);
         JButton btnPlayerId = new JButton("Go");
         btnPlayerId.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent arg0) {
         		String playerId = textFieldPlayerId.getText();
         		
-        		if(playerId != null)
+        		if(playerId != null && !playerId.equals(""))
         		{
         			Player player;
         			if(( player = tennisService.findPlayerById(playerId)) == null)
@@ -122,64 +152,134 @@ public class CustomTabPanel extends JPanel {
         			else
         				textArea.setText(player.toString());
         		}
-        			
         		else
-        			System.out.println("null");
+        			textArea.setText("Some parameters are missing!");
         	}
         });
-        btnPlayerId.setBounds(224, 40, 89, 23);
+        btnPlayerId.setBounds(330, 50, 89, 23);
         panel.add(btnPlayerId);
         
         JLabel lblName = new JLabel("Name:");
-        lblName.setBounds(10, 126, 54, 14);
+        lblName.setFont(new Font("Tahoma", Font.PLAIN, 12));
+        lblName.setBounds(35, 140, 54, 14);
         panel.add(lblName);
         
         textFieldTournamentName = new JTextField();
-        textFieldTournamentName.setBounds(77, 126, 86, 20);
+        textFieldTournamentName.setBounds(221, 140, 86, 20);
         panel.add(textFieldTournamentName);
         textFieldTournamentName.setColumns(10);
         
         JLabel lblYear = new JLabel("Year:");
-        lblYear.setBounds(10, 151, 54, 14);
+        lblYear.setFont(new Font("Tahoma", Font.PLAIN, 12));
+        lblYear.setBounds(35, 170, 54, 14);
         panel.add(lblYear);
         
         textFieldTournamentYear = new JTextField();
-        textFieldTournamentYear.setBounds(77, 148, 86, 20);
+        textFieldTournamentYear.setBounds(221, 170, 86, 20);
         panel.add(textFieldTournamentYear);
         textFieldTournamentYear.setColumns(10);
         
         JButton btnTournamentByYandN = new JButton("Go");
-        btnTournamentByYandN.setBounds(173, 147, 89, 23);
+        btnTournamentByYandN.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent arg0) {
+        		if(textFieldTournamentName.getText().equals("") || textFieldTournamentYear.getText().equals(""))
+        			textArea.setText("Some parameters are missing!");
+        		else{
+        			Tournament tournament;
+        			if((tournament = tennisService.findTournamentByNameAndYear(textFieldTournamentName.getText(), Integer.valueOf(textFieldTournamentYear.getText()))) == null)
+        				textArea.setText("No existing Tournament with this name and year!");
+        			else
+        				textArea.setText(tournament.toString() + "\n");
+        				
+        		}
+        	}
+        });
+        btnTournamentByYandN.setBounds(330, 170, 89, 23);
         panel.add(btnTournamentByYandN);
         
-        JLabel lblFindAllTournament = new JLabel("Find all Tournaments");
-        lblFindAllTournament.setBounds(10, 187, 132, 14);
+        JLabel lblFindAllTournament = new JLabel("Find all Tournaments by year");
+        lblFindAllTournament.setFont(new Font("Tahoma", Font.PLAIN, 12));
+        lblFindAllTournament.setBounds(10, 200, 175, 14);
         panel.add(lblFindAllTournament);
         
+        textFieldTournamentJustbyYear = new JTextField();
+        textFieldTournamentJustbyYear.setBounds(221, 200, 86, 20);
+        panel.add(textFieldTournamentJustbyYear);
+        textFieldTournamentJustbyYear.setColumns(10);
+        
         JButton btnAllTournaments = new JButton("Go");
-        btnAllTournaments.setBounds(163, 183, 89, 23);
+        btnAllTournaments.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		textArea.setText("");
+        		if(textFieldTournamentJustbyYear.getText().equals(""))
+        			textArea.setText("Some parameters are missing!");
+        		else{
+        			List<Tournament> tournamentList = new ArrayList<>();
+            		if((tournamentList = tennisService.findAllTournamentsByYear(Integer.valueOf(textFieldTournamentJustbyYear.getText()))).isEmpty())
+            			textArea.setText("No results for this querry!");
+            		else{
+            			for(Tournament t : tournamentList)
+            				textArea.append(t.toString() + "\n");
+            			textArea.setText(textArea.getText().substring(0,textArea.getText().length()-1));	
+            		}
+        		}
+        		
+        	}
+        });
+        btnAllTournaments.setBounds(330, 200, 89, 23);
         panel.add(btnAllTournaments);
         
         JLabel lblNewLabel_1 = new JLabel("Find Season by year");
-        lblNewLabel_1.setBounds(10, 220, 132, 14);
+        lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
+        lblNewLabel_1.setBounds(10, 230, 132, 14);
         panel.add(lblNewLabel_1);
         
         textFieldSeasonByYear = new JTextField();
-        textFieldSeasonByYear.setBounds(163, 217, 86, 20);
+        textFieldSeasonByYear.setBounds(221, 230, 86, 20);
         panel.add(textFieldSeasonByYear);
         textFieldSeasonByYear.setColumns(10);
         
         JButton btnSeasonByYear = new JButton("Go");
-        btnSeasonByYear.setBounds(270, 216, 89, 23);
+        btnSeasonByYear.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		if(textFieldSeasonByYear.getText().equals(""))
+        			textArea.setText("Some parameters are missing!");
+        		else{
+        			Season season;
+        			if((season = tennisService.findSeasonByYear(Integer.valueOf(textFieldSeasonByYear.getText()))) == null)
+        				textArea.setText("No existing Season with this year!");
+        			else
+        				textArea.setText(season.toString());
+        		}
+        	}
+        });
+        btnSeasonByYear.setBounds(330, 230, 89, 23);
         panel.add(btnSeasonByYear);
         
         JLabel lblFindAllSeasons = new JLabel("Find all Seasons");
+        lblFindAllSeasons.setFont(new Font("Tahoma", Font.PLAIN, 12));
         lblFindAllSeasons.setBounds(10, 260, 132, 14);
         panel.add(lblFindAllSeasons);
         
         JButton btnAllSeasons = new JButton("Go");
-        btnAllSeasons.setBounds(163, 256, 89, 23);
+        btnAllSeasons.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		List<Season> seasonList = new ArrayList<>();
+        		textArea.setText("");
+        		if((seasonList = tennisService.findAllSeasons()).isEmpty())
+        			textArea.setText("No results for this querry!");
+        		else{
+        			for(Season s : seasonList)
+        			{
+        				textArea.append(s.toString() + "\n");
+        			}
+        			textArea.setText(textArea.getText().substring(0,textArea.getText().length()-1));	
+        		}
+        	}
+        });
+        btnAllSeasons.setBounds(330, 260, 89, 23);
         panel.add(btnAllSeasons);
+        
         return panel;
     }
     

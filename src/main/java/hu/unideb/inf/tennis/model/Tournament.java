@@ -93,7 +93,7 @@ public class Tournament {
 
 	@Override
 	public String toString() {
-		return "Tournament [name=" + name + ", type=" + type + ", surface=" + surface + ", finals=" + finals
-				+ ", semiFinals=" + semiFinals + ", quarterFinals=" + quarterFinals + "]";
+		return "Name: " + name + "\n" + "Type: " + type + "\n" + "Surface: " + surface + "\n" + "Finals: " + finals + "\n" 
+				+ "Semi-Finals: " + semiFinals + "\n" + "Quarter-Finals: " + quarterFinals + "\n";
 	}
 }

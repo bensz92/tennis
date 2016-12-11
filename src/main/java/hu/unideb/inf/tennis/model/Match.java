@@ -47,6 +47,6 @@ public class Match {
 
 	@Override
 	public String toString() {
-		return "Match [playerRefs=" + playerRefs + ", result=" + result + "]";
+		return "Players:" + playerRefs + " " + result;
 	}
 }

@@ -47,6 +47,16 @@ public class Season {
 	
 	@Override
 	public String toString() {
-		return "Season [year=" + year + ", tournaments=" + tournaments + "]";
+		return "Year: " + year + "\n" + listToString(tournaments);
+	}
+	
+	public String listToString(List<Tournament> list)
+	{
+		String result = "";
+		for(Tournament t : list)
+		{
+			result += t.toString() + "\n";
+		}
+		return result;
 	}
 }

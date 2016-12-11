@@ -32,6 +32,6 @@ public class Result {
 
 	@Override
 	public String toString() {
-		return "Result [sets=" + sets + "]";
+		return "Result: " + sets;
 	}
 }
