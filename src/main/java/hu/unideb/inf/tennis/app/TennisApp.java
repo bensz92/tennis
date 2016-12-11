@@ -7,6 +7,7 @@ import javax.xml.xquery.XQException;
 
 import org.basex.BaseXServer;
 
+import hu.unideb.inf.tennis.model.Tournament;
 import hu.unideb.inf.tennis.service.TennisServiceImpl;
 
 public class TennisApp {
@@ -21,6 +22,9 @@ public class TennisApp {
 		    XQDataSource source = (XQDataSource) Class.forName(DRIVER).newInstance();
 		    XQConnection conn = source.getConnection("admin", "admin");
 			TennisServiceImpl service = new TennisServiceImpl(conn);
+			
+			for(Tournament t : service.findAllTournaments())
+				System.out.println(t.toString());
 			
 		} catch (XQException | IOException | InstantiationException | IllegalAccessException | ClassNotFoundException e) {
 			e.printStackTrace();

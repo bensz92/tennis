@@ -11,6 +11,8 @@ import javax.xml.xquery.XQPreparedExpression;
 import javax.xml.xquery.XQResultSequence;
 import hu.unideb.inf.tennis.jaxb.JAXBUtil;
 import hu.unideb.inf.tennis.model.Player;
+import hu.unideb.inf.tennis.model.Season;
+import hu.unideb.inf.tennis.model.Tournament;
 
 public class TennisServiceImpl implements TennisService{
 	
@@ -176,5 +178,168 @@ public class TennisServiceImpl implements TennisService{
 			}
 			return true;
 		}
+	}
+
+	@Override
+	public Tournament findTournamentByNameAndYear(String name, int year) {
+		Tournament tournament = null;
+
+		try {
+			 XQPreparedExpression expr = connection.prepareExpression(
+					    "declare variable $DB external;"
+					    + " declare variable $name external;"
+					    + " declare variable $year external;"
+					    + " for $tournament in db:open($DB)//root/tennis_seasons/tennis_season[@year=$year]/tournament[@name=$name]"
+					    + " return $tournament");
+			
+			expr.bindString(new QName("DB"), DB, connection.createAtomicType(XQItemType.XQBASETYPE_STRING));
+			expr.bindString(new QName("name"), name, connection.createAtomicType(XQItemType.XQBASETYPE_STRING));
+			expr.bindLong(new QName("year"), year, connection.createAtomicType(XQItemType.XQBASETYPE_STRING));
+
+			XQResultSequence rs = expr.executeQuery();
+			if(rs.next())
+				tournament = JAXBUtil.fromXML(Tournament.class, rs.getItemAsString(null));
+		} catch (JAXBException | XQException e) {
+			e.printStackTrace();
+		}
+
+		return tournament;
+	}
+	
+	@Override
+	public List<Tournament> findAllTournamentsByYear(int year) {
+		List<Tournament> allTournamentList = new ArrayList<>();	
+		try {
+			 XQPreparedExpression expr = connection.prepareExpression(
+					    "declare variable $DB external;"
+					 	+ "declare variable $year external;"
+					    + " for $tournament in db:open($DB)//root/tennis_seasons/tennis_season[@year=$year]/*"
+					    + " return $tournament");
+			
+			expr.bindString(new QName("DB"), DB, connection.createAtomicType(XQItemType.XQBASETYPE_STRING));
+			expr.bindLong(new QName("year"), year, connection.createAtomicType(XQItemType.XQBASETYPE_STRING));
+
+			XQResultSequence rs = expr.executeQuery();
+			while(rs.next())
+				allTournamentList.add(JAXBUtil.fromXML(Tournament.class, rs.getItemAsString(null)));
+		} catch (JAXBException | XQException e) {
+			e.printStackTrace();
+		}
+		
+		return allTournamentList;
+	}
+
+	@Override
+	public boolean removeTournament(String name, int year) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean addTournament() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean addFinalsToTournament() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean addSemiFinalsToTournament() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean addQuarterFinalsToTournament() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean addMatchToList() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean addPlayersToMatch(String p1, String p2) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean addResultToMatch() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean updateTournament() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean updateTournamentFinals() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean updateTournamentSemiFinals() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean updateTournamentQuarterFinals() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean updateMatchList() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean updateMatchPlayers(String p1, String p2) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean updateMatchResult() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public Season findSeasonByYear(int year) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Season> findAllSeasons() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean addSeason(int year) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean removeSeason(int year) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }
