@@ -246,7 +246,7 @@ public class TennisServiceImpl implements TennisService{
 	          "declare variable $DB external;"
 	        + "declare variable $year external;"
 	        +" declare variable $newTournament external;"
-	          + " insert node ($newTournament) into db:open($DB)//root/tennis_seasons/tennis_season[@year=$year]tournaments/");
+	          + " insert node ($newTournament) into db:open($DB)//root/tennis_seasons/tennis_season[@year=$year]/tournaments");
 	    
 	    expr.bindString(new QName("DB"), DB, connection.createAtomicType(XQItemType.XQBASETYPE_STRING));
 	    expr.bindLong(new QName("year"), year, connection.createAtomicType(XQItemType.XQBASETYPE_INTEGER));
@@ -563,7 +563,6 @@ public class TennisServiceImpl implements TennisService{
 		{
 			try {
 				String seasonXML = JAXBUtil.toXML(new Season(year, new ArrayList<>()));
-				System.out.println(seasonXML);
 				
 				 XQPreparedExpression expr = connection.prepareExpression(
 						    "declare variable $DB external;"
