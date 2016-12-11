@@ -27,13 +27,10 @@ public interface TennisService {
 	
 	public boolean removeTournament(String name, int year);
 	
-	public boolean updateTournament();
-	public boolean updateTournamentFinals();
-	public boolean updateTournamentSemiFinals();
-	public boolean updateTournamentQuarterFinals();
-	public boolean updateMatchList();
-	public boolean updateMatchPlayers(String p1, String p2);
-	public boolean updateMatchResult();
+	public boolean updateTournament(int year, String name, String newName, String newType, String newSurface);
+	public boolean updateFinalsMatch(int year, String name, Match match);
+	public boolean updateSemiFinals(int year, String name, List<Match> matches);
+	public boolean updateQuarterFinals(int year, String name, List<Match> matches);
 	
 	//Season
 	public Season findSeasonByYear(int year);

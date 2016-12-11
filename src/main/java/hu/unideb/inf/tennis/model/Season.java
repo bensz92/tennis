@@ -8,13 +8,14 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement
+@XmlRootElement(name="tennis_season")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Season {
 	
 	@XmlAttribute
 	private int year;
-	@XmlElementWrapper
+	
+	@XmlElementWrapper(name="tournaments")
     @XmlElement(name="tournament")
 	private List<Tournament> tournaments;
 	

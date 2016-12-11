@@ -192,7 +192,7 @@ public class TennisServiceImpl implements TennisService{
 					    "declare variable $DB external;"
 					    + " declare variable $name external;"
 					    + " declare variable $year external;"
-					    + " for $tournament in db:open($DB)//root/tennis_seasons/tennis_season[@year=$year]/tournament[@name=$name]"
+					    + " for $tournament in db:open($DB)//root/tennis_seasons/tennis_season[@year=$year]/tournaments/tournament[@name=$name]"
 					    + " return $tournament");
 			
 			expr.bindString(new QName("DB"), DB, connection.createAtomicType(XQItemType.XQBASETYPE_STRING));
@@ -216,7 +216,7 @@ public class TennisServiceImpl implements TennisService{
 			 XQPreparedExpression expr = connection.prepareExpression(
 					    "declare variable $DB external;"
 					 	+ "declare variable $year external;"
-					    + " for $tournament in db:open($DB)//root/tennis_seasons/tennis_season[@year=$year]/*"
+					    + " for $tournament in db:open($DB)//root/tennis_seasons/tennis_season[@year=$year]/tournaments/*"
 					    + " return $tournament");
 			
 			expr.bindString(new QName("DB"), DB, connection.createAtomicType(XQItemType.XQBASETYPE_STRING));
@@ -246,7 +246,7 @@ public class TennisServiceImpl implements TennisService{
 	          "declare variable $DB external;"
 	        + "declare variable $year external;"
 	        +" declare variable $newTournament external;"
-	          + " insert node ($newTournament) into db:open($DB)//root/tennis_seasons/tennis_season[@year=$year]");
+	          + " insert node ($newTournament) into db:open($DB)//root/tennis_seasons/tennis_season[@year=$year]tournaments/");
 	    
 	    expr.bindString(new QName("DB"), DB, connection.createAtomicType(XQItemType.XQBASETYPE_STRING));
 	    expr.bindLong(new QName("year"), year, connection.createAtomicType(XQItemType.XQBASETYPE_INTEGER));
@@ -278,7 +278,7 @@ public class TennisServiceImpl implements TennisService{
 						+ "declare variable $year external;" 
 						+ "declare variable $name external;" 
 						+ " declare variable $newMatch external;"
-						+ " insert node ($newMatch) into db:open($DB)//root/tennis_seasons/tennis_season[@year=$year]/tournament[@name=$name]/finals");
+						+ " insert node ($newMatch) into db:open($DB)//root/tennis_seasons/tennis_season[@year=$year]/tournaments/tournament[@name=$name]/finals");
 
 				expr.bindString(new QName("DB"), DB, connection.createAtomicType(XQItemType.XQBASETYPE_STRING));
 				expr.bindLong(new QName("year"), year, connection.createAtomicType(XQItemType.XQBASETYPE_INTEGER));
@@ -310,7 +310,7 @@ public class TennisServiceImpl implements TennisService{
 						+ "declare variable $year external;" 
 						+ "declare variable $name external;" 
 						+ " declare variable $newMatch external;"
-						+ " insert node ($newMatch) into db:open($DB)//root/tennis_seasons/tennis_season[@year=$year]/tournament[@name=$name]/semi-finals");
+						+ " insert node ($newMatch) into db:open($DB)//root/tennis_seasons/tennis_season[@year=$year]/tournaments/tournament[@name=$name]/semi-finals");
 
 				expr.bindString(new QName("DB"), DB, connection.createAtomicType(XQItemType.XQBASETYPE_STRING));
 				expr.bindLong(new QName("year"), year, connection.createAtomicType(XQItemType.XQBASETYPE_INTEGER));
@@ -342,7 +342,7 @@ public class TennisServiceImpl implements TennisService{
 						+ "declare variable $year external;" 
 						+ "declare variable $name external;" 
 						+ " declare variable $newMatch external;"
-						+ " insert node ($newMatch) into db:open($DB)//root/tennis_seasons/tennis_season[@year=$year]/tournament[@name=$name]/quarter-finals");
+						+ " insert node ($newMatch) into db:open($DB)//root/tennis_seasons/tennis_season[@year=$year]/tournaments/tournament[@name=$name]/quarter-finals");
 
 				expr.bindString(new QName("DB"), DB, connection.createAtomicType(XQItemType.XQBASETYPE_STRING));
 				expr.bindLong(new QName("year"), year, connection.createAtomicType(XQItemType.XQBASETYPE_INTEGER));
@@ -368,7 +368,7 @@ public class TennisServiceImpl implements TennisService{
 								"declare variable $DB external;"
 								+ " declare variable $year external;"
 								+ " declare variable $name external;"
-								+ " delete node db:open($DB)//root/tennis_seasons/tennis_season[@year=$year]/tournament[@name=$name]");
+								+ " delete node db:open($DB)//root/tennis_seasons/tennis_season[@year=$year]/tournaments/tournament[@name=$name]");
 
 				expr.bindString(new QName("DB"), DB, connection.createAtomicType(XQItemType.XQBASETYPE_STRING));
 				expr.bindLong(new QName("year"), year,connection.createAtomicType(XQItemType.XQBASETYPE_INTEGER));
@@ -383,69 +383,227 @@ public class TennisServiceImpl implements TennisService{
 	}
 
 	@Override
-	public boolean updateTournament() {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean updateTournament(int year, String name, String newName, String newType, String newSurface) {
+		Tournament tournament;
+		if((tournament = findTournamentByNameAndYear(name, year)) == null)
+			return false;
+		else
+		{
+			try {
+				tournament.setName(newName);
+				tournament.setType(newType);
+				tournament.setSurface(newSurface);
+				String updatedTournament = JAXBUtil.toXML(tournament);
+				 XQPreparedExpression expr = connection.prepareExpression(
+						    "declare variable $DB external;"
+						 	+" declare variable $year external;"
+						 	+" declare variable $name external;"
+						 	+" declare variable $updatedTournament external;"
+						    + " replace node db:open($DB)//root/tennis_seasons/tennis_season[@year=$year]/tournaments/tournament[@name=$name] with $updatedTournament");
+				
+				expr.bindString(new QName("DB"), DB, connection.createAtomicType(XQItemType.XQBASETYPE_STRING));
+				expr.bindLong(new QName("year"), year, connection.createAtomicType(XQItemType.XQBASETYPE_INTEGER));
+				expr.bindString(new QName("name"), name, connection.createAtomicType(XQItemType.XQBASETYPE_STRING));
+				expr.bindDocument(new QName("updatedTournament"), updatedTournament, null,null);				
+				expr.executeQuery();
+				
+			} catch (JAXBException | XQException e) {
+				e.printStackTrace();
+			}
+			return true;
+		}
 	}
 
 	@Override
-	public boolean updateTournamentFinals() {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean updateFinalsMatch(int year, String name, Match match) {
+		Tournament tournament;
+		if((tournament = findTournamentByNameAndYear(name, year)) == null){
+			return false;
+		} else if (tournament.getFinals() != null && tournament.getFinals().size()==1)	{
+			try {
+				List<Match> newFinals = new ArrayList<>();
+				newFinals.add(match);
+				tournament.setFinals(newFinals);
+				String updatedTournament = JAXBUtil.toXML(tournament);
+				 XQPreparedExpression expr = connection.prepareExpression(
+						    "declare variable $DB external;"
+						 	+" declare variable $year external;"
+						 	+" declare variable $name external;"
+						 	+" declare variable $updatedTournament external;"
+						    + " replace node db:open($DB)//root/tennis_seasons/tennis_season[@year=$year]/tournaments/tournament[@name=$name] with $updatedTournament");
+				
+				expr.bindString(new QName("DB"), DB, connection.createAtomicType(XQItemType.XQBASETYPE_STRING));
+				expr.bindLong(new QName("year"), year, connection.createAtomicType(XQItemType.XQBASETYPE_INTEGER));
+				expr.bindString(new QName("name"), name, connection.createAtomicType(XQItemType.XQBASETYPE_STRING));
+				expr.bindDocument(new QName("updatedTournament"), updatedTournament, null,null);				
+				expr.executeQuery();
+				
+			} catch (JAXBException | XQException e) {
+				e.printStackTrace();
+			}
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	@Override
-	public boolean updateTournamentSemiFinals() {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean updateSemiFinals(int year, String name, List<Match> newSemiFinals) {
+		Tournament tournament;
+		if((tournament = findTournamentByNameAndYear(name, year)) == null){
+			return false;
+		} else if (tournament.getSemiFinals() != null && tournament.getSemiFinals().size() > 0)	{
+			try {
+				tournament.setSemiFinals(newSemiFinals);
+				String updatedTournament = JAXBUtil.toXML(tournament);
+				 XQPreparedExpression expr = connection.prepareExpression(
+						    "declare variable $DB external;"
+						 	+" declare variable $year external;"
+						 	+" declare variable $name external;"
+						 	+" declare variable $updatedTournament external;"
+						    + " replace node db:open($DB)//root/tennis_seasons/tennis_season[@year=$year]/tournaments/tournament[@name=$name] with $updatedTournament");
+				
+				expr.bindString(new QName("DB"), DB, connection.createAtomicType(XQItemType.XQBASETYPE_STRING));
+				expr.bindLong(new QName("year"), year, connection.createAtomicType(XQItemType.XQBASETYPE_INTEGER));
+				expr.bindString(new QName("name"), name, connection.createAtomicType(XQItemType.XQBASETYPE_STRING));
+				expr.bindDocument(new QName("updatedTournament"), updatedTournament, null,null);				
+				expr.executeQuery();
+				
+			} catch (JAXBException | XQException e) {
+				e.printStackTrace();
+			}
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	@Override
-	public boolean updateTournamentQuarterFinals() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean updateMatchList() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean updateMatchPlayers(String p1, String p2) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean updateMatchResult() {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean updateQuarterFinals(int year, String name, List<Match> newQuarterFinals) {
+		Tournament tournament;
+		if((tournament = findTournamentByNameAndYear(name, year)) == null){
+			return false;
+		} else if (tournament.getQuarterFinals() != null && tournament.getQuarterFinals().size() > 0)	{
+			try {
+				tournament.setQuarterFinals(newQuarterFinals);
+				String updatedTournament = JAXBUtil.toXML(tournament);
+				 XQPreparedExpression expr = connection.prepareExpression(
+						    "declare variable $DB external;"
+						 	+" declare variable $year external;"
+						 	+" declare variable $name external;"
+						 	+" declare variable $updatedTournament external;"
+						    + " replace node db:open($DB)//root/tennis_seasons/tennis_season[@year=$year]/tournaments/tournament[@name=$name] with $updatedTournament");
+				
+				expr.bindString(new QName("DB"), DB, connection.createAtomicType(XQItemType.XQBASETYPE_STRING));
+				expr.bindLong(new QName("year"), year, connection.createAtomicType(XQItemType.XQBASETYPE_INTEGER));
+				expr.bindString(new QName("name"), name, connection.createAtomicType(XQItemType.XQBASETYPE_STRING));
+				expr.bindDocument(new QName("updatedTournament"), updatedTournament, null,null);				
+				expr.executeQuery();
+				
+			} catch (JAXBException | XQException e) {
+				e.printStackTrace();
+			}
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	@Override
 	public Season findSeasonByYear(int year) {
-		// TODO Auto-generated method stub
-		return null;
+		Season season = null;
+
+		try {
+			 XQPreparedExpression expr = connection.prepareExpression(
+					    "declare variable $DB external;"
+					    + " declare variable $year external;"
+					    + " for $season in db:open($DB)//root/tennis_seasons/tennis_season[@year=$year]"
+					    + " return $season");
+			
+			expr.bindString(new QName("DB"), DB, connection.createAtomicType(XQItemType.XQBASETYPE_STRING));
+			expr.bindLong(new QName("year"), year, connection.createAtomicType(XQItemType.XQBASETYPE_INTEGER));
+
+			XQResultSequence rs = expr.executeQuery();
+			if(rs.next())
+				season = JAXBUtil.fromXML(Season.class, rs.getItemAsString(null));
+		} catch (JAXBException | XQException e) {
+			e.printStackTrace();
+		}
+
+		return season;
 	}
 
 	@Override
 	public List<Season> findAllSeasons() {
-		// TODO Auto-generated method stub
-		return null;
+		List<Season> seasons = new ArrayList<>();
+
+		try {
+			 XQPreparedExpression expr = connection.prepareExpression(
+					    "declare variable $DB external;"
+					    + " for $season in db:open($DB)//root/tennis_seasons/*"
+					    + " return $season");
+			
+			expr.bindString(new QName("DB"), DB, connection.createAtomicType(XQItemType.XQBASETYPE_STRING));
+
+			XQResultSequence rs = expr.executeQuery();
+			while(rs.next())
+				seasons.add(JAXBUtil.fromXML(Season.class, rs.getItemAsString(null)));
+		} catch (JAXBException | XQException e) {
+			e.printStackTrace();
+		}
+
+		return seasons;
 	}
 
 	@Override
 	public boolean addSeason(int year) {
-		// TODO Auto-generated method stub
-		return false;
+		if(findSeasonByYear(year) != null)
+			return false;
+		else
+		{
+			try {
+				String seasonXML = JAXBUtil.toXML(new Season(year, new ArrayList<>()));
+				System.out.println(seasonXML);
+				
+				 XQPreparedExpression expr = connection.prepareExpression(
+						    "declare variable $DB external;"
+						 	+" declare variable $newSeason external;"
+						    + " insert node ($newSeason) into db:open($DB)//root/tennis_seasons");
+				
+				expr.bindString(new QName("DB"), DB, connection.createAtomicType(XQItemType.XQBASETYPE_STRING));
+				expr.bindDocument(new QName("newSeason"), seasonXML, null,null);				
+				expr.executeQuery();
+				
+			} catch (JAXBException | XQException e) {
+				e.printStackTrace();
+			}
+			return true;
+		}
 	}
-	
+
 	@Override
 	public boolean removeSeason(int year) {
-		// TODO Auto-generated method stub
-		return false;
+		if(findSeasonByYear(year) == null)
+			return false;
+		else
+		{
+			try {				
+				 XQPreparedExpression expr = connection.prepareExpression(
+						    "declare variable $DB external;"
+						 	+" declare variable $year external;"
+						    + " delete node db:open($DB)//root/tennis_seasons/tennis_season[@year=$year]");
+				
+				expr.bindString(new QName("DB"), DB, connection.createAtomicType(XQItemType.XQBASETYPE_STRING));
+				expr.bindLong(new QName("year"), year, connection.createAtomicType(XQItemType.XQBASETYPE_INTEGER));				
+				expr.executeQuery();
+				
+			} catch (XQException e) {
+				e.printStackTrace();
+			}
+			return true;
+		}
 	}
+
+
 
 }

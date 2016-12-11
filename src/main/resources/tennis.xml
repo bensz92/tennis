@@ -4,6 +4,7 @@
     <tennis_seasons xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="tennis.xsd">
            <tennis_season year="2015">
+           <tournaments>
             <tournament name="Australian_Open" type="Grand_Slam" surface="Hard">               
                 <finals>
                     <match>
@@ -686,8 +687,10 @@
                     </match>                 
                 </quarter-finals>
             </tournament>
+            </tournaments>
         </tennis_season>
         <tennis_season year="2016">
+            <tournaments>
             <tournament name="Australian_Open" type="Grand_Slam" surface="Hard">               
                 <finals>
                     <match>
@@ -1379,7 +1382,7 @@
                     </match>                 
                 </quarter-finals>
             </tournament> 
-            
+            </tournaments>
         </tennis_season>
     </tennis_seasons>
     <players>
