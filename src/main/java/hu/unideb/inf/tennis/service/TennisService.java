@@ -52,4 +52,6 @@ public interface TennisService {
 	public boolean addSeason(int year);
 
 	public boolean removeSeason(int year);
+	
+	public List<String> findAllYears();
 }

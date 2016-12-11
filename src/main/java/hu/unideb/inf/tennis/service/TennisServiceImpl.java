@@ -602,6 +602,30 @@ public class TennisServiceImpl implements TennisService{
 		}
 	}
 
+	@Override
+	public List<String> findAllYears() {
+		List<String> years = new ArrayList<>();
+
+		try {
+			 XQPreparedExpression expr = connection.prepareExpression(
+					    "declare variable $DB external;"
+					    + " for $season in db:open($DB)//root/tennis_seasons/*"
+					    + " return $season");
+			
+			expr.bindString(new QName("DB"), DB, connection.createAtomicType(XQItemType.XQBASETYPE_STRING));
+
+			XQResultSequence rs = expr.executeQuery();
+			while(rs.next()){
+				Season season = JAXBUtil.fromXML(Season.class, rs.getItemAsString(null));
+				years.add(String.valueOf(season.getYear()));
+			}
+				
+		} catch (JAXBException | XQException e) {
+			e.printStackTrace();
+		}
+		return years;
+	}
+
 
 
 }
