@@ -604,33 +604,29 @@ public class TennisServiceImpl implements TennisService{
 		}
 	}
 
-//	@Override
-//	public Set<Player> getPlayersParticipatedTournament(int year, String name) {
-//		
-//		Set<String> playerSet = new HashSet<>();
-//		try {
-//			 XQPreparedExpression expr = connection.prepareExpression(
-//					    "declare variable $DB external;"
-//					    + " for $player in db:open($DB)//root/players/*"
-//					    + " return $player");
-//			
-//			expr.bindString(new QName("DB"), DB, connection.createAtomicType(XQItemType.XQBASETYPE_STRING));
-//
-//			XQResultSequence rs = expr.executeQuery();
-//			while(rs.next())
-//				playerList.add(JAXBUtil.fromXML(Player.class, rs.getItemAsString(null)));
-//		} catch (JAXBException | XQException e) {
-//			e.printStackTrace();
-//		}
-//		
-//		return playerList;
-//	}
-//
-//	@Override
-//	public Player getTournamentWinner(int year, String name) {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
+	@Override
+	public List<String> findAllYears() {
+		List<String> years = new ArrayList<>();
+
+		try {
+			 XQPreparedExpression expr = connection.prepareExpression(
+					    "declare variable $DB external;"
+					    + " for $season in db:open($DB)//root/tennis_seasons/*"
+					    + " return $season");
+			
+			expr.bindString(new QName("DB"), DB, connection.createAtomicType(XQItemType.XQBASETYPE_STRING));
+
+			XQResultSequence rs = expr.executeQuery();
+			while(rs.next()){
+				Season season = JAXBUtil.fromXML(Season.class, rs.getItemAsString(null));
+				years.add(String.valueOf(season.getYear()));
+			}
+				
+		} catch (JAXBException | XQException e) {
+			e.printStackTrace();
+		}
+		return years;
+	}
 
 
 

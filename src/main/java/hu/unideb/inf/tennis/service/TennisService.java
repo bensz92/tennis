@@ -60,4 +60,6 @@ public interface TennisService {
 	//public Set<Player> getPlayersParticipatedTournament(int year, String name);
 	
 	//public Player getTournamentWinner(int year, String name);
+	
+	public List<String> findAllYears();
 }
