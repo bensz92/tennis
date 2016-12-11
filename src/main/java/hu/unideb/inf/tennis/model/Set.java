@@ -21,7 +21,10 @@ public class Set{
 
 	public Set(String set){
 		if(set.equals("RET"))
-			ret=true;
+			{
+				ret=true;
+				value = "RET";
+			}
 		else{
 			String [] parts = set.split(":"); 
 			p1 = Integer.valueOf(parts[0]);

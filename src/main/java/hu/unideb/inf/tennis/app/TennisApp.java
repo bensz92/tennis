@@ -4,9 +4,7 @@ import java.io.IOException;
 import javax.xml.xquery.XQConnection;
 import javax.xml.xquery.XQDataSource;
 import javax.xml.xquery.XQException;
-
 import org.basex.BaseXServer;
-
 import hu.unideb.inf.tennis.model.Tournament;
 import hu.unideb.inf.tennis.service.TennisServiceImpl;
 
@@ -23,7 +21,7 @@ public class TennisApp {
 		    XQConnection conn = source.getConnection("admin", "admin");
 			TennisServiceImpl service = new TennisServiceImpl(conn);
 			
-			for(Tournament t : service.findAllTournaments())
+			for(Tournament t : service.findAllTournamentsByYear(2016))
 				System.out.println(t.toString());
 			
 		} catch (XQException | IOException | InstantiationException | IllegalAccessException | ClassNotFoundException e) {

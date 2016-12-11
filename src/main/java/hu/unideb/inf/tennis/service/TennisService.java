@@ -20,13 +20,12 @@ public interface TennisService {
 	public Tournament findTournamentByNameAndYear(String name, int year);
 	public List<Tournament> findAllTournamentsByYear(int year);
 	
-	public boolean addTournament();
-	public boolean addFinalsToTournament();
-	public boolean addSemiFinalsToTournament();
-	public boolean addQuarterFinalsToTournament();
-	public boolean addMatchToList();
-	public boolean addPlayersToMatch(String p1, String p2);
-	public boolean addResultToMatch();
+	public boolean addTournament(int year, String name, String type, String surface);
+	public boolean addMatchToFinals(int year, String name, Match match);
+	public boolean addMatchToSemiFinals(int year, String name, Match match);
+	public boolean addMatchToQuarterFinals(int year, String name, Match match);
+	
+	public boolean removeTournament(String name, int year);
 	
 	public boolean updateTournament();
 	public boolean updateTournamentFinals();
@@ -35,8 +34,6 @@ public interface TennisService {
 	public boolean updateMatchList();
 	public boolean updateMatchPlayers(String p1, String p2);
 	public boolean updateMatchResult();
-	
-	public boolean removeTournament(String name, int year);
 	
 	//Season
 	public Season findSeasonByYear(int year);

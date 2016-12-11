@@ -2,6 +2,7 @@ package hu.unideb.inf.tennis.service;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.xml.bind.JAXBException;
 import javax.xml.namespace.QName;
 import javax.xml.xquery.XQConnection;
@@ -9,7 +10,9 @@ import javax.xml.xquery.XQException;
 import javax.xml.xquery.XQItemType;
 import javax.xml.xquery.XQPreparedExpression;
 import javax.xml.xquery.XQResultSequence;
+
 import hu.unideb.inf.tennis.jaxb.JAXBUtil;
+import hu.unideb.inf.tennis.model.Match;
 import hu.unideb.inf.tennis.model.Player;
 import hu.unideb.inf.tennis.model.Season;
 import hu.unideb.inf.tennis.model.Tournament;
@@ -194,7 +197,7 @@ public class TennisServiceImpl implements TennisService{
 			
 			expr.bindString(new QName("DB"), DB, connection.createAtomicType(XQItemType.XQBASETYPE_STRING));
 			expr.bindString(new QName("name"), name, connection.createAtomicType(XQItemType.XQBASETYPE_STRING));
-			expr.bindLong(new QName("year"), year, connection.createAtomicType(XQItemType.XQBASETYPE_STRING));
+			expr.bindLong(new QName("year"), year, connection.createAtomicType(XQItemType.XQBASETYPE_INTEGER));
 
 			XQResultSequence rs = expr.executeQuery();
 			if(rs.next())
@@ -217,7 +220,7 @@ public class TennisServiceImpl implements TennisService{
 					    + " return $tournament");
 			
 			expr.bindString(new QName("DB"), DB, connection.createAtomicType(XQItemType.XQBASETYPE_STRING));
-			expr.bindLong(new QName("year"), year, connection.createAtomicType(XQItemType.XQBASETYPE_STRING));
+			expr.bindLong(new QName("year"), year, connection.createAtomicType(XQItemType.XQBASETYPE_INTEGER));
 
 			XQResultSequence rs = expr.executeQuery();
 			while(rs.next())
@@ -230,51 +233,153 @@ public class TennisServiceImpl implements TennisService{
 	}
 
 	@Override
+	 public boolean addTournament(int year, String name, String type, String surface) {
+	  if(findTournamentByNameAndYear(name, year) != null)
+	   return false;
+	  else
+	  {
+	   try {
+	    Tournament newTournament = new Tournament(name, type, surface, new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
+	    String tournamentXML = JAXBUtil.toXML(newTournament);
+	    
+	     XQPreparedExpression expr = connection.prepareExpression(
+	          "declare variable $DB external;"
+	        + "declare variable $year external;"
+	        +" declare variable $newTournament external;"
+	          + " insert node ($newTournament) into db:open($DB)//root/tennis_seasons/tennis_season[@year=$year]");
+	    
+	    expr.bindString(new QName("DB"), DB, connection.createAtomicType(XQItemType.XQBASETYPE_STRING));
+	    expr.bindLong(new QName("year"), year, connection.createAtomicType(XQItemType.XQBASETYPE_INTEGER));
+	    expr.bindDocument(new QName("newTournament"), tournamentXML, null,null);    
+	    expr.executeQuery();
+	    
+	   } catch (JAXBException | XQException e) {
+	    e.printStackTrace();
+	   }
+	   return true;
+	  }
+	 }
+
+	@Override
+	public boolean addMatchToFinals(int year, String name, Match match) {
+		
+		Tournament tournament; 
+		if ((tournament = findTournamentByNameAndYear(name, year)) == null)
+			return false;
+		else {
+			try {
+				if(tournament.getFinals() != null && tournament.getFinals().size() == 1)
+					return false;
+				
+				String matchXML = JAXBUtil.toXML(match);
+
+				XQPreparedExpression expr = connection.prepareExpression(
+						"declare variable $DB external;"
+						+ "declare variable $year external;" 
+						+ "declare variable $name external;" 
+						+ " declare variable $newMatch external;"
+						+ " insert node ($newMatch) into db:open($DB)//root/tennis_seasons/tennis_season[@year=$year]/tournament[@name=$name]/finals");
+
+				expr.bindString(new QName("DB"), DB, connection.createAtomicType(XQItemType.XQBASETYPE_STRING));
+				expr.bindLong(new QName("year"), year, connection.createAtomicType(XQItemType.XQBASETYPE_INTEGER));
+				expr.bindString(new QName("name"), name, connection.createAtomicType(XQItemType.XQBASETYPE_STRING));
+				expr.bindDocument(new QName("newMatch"), matchXML, null, null);
+				expr.executeQuery();
+
+			} catch (JAXBException | XQException e) {
+				e.printStackTrace();
+			}
+			return true;
+		}
+	}
+
+	@Override
+	public boolean addMatchToSemiFinals(int year, String name, Match match) {
+		Tournament tournament; 
+		if ((tournament = findTournamentByNameAndYear(name, year)) == null)
+			return false;
+		else {
+			try {
+				if(tournament.getSemiFinals() != null && tournament.getSemiFinals().size() == 2)
+					return false;
+				
+				String matchXML = JAXBUtil.toXML(match);
+
+				XQPreparedExpression expr = connection.prepareExpression(
+						"declare variable $DB external;"
+						+ "declare variable $year external;" 
+						+ "declare variable $name external;" 
+						+ " declare variable $newMatch external;"
+						+ " insert node ($newMatch) into db:open($DB)//root/tennis_seasons/tennis_season[@year=$year]/tournament[@name=$name]/semi-finals");
+
+				expr.bindString(new QName("DB"), DB, connection.createAtomicType(XQItemType.XQBASETYPE_STRING));
+				expr.bindLong(new QName("year"), year, connection.createAtomicType(XQItemType.XQBASETYPE_INTEGER));
+				expr.bindString(new QName("name"), name, connection.createAtomicType(XQItemType.XQBASETYPE_STRING));
+				expr.bindDocument(new QName("newMatch"), matchXML, null, null);
+				expr.executeQuery();
+
+			} catch (JAXBException | XQException e) {
+				e.printStackTrace();
+			}
+			return true;
+		}
+	}
+
+	@Override
+	public boolean addMatchToQuarterFinals(int year, String name, Match match) {
+		Tournament tournament; 
+		if ((tournament = findTournamentByNameAndYear(name, year)) == null)
+			return false;
+		else {
+			try {
+				if(tournament.getQuarterFinals() != null && tournament.getQuarterFinals().size() == 4)
+					return false;
+				
+				String matchXML = JAXBUtil.toXML(match);
+
+				XQPreparedExpression expr = connection.prepareExpression(
+						"declare variable $DB external;"
+						+ "declare variable $year external;" 
+						+ "declare variable $name external;" 
+						+ " declare variable $newMatch external;"
+						+ " insert node ($newMatch) into db:open($DB)//root/tennis_seasons/tennis_season[@year=$year]/tournament[@name=$name]/quarter-finals");
+
+				expr.bindString(new QName("DB"), DB, connection.createAtomicType(XQItemType.XQBASETYPE_STRING));
+				expr.bindLong(new QName("year"), year, connection.createAtomicType(XQItemType.XQBASETYPE_INTEGER));
+				expr.bindString(new QName("name"), name, connection.createAtomicType(XQItemType.XQBASETYPE_STRING));
+				expr.bindDocument(new QName("newMatch"), matchXML, null, null);
+				expr.executeQuery();
+
+			} catch (JAXBException | XQException e) {
+				e.printStackTrace();
+			}
+			return true;
+		}
+	}
+	
+	@Override
 	public boolean removeTournament(String name, int year) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+		if (findTournamentByNameAndYear(name, year) == null)
+			return false;
+		else {
+			try {
+				XQPreparedExpression expr = connection
+						.prepareExpression(
+								"declare variable $DB external;"
+								+ " declare variable $year external;"
+								+ " declare variable $name external;"
+								+ " delete node db:open($DB)//root/tennis_seasons/tennis_season[@year=$year]/tournament[@name=$name]");
 
-	@Override
-	public boolean addTournament() {
-		// TODO Auto-generated method stub
-		return false;
-	}
+				expr.bindString(new QName("DB"), DB, connection.createAtomicType(XQItemType.XQBASETYPE_STRING));
+				expr.bindLong(new QName("year"), year,connection.createAtomicType(XQItemType.XQBASETYPE_INTEGER));
+				expr.bindString(new QName("name"), name,connection.createAtomicType(XQItemType.XQBASETYPE_STRING));
+				expr.executeQuery();
 
-	@Override
-	public boolean addFinalsToTournament() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean addSemiFinalsToTournament() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean addQuarterFinalsToTournament() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean addMatchToList() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean addPlayersToMatch(String p1, String p2) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean addResultToMatch() {
-		// TODO Auto-generated method stub
-		return false;
+			} catch (XQException e) {
+				e.printStackTrace();
+			}
+			return true;
+		}
 	}
 
 	@Override
@@ -336,10 +441,11 @@ public class TennisServiceImpl implements TennisService{
 		// TODO Auto-generated method stub
 		return false;
 	}
-
+	
 	@Override
 	public boolean removeSeason(int year) {
 		// TODO Auto-generated method stub
 		return false;
 	}
+
 }
