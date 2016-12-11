@@ -18,24 +18,21 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.xml.xquery.XQConnection;
 import javax.xml.xquery.XQDataSource;
 import javax.xml.xquery.XQException;
 
-import org.basex.BaseXServer;
-
 import hu.unideb.inf.tennis.model.Player;
 import hu.unideb.inf.tennis.service.TennisServiceImpl;
 
 public class CustomTabPanel extends JPanel {
+	
 	private JTextField textFieldPlayerId;
 	private JTextField textFieldTournamentName;
 	private JTextField textFieldTournamentYear;
 	private JTextField textFieldSeasonByYear;
    
-	private static final String DRIVER = "net.xqj.basex.BaseXXQDataSource";
 	private static TennisServiceImpl tennisService;
 	
 	public CustomTabPanel() {
@@ -183,27 +180,18 @@ public class CustomTabPanel extends JPanel {
         return panel;
     }
 	
-	public static void initView() throws IOException {
+	public static void initView(TennisServiceImpl service) throws IOException {
 	
-		try {	
-		    XQDataSource source = (XQDataSource) Class.forName(DRIVER).newInstance();
-		    XQConnection conn = source.getConnection("admin", "admin");
-			TennisServiceImpl service = new TennisServiceImpl(conn);
-			tennisService = service;
-					UIManager.put("swing.boldMetal", Boolean.FALSE);
-					JFrame frame = new JFrame("TennisData");
-					frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-					frame.setMinimumSize(new Dimension(1024, 768));
-					frame.setPreferredSize(new Dimension(1024, 768));
-					frame.setBackground(SystemColor.inactiveCaption);
-					frame.setResizable(false);
-					frame.getContentPane().add(new CustomTabPanel(), BorderLayout.CENTER);
-					frame.pack();
-					frame.setVisible(true);
-		
-		} catch (XQException | InstantiationException | IllegalAccessException | ClassNotFoundException e) {
-			e.printStackTrace();
-			 
-		}
+		tennisService = service;
+		UIManager.put("swing.boldMetal", Boolean.FALSE);
+		JFrame frame = new JFrame("TennisData");
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setMinimumSize(new Dimension(1024, 768));
+		frame.setPreferredSize(new Dimension(1024, 768));
+		frame.setBackground(SystemColor.inactiveCaption);
+		frame.setResizable(false);
+		frame.getContentPane().add(new CustomTabPanel(), BorderLayout.CENTER);
+		frame.pack();
+		frame.setVisible(true);
 	}
 }
