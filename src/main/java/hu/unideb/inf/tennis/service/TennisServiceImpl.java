@@ -1,7 +1,9 @@
 package hu.unideb.inf.tennis.service;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.xml.bind.JAXBException;
 import javax.xml.namespace.QName;
@@ -103,9 +105,9 @@ public class TennisServiceImpl implements TennisService{
 	}
 
 	@Override
-	public boolean removePlayer(Player player) {
+	public boolean removePlayer(String id) {
 		
-		if(findPlayerById(player.getId()) == null)
+		if(findPlayerById(id) == null)
 			return false;
 		else
 		{
@@ -116,7 +118,7 @@ public class TennisServiceImpl implements TennisService{
 						    + " delete node db:open($DB)//root/players/player[@id=$id]");
 				
 				expr.bindString(new QName("DB"), DB, connection.createAtomicType(XQItemType.XQBASETYPE_STRING));
-				expr.bindString(new QName("id"), player.getId(), connection.createAtomicType(XQItemType.XQBASETYPE_STRING));				
+				expr.bindString(new QName("id"), id, connection.createAtomicType(XQItemType.XQBASETYPE_STRING));				
 				expr.executeQuery();
 				
 			} catch (XQException e) {
@@ -601,6 +603,34 @@ public class TennisServiceImpl implements TennisService{
 			return true;
 		}
 	}
+
+//	@Override
+//	public Set<Player> getPlayersParticipatedTournament(int year, String name) {
+//		
+//		Set<String> playerSet = new HashSet<>();
+//		try {
+//			 XQPreparedExpression expr = connection.prepareExpression(
+//					    "declare variable $DB external;"
+//					    + " for $player in db:open($DB)//root/players/*"
+//					    + " return $player");
+//			
+//			expr.bindString(new QName("DB"), DB, connection.createAtomicType(XQItemType.XQBASETYPE_STRING));
+//
+//			XQResultSequence rs = expr.executeQuery();
+//			while(rs.next())
+//				playerList.add(JAXBUtil.fromXML(Player.class, rs.getItemAsString(null)));
+//		} catch (JAXBException | XQException e) {
+//			e.printStackTrace();
+//		}
+//		
+//		return playerList;
+//	}
+//
+//	@Override
+//	public Player getTournamentWinner(int year, String name) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
 
 
 

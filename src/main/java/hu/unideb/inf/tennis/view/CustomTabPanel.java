@@ -55,6 +55,10 @@ public class CustomTabPanel extends JPanel {
 	private JTextField textFieldATtype;
 	private JTextField textFieldATsurface;
 	private JTextField textFieldASyear;
+	private JTextField textFieldRemovePlayerId;
+	private JTextField textFieldTourRemoveYear;
+	private JTextField textFieldTourRemoveName;
+	private JTextField textFieldSeasonRemoveYear;
 	public CustomTabPanel() {
 		super(new GridLayout(1, 1));
 		
@@ -62,15 +66,19 @@ public class CustomTabPanel extends JPanel {
         tabbedPane.setBackground(SystemColor.inactiveCaption);
         
         JComponent panel1 = makeQueryPanel();
-        
         tabbedPane.addTab("Query", null, panel1,
-                "Ki lesz még találva");
+                "Quety Tab");
         tabbedPane.setMnemonicAt(0, KeyEvent.VK_1);
         
         JComponent panel2 = makeCRUDPanel();
         tabbedPane.addTab("CRUD", null, panel2,
-        		"Ki lesz még találva");
+        		"CRUD Tab");
         tabbedPane.setMnemonicAt(1, KeyEvent.VK_2);
+        
+        JComponent panel3 = makeRemovePanel();
+        tabbedPane.addTab("Remove", null, panel3,
+        		"Remove Tab");
+        tabbedPane.setMnemonicAt(2, KeyEvent.VK_3);
            
         add(tabbedPane);
         
@@ -83,8 +91,8 @@ public class CustomTabPanel extends JPanel {
         panel.setLayout(null);
         
         JLabel lblNewLabel = new JLabel("Results:");
-        lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
-        lblNewLabel.setBounds(10, 285, 54, 24);
+        lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
+        lblNewLabel.setBounds(10, 285, 156, 24);
         panel.add(lblNewLabel);
         
         JTextArea textArea = new JTextArea();
@@ -99,22 +107,22 @@ public class CustomTabPanel extends JPanel {
         
         JLabel lblBasicQueries = new JLabel("Basic queries:");
         lblBasicQueries.setFont(new Font("Tahoma", Font.BOLD, 15));
-        lblBasicQueries.setBounds(10, 20, 108, 14);
+        lblBasicQueries.setBounds(10, 11, 108, 14);
         panel.add(lblBasicQueries);
         
         JLabel lblFindPlayerBy = new JLabel("Find Player by ID");
         lblFindPlayerBy.setFont(new Font("Tahoma", Font.PLAIN, 12));
-        lblFindPlayerBy.setBounds(10, 50, 108, 14);
+        lblFindPlayerBy.setBounds(10, 45, 108, 14);
         panel.add(lblFindPlayerBy);
         
         textFieldPlayerId = new JTextField();
-        textFieldPlayerId.setBounds(221, 50, 86, 20);
+        textFieldPlayerId.setBounds(221, 45, 86, 20);
         panel.add(textFieldPlayerId);
         textFieldPlayerId.setColumns(10);
         
         JLabel lblFindAllPlayers = new JLabel("Find all Players");
         lblFindAllPlayers.setFont(new Font("Tahoma", Font.PLAIN, 12));
-        lblFindAllPlayers.setBounds(10, 80, 108, 14);
+        lblFindAllPlayers.setBounds(10, 75, 108, 14);
         panel.add(lblFindAllPlayers);
         
         JButton btnAllPlayers = new JButton("Go");
@@ -133,13 +141,14 @@ public class CustomTabPanel extends JPanel {
         		}
         	}
         });
-        btnAllPlayers.setBounds(330, 80, 89, 23);
+        btnAllPlayers.setBounds(330, 75, 89, 23);
         panel.add(btnAllPlayers);
         
         JLabel lblFindTournamentBy = new JLabel("Find Tournament by name and year");
         lblFindTournamentBy.setFont(new Font("Tahoma", Font.PLAIN, 12));
-        lblFindTournamentBy.setBounds(10, 110, 239, 14);
+        lblFindTournamentBy.setBounds(10, 105, 239, 14);
         panel.add(lblFindTournamentBy);
+        
         JButton btnPlayerId = new JButton("Go");
         btnPlayerId.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent arg0) {
@@ -155,111 +164,134 @@ public class CustomTabPanel extends JPanel {
         		}
         		else
         			textArea.setText("Some parameters are missing!");
+        		textFieldPlayerId.setText("");
         	}
         });
-        btnPlayerId.setBounds(330, 50, 89, 23);
+        btnPlayerId.setBounds(330, 45, 89, 23);
         panel.add(btnPlayerId);
         
         JLabel lblName = new JLabel("Name:");
         lblName.setFont(new Font("Tahoma", Font.PLAIN, 12));
-        lblName.setBounds(35, 140, 54, 14);
+        lblName.setBounds(35, 135, 54, 14);
         panel.add(lblName);
         
         textFieldTournamentName = new JTextField();
-        textFieldTournamentName.setBounds(221, 140, 86, 20);
+        textFieldTournamentName.setBounds(221, 135, 86, 20);
         panel.add(textFieldTournamentName);
         textFieldTournamentName.setColumns(10);
         
         JLabel lblYear = new JLabel("Year:");
         lblYear.setFont(new Font("Tahoma", Font.PLAIN, 12));
-        lblYear.setBounds(35, 170, 54, 14);
+        lblYear.setBounds(35, 165, 54, 14);
         panel.add(lblYear);
         
         textFieldTournamentYear = new JTextField();
-        textFieldTournamentYear.setBounds(221, 170, 86, 20);
+        textFieldTournamentYear.setBounds(221, 165, 86, 20);
         panel.add(textFieldTournamentYear);
         textFieldTournamentYear.setColumns(10);
         
         JButton btnTournamentByYandN = new JButton("Go");
         btnTournamentByYandN.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent arg0) {
-        		if(textFieldTournamentName.getText().equals("") || textFieldTournamentYear.getText().equals(""))
-        			textArea.setText("Some parameters are missing!");
-        		else{
-        			Tournament tournament;
-        			if((tournament = tennisService.findTournamentByNameAndYear(textFieldTournamentName.getText(), Integer.valueOf(textFieldTournamentYear.getText()))) == null)
-        				textArea.setText("No existing Tournament with this name and year!");
-        			else
-        				textArea.setText(tournament.toString() + "\n");
-        				
-        		}
-        	}
-        });
-        btnTournamentByYandN.setBounds(330, 170, 89, 23);
+			public void actionPerformed(ActionEvent arg0) {
+				try {
+					if (textFieldTournamentName.getText().equals("") || textFieldTournamentYear.getText().equals(""))
+						textArea.setText("Some parameters are missing!");
+					else {
+						Tournament tournament;
+						if ((tournament = tennisService.findTournamentByNameAndYear(textFieldTournamentName.getText(),
+								Integer.valueOf(textFieldTournamentYear.getText()))) == null)
+							textArea.setText("No existing Tournament with this name and year!");
+						else
+							textArea.setText(tournament.toString() + "\n");
+
+					}
+					textFieldTournamentName.setText("");
+					textFieldTournamentYear.setText("");
+				} catch (NumberFormatException e) {
+					textFieldTournamentName.setText("");
+					textFieldTournamentYear.setText("");
+					textArea.setText("Year is number!");
+				}
+			}
+		});
+        btnTournamentByYandN.setBounds(330, 165, 89, 23);
         panel.add(btnTournamentByYandN);
         
         JLabel lblFindAllTournament = new JLabel("Find all Tournaments by year");
         lblFindAllTournament.setFont(new Font("Tahoma", Font.PLAIN, 12));
-        lblFindAllTournament.setBounds(10, 200, 175, 14);
+        lblFindAllTournament.setBounds(10, 195, 175, 14);
         panel.add(lblFindAllTournament);
         
         textFieldTournamentJustbyYear = new JTextField();
-        textFieldTournamentJustbyYear.setBounds(221, 200, 86, 20);
+        textFieldTournamentJustbyYear.setBounds(221, 195, 86, 20);
         panel.add(textFieldTournamentJustbyYear);
         textFieldTournamentJustbyYear.setColumns(10);
         
         JButton btnAllTournaments = new JButton("Go");
         btnAllTournaments.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        		textArea.setText("");
-        		if(textFieldTournamentJustbyYear.getText().equals(""))
-        			textArea.setText("Some parameters are missing!");
-        		else{
-        			List<Tournament> tournamentList = new ArrayList<>();
-            		if((tournamentList = tennisService.findAllTournamentsByYear(Integer.valueOf(textFieldTournamentJustbyYear.getText()))).isEmpty())
-            			textArea.setText("No results for this querry!");
-            		else{
-            			for(Tournament t : tournamentList)
-            				textArea.append(t.toString() + "\n");
-            			textArea.setText(textArea.getText().substring(0,textArea.getText().length()-1));	
-            		}
-        		}
-        		
-        	}
-        });
-        btnAllTournaments.setBounds(330, 200, 89, 23);
+			public void actionPerformed(ActionEvent e) {
+				try {
+					textArea.setText("");
+					if (textFieldTournamentJustbyYear.getText().equals(""))
+						textArea.setText("Some parameters are missing!");
+					else {
+						List<Tournament> tournamentList = new ArrayList<>();
+						if ((tournamentList = tennisService
+								.findAllTournamentsByYear(Integer.valueOf(textFieldTournamentJustbyYear.getText())))
+										.isEmpty())
+							textArea.setText("No results for this querry!");
+						else {
+							for (Tournament t : tournamentList)
+								textArea.append(t.toString() + "\n");
+							textArea.setText(textArea.getText().substring(0, textArea.getText().length() - 1));
+						}
+					}
+					textFieldTournamentJustbyYear.setText("");
+				} catch (NumberFormatException f) {
+					textFieldTournamentJustbyYear.setText("");
+					textArea.setText("Year is number!");
+				}
+			}
+		});
+        btnAllTournaments.setBounds(330, 195, 89, 23);
         panel.add(btnAllTournaments);
         
         JLabel lblNewLabel_1 = new JLabel("Find Season by year");
         lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
-        lblNewLabel_1.setBounds(10, 230, 132, 14);
+        lblNewLabel_1.setBounds(10, 225, 132, 14);
         panel.add(lblNewLabel_1);
         
         textFieldSeasonByYear = new JTextField();
-        textFieldSeasonByYear.setBounds(221, 230, 86, 20);
+        textFieldSeasonByYear.setBounds(221, 225, 86, 20);
         panel.add(textFieldSeasonByYear);
         textFieldSeasonByYear.setColumns(10);
         
         JButton btnSeasonByYear = new JButton("Go");
         btnSeasonByYear.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		if(textFieldSeasonByYear.getText().equals(""))
-        			textArea.setText("Some parameters are missing!");
-        		else{
-        			Season season;
-        			if((season = tennisService.findSeasonByYear(Integer.valueOf(textFieldSeasonByYear.getText()))) == null)
-        				textArea.setText("No existing Season with this year!");
-        			else
-        				textArea.setText(season.toString());
-        		}
+        		try{
+        			if(textFieldSeasonByYear.getText().equals(""))
+            			textArea.setText("Some parameters are missing!");
+            		else{
+            			Season season;
+            			if((season = tennisService.findSeasonByYear(Integer.valueOf(textFieldSeasonByYear.getText()))) == null)
+            				textArea.setText("No existing Season with this year!");
+            			else
+            				textArea.setText(season.toString());
+            			textFieldSeasonByYear.setText("");
+            		}
+        		}catch (NumberFormatException f) {
+        			textFieldSeasonByYear.setText("");
+					textArea.setText("Year is number!");
+				}
         	}
         });
-        btnSeasonByYear.setBounds(330, 230, 89, 23);
+        btnSeasonByYear.setBounds(330, 225, 89, 23);
         panel.add(btnSeasonByYear);
         
         JLabel lblFindAllSeasons = new JLabel("Find all Seasons");
         lblFindAllSeasons.setFont(new Font("Tahoma", Font.PLAIN, 12));
-        lblFindAllSeasons.setBounds(10, 260, 132, 14);
+        lblFindAllSeasons.setBounds(10, 255, 132, 14);
         panel.add(lblFindAllSeasons);
         
         JButton btnAllSeasons = new JButton("Go");
@@ -278,7 +310,7 @@ public class CustomTabPanel extends JPanel {
         		}
         	}
         });
-        btnAllSeasons.setBounds(330, 260, 89, 23);
+        btnAllSeasons.setBounds(330, 255, 89, 23);
         panel.add(btnAllSeasons);
         
         return panel;
@@ -489,11 +521,151 @@ public class CustomTabPanel extends JPanel {
 		});
         btnAddSeason.setBounds(400, 70, 89, 23);
         panel.add(btnAddSeason);
- 
-        
-        
         return panel;
     }
+	
+	public JComponent makeRemovePanel(){
+		JPanel panel = new JPanel(true);
+        panel.setBackground(SystemColor.inactiveCaption);
+        panel.setLayout(null);
+        
+        JLabel lblRemovePlayer = new JLabel("Remove player");
+        lblRemovePlayer.setFont(new Font("Tahoma", Font.BOLD, 15));
+        lblRemovePlayer.setBounds(10, 11, 123, 19);
+        panel.add(lblRemovePlayer);
+        
+        JLabel lblNewLabel_9 = new JLabel("Remove Player");
+        lblNewLabel_9.setFont(new Font("Tahoma", Font.BOLD, 12));
+        lblNewLabel_9.setBounds(10, 45, 155, 14);
+        panel.add(lblNewLabel_9);
+        
+        JLabel lblNewLabel_10 = new JLabel("ID:");
+        lblNewLabel_10.setFont(new Font("Tahoma", Font.PLAIN, 12));
+        lblNewLabel_10.setBounds(10, 75, 50, 14);
+        panel.add(lblNewLabel_10);
+        
+        textFieldRemovePlayerId = new JTextField();
+        textFieldRemovePlayerId.setBounds(150, 75, 86, 20);
+        panel.add(textFieldRemovePlayerId);
+        textFieldRemovePlayerId.setColumns(10);
+        
+        JLabel lblRemoveInfo = new JLabel("");
+        lblRemoveInfo.setFont(new Font("Tahoma", Font.PLAIN, 12));
+        lblRemoveInfo.setBounds(10, 265, 339, 14);
+        panel.add(lblRemoveInfo);
+        
+        JButton btnPlayer = new JButton("Remove");
+        btnPlayer.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent arg0) {
+        		String playerId;
+        		if((playerId = textFieldRemovePlayerId.getText()).equals("")){
+        			lblRemoveInfo.setText("Some parameters are missing!");
+        		}
+        			
+        		else{
+        			if(tennisService.removePlayer(playerId))
+        				lblRemoveInfo.setText("Player removed!");
+        			else{
+        				lblRemoveInfo.setText("Player can't be removed!");
+        			}
+        		}
+        		textFieldRemovePlayerId.setText("");	
+        	}
+        });
+        btnPlayer.setBounds(260, 75, 89, 23);
+        panel.add(btnPlayer);
+        
+        JLabel lblNewLabel_11 = new JLabel("Remove Tournament");
+        lblNewLabel_11.setFont(new Font("Tahoma", Font.BOLD, 12));
+        lblNewLabel_11.setBounds(10, 105, 131, 14);
+        panel.add(lblNewLabel_11);
+        
+        JLabel lblNewLabel_12 = new JLabel("Year:");
+        lblNewLabel_12.setFont(new Font("Tahoma", Font.PLAIN, 12));
+        lblNewLabel_12.setBounds(10, 135, 46, 14);
+        panel.add(lblNewLabel_12);
+        
+        JLabel lblNewLabel_13 = new JLabel("Name:");
+        lblNewLabel_13.setFont(new Font("Tahoma", Font.PLAIN, 12));
+        lblNewLabel_13.setBounds(10, 165, 46, 14);
+        panel.add(lblNewLabel_13);
+        
+        textFieldTourRemoveYear = new JTextField();
+        textFieldTourRemoveYear.setBounds(150, 135, 86, 20);
+        panel.add(textFieldTourRemoveYear);
+        textFieldTourRemoveYear.setColumns(10);
+        
+        textFieldTourRemoveName = new JTextField();
+        textFieldTourRemoveName.setBounds(150, 165, 86, 20);
+        panel.add(textFieldTourRemoveName);
+        textFieldTourRemoveName.setColumns(10);
+        
+        JButton btnRemoveTournament = new JButton("Remove");
+        btnRemoveTournament.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		try{
+        			String tYear = textFieldTourRemoveYear.getText();
+            		String tName = textFieldTourRemoveName.getText();
+            		if(tYear.equals("") || tName.equals(""))
+            			lblRemoveInfo.setText("Some parameters are missing!");
+            		else{
+            			if(tennisService.removeTournament(tName, Integer.parseInt(tYear)))
+            				lblRemoveInfo.setText("Tournament removed successfully!");
+            			else
+            				lblRemoveInfo.setText("Tournament can't be removed!");
+            		}	
+            		textFieldTourRemoveYear.setText("");
+            		textFieldTourRemoveName.setText("");
+        		}catch (NumberFormatException f) {
+        			textFieldTourRemoveYear.setText("");
+        			textFieldTourRemoveName.setText("");
+        			lblRemoveInfo.setText("Year is number!");
+				}
+        	}
+        });
+        btnRemoveTournament.setBounds(260, 165, 89, 23);
+        panel.add(btnRemoveTournament);
+        
+        JLabel lblNewLabel_14 = new JLabel("Remove Season");
+        lblNewLabel_14.setFont(new Font("Tahoma", Font.BOLD, 12));
+        lblNewLabel_14.setBounds(10, 195, 110, 14);
+        panel.add(lblNewLabel_14);
+        
+        JLabel lblNewLabel_15 = new JLabel("Year:");
+        lblNewLabel_15.setFont(new Font("Tahoma", Font.PLAIN, 12));
+        lblNewLabel_15.setBounds(10, 225, 68, 14);
+        panel.add(lblNewLabel_15);
+        
+        textFieldSeasonRemoveYear = new JTextField();
+        textFieldSeasonRemoveYear.setBounds(150, 225, 86, 20);
+        panel.add(textFieldSeasonRemoveYear);
+        textFieldSeasonRemoveYear.setColumns(10);
+        
+        JButton btnRemoveSeason = new JButton("Remove");
+        btnRemoveSeason.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent arg0) {
+				try {
+					String year;
+					if ((year = textFieldSeasonRemoveYear.getText()).equals(""))
+						lblRemoveInfo.setText("Some parameters are missing!");
+					else {
+						if (tennisService.removeSeason(Integer.parseInt(year)))
+							lblRemoveInfo.setText("Season removed successfully!");
+						else
+							lblRemoveInfo.setText("Season can't be removed!");
+					}
+					textFieldSeasonRemoveYear.setText("");
+				} catch (NumberFormatException f) {
+					textFieldSeasonRemoveYear.setText("");
+					lblRemoveInfo.setText("Year is number!");
+				}
+			}
+		});
+        btnRemoveSeason.setBounds(260, 225, 89, 23);
+        panel.add(btnRemoveSeason);
+        
+        return panel;
+	}
 	
 	public static void initView(TennisServiceImpl service) throws IOException {
 	

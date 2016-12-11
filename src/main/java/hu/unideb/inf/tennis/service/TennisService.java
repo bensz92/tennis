@@ -1,6 +1,8 @@
 package hu.unideb.inf.tennis.service;
 
 import java.util.List;
+import java.util.Set;
+
 import hu.unideb.inf.tennis.model.Match;
 import hu.unideb.inf.tennis.model.Player;
 import hu.unideb.inf.tennis.model.Season;
@@ -15,7 +17,7 @@ public interface TennisService {
 
 	public boolean addPlayer(Player player);
 
-	public boolean removePlayer(Player player);
+	public boolean removePlayer(String id);
 
 	public boolean updatePlayerWeight(String id, int weight);
 
@@ -52,4 +54,10 @@ public interface TennisService {
 	public boolean addSeason(int year);
 
 	public boolean removeSeason(int year);
+	
+	//Other
+	
+	//public Set<Player> getPlayersParticipatedTournament(int year, String name);
+	
+	//public Player getTournamentWinner(int year, String name);
 }
