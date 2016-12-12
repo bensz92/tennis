@@ -55,17 +55,12 @@ public class CustomTabPanel extends JPanel {
 	private JTextField textFieldAPheight;
 	private JTextField textFieldAPturnedpro;
 	private JTextField textFieldAPplays;
-	private JTextField textFieldATyear;
 	private JTextField textFieldATname;
-	private JTextField textFieldATtype;
-	private JTextField textFieldATsurface;
 	private JTextField textFieldASyear;
 	private JTextField textFieldRemovePlayerId;
 	private JTextField textFieldTourRemoveYear;
 	private JTextField textFieldTourRemoveName;
 	private JTextField textFieldSeasonRemoveYear;
-	private JTextField textFieldAMp1;
-	private JTextField textFieldAMp2;
 	private JTextField textFieldAMset1;
 	private JTextField textFieldAMset2;
 	private JTextField textFieldAMset3;
@@ -83,18 +78,23 @@ public class CustomTabPanel extends JPanel {
         
         JComponent panel1 = makeQueryPanel();
         tabbedPane.addTab("Query", null, panel1,
-                "Quety Tab");
+                "Query Tab");
         tabbedPane.setMnemonicAt(0, KeyEvent.VK_1);
         
-        JComponent panel2 = makeCRUDPanel();
-        tabbedPane.addTab("CRUD", null, panel2,
-        		"CRUD Tab");
+        JComponent panel2 = makeAddPanel();
+        tabbedPane.addTab("Add", null, panel2,
+        		"Add Tab");
         tabbedPane.setMnemonicAt(1, KeyEvent.VK_2);
         
-        JComponent panel3 = makeRemovePanel();
-        tabbedPane.addTab("Remove", null, panel3,
-        		"Remove Tab");
+        JComponent panel3 = makeUpdatePanel();
+        tabbedPane.addTab("Update", null, panel3,
+        		"Update Tab");
         tabbedPane.setMnemonicAt(2, KeyEvent.VK_3);
+        
+        JComponent panel4 = makeRemovePanel();
+        tabbedPane.addTab("Remove", null, panel4,
+        		"Remove Tab");
+        tabbedPane.setMnemonicAt(3, KeyEvent.VK_4);
            
         add(tabbedPane);
         
@@ -332,13 +332,16 @@ public class CustomTabPanel extends JPanel {
         return panel;
     }
     
-	public JComponent makeCRUDPanel() {
+	public JComponent makeAddPanel() {
         JPanel panel = new JPanel(true);
         panel.setBackground(SystemColor.inactiveCaption);
         panel.setLayout(null);
                 
+        JComboBox<String> comboAddMatchPlayer1 = new JComboBox<>();
+        JComboBox<String> comboAddMatchPlayer2 = new JComboBox<>();
+        
         JLabel addResultLbl = new JLabel("");
-        addResultLbl.setBounds(10, 275, 180, 14);
+        addResultLbl.setBounds(10, 275, 413, 14);
         panel.add(addResultLbl);
         
         JLabel lblAddPlayer = new JLabel("Add player");
@@ -423,14 +426,37 @@ public class CustomTabPanel extends JPanel {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(!textFieldAPid.getText().equals("") && !textFieldAPname.getText().equals("") && !textFieldAPyearofbirth.getText().equals("") 
-						&& !textFieldAPbirthplace.getText().equals("") && !textFieldAPweight.getText().equals("") && !textFieldAPheight.getText().equals("")
-						&& !textFieldAPturnedpro.getText().equals("") && !textFieldAPplays.getText().equals("")){
-					Player newPlayer = new Player(textFieldAPid.getText(), textFieldAPname.getText(),
-							Integer.parseInt(textFieldAPyearofbirth.getText()), textFieldAPbirthplace.getText(), 
-							Integer.parseInt(textFieldAPweight.getText()), Integer.parseInt(textFieldAPheight.getText()), 
-							Integer.parseInt(textFieldAPturnedpro.getText()), textFieldAPplays.getText());
-					tennisService.addPlayer(newPlayer);
+				try {
+					if (!textFieldAPid.getText().equals("") && !textFieldAPname.getText().equals("")
+							&& !textFieldAPyearofbirth.getText().equals("")
+							&& !textFieldAPbirthplace.getText().equals("") && !textFieldAPweight.getText().equals("")
+							&& !textFieldAPheight.getText().equals("") && !textFieldAPturnedpro.getText().equals("")
+							&& !textFieldAPplays.getText().equals("")) {
+						Player newPlayer = new Player(textFieldAPid.getText(), textFieldAPname.getText(),
+								Integer.parseInt(textFieldAPyearofbirth.getText()), textFieldAPbirthplace.getText(),
+								Integer.parseInt(textFieldAPweight.getText()),
+								Integer.parseInt(textFieldAPheight.getText()),
+								Integer.parseInt(textFieldAPturnedpro.getText()), textFieldAPplays.getText());
+						if (tennisService.addPlayer(newPlayer)) {
+							textFieldAPid.setText("");
+							textFieldAPname.setText("");
+							textFieldAPyearofbirth.setText("");
+							textFieldAPbirthplace.setText("");
+							textFieldAPweight.setText("");
+							textFieldAPheight.setText("");
+							textFieldAPturnedpro.setText("");
+							textFieldAPplays.setText("");
+							addResultLbl.setText("Player successfully added!");
+							comboAddMatchPlayer1.addItem(newPlayer.getId());
+							comboAddMatchPlayer2.addItem(newPlayer.getId());
+						} else {
+							addResultLbl.setText("Add Player failed!");
+						}
+
+					} else {
+						addResultLbl.setText("Please fill player details!");
+					}
+				} catch (NumberFormatException f) {
 					textFieldAPid.setText("");
 					textFieldAPname.setText("");
 					textFieldAPyearofbirth.setText("");
@@ -439,9 +465,7 @@ public class CustomTabPanel extends JPanel {
 					textFieldAPheight.setText("");
 					textFieldAPturnedpro.setText("");
 					textFieldAPplays.setText("");
-					addResultLbl.setText("Player successfully added!");
-				} else {
-					addResultLbl.setText("Please fill player details!");
+					addResultLbl.setText("Year, weight, height and turnedpro should be numbers!");
 				}
 			}
 		});
@@ -457,10 +481,11 @@ public class CustomTabPanel extends JPanel {
         lblNewLabel_5.setBounds(220, 40, 69, 14);
         panel.add(lblNewLabel_5);
         
-        textFieldATyear = new JTextField();
-        textFieldATyear.setBounds(282, 40, 86, 20);
-        panel.add(textFieldATyear);
-        textFieldATyear.setColumns(10);
+        JComboBox<String> comboAddTourYear = new JComboBox<>();
+        for(String s : tennisService.findAllYears())
+        	comboAddTourYear.addItem(s);
+        comboAddTourYear.setBounds(282, 40, 86, 20);      
+        panel.add(comboAddTourYear);
         
         JLabel lblNewLabel_6 = new JLabel("Name:");
         lblNewLabel_6.setBounds(220, 65, 46, 14);
@@ -479,30 +504,36 @@ public class CustomTabPanel extends JPanel {
         lblNewLabel_8.setBounds(220, 115, 46, 14);
         panel.add(lblNewLabel_8);
         
-        textFieldATtype = new JTextField();
-        textFieldATtype.setBounds(282, 90, 86, 20);
-        panel.add(textFieldATtype);
-        textFieldATtype.setColumns(10);
+        JComboBox<String> comboAddTourType = new JComboBox<>();
+        comboAddTourType.addItem("Grand Slam");
+        comboAddTourType.addItem("Masters 1000");
+        comboAddTourType.setBounds(282, 90, 86, 20);       
+        panel.add(comboAddTourType);
         
-        textFieldATsurface = new JTextField();
-        textFieldATsurface.setBounds(282, 115, 86, 20);
-        panel.add(textFieldATsurface);
-        textFieldATsurface.setColumns(10);
+        JComboBox<String> comboAddTourSurface = new JComboBox<>();
+        comboAddTourSurface.addItem("Hard");
+        comboAddTourSurface.addItem("Clay");
+        comboAddTourSurface.addItem("Grass");
+        comboAddTourSurface.setBounds(282, 115, 86, 20);      
+        panel.add(comboAddTourSurface);
         
         JButton btnAddTournament = new JButton("Add");
         btnAddTournament.addActionListener(new ActionListener() {
 			
 			@Override
-			public void actionPerformed(ActionEvent e) {
-				if(!textFieldATyear.getText().equals("") && !textFieldATname.getText().equals("") 
-						&& !textFieldATtype.getText().equals("") && !textFieldATsurface.getText().equals("")){
-					tennisService.addTournament(Integer.parseInt(textFieldATyear.getText()), textFieldATname.getText(), 
-							textFieldATtype.getText(), textFieldATsurface.getText());
-					addResultLbl.setText("Tournament successfully added!");
-					comboBoxTours.addItem(textFieldATname.getText());
-				} else {
-					addResultLbl.setText("Please fill tournament details!");
-				}
+			public void actionPerformed(ActionEvent e) {	
+					if(!textFieldATname.getText().equals("")){	
+						if(tennisService.addTournament(Integer.parseInt((String)comboAddTourYear.getSelectedItem()), textFieldATname.getText(), 
+								(String) comboAddTourType.getSelectedItem(), (String) comboAddTourSurface.getSelectedItem())){
+							addResultLbl.setText("Tournament successfully added!");
+							comboBoxTours.addItem(textFieldATname.getText());
+						}else{
+							addResultLbl.setText("Add Tournament failed!");
+						}
+						textFieldATname.setText("");
+					} else {
+						addResultLbl.setText("Please fill tournament details!");
+					}
 			}
 		});
         btnAddTournament.setBounds(220, 140, 89, 23);
@@ -526,47 +557,42 @@ public class CustomTabPanel extends JPanel {
         btnAddSeason.addActionListener(new ActionListener() {
 			
 			@Override
-			public void actionPerformed(ActionEvent e) {
-				if(!textFieldASyear.getText().equals("")){
-					tennisService.addSeason(Integer.valueOf(textFieldASyear.getText()));
-					comboBoxYears.addItem(textFieldASyear.getText());
-					addResultLbl.setText("Season successfully added!");
-				} else {
-					addResultLbl.setText("Please fill season details!");
+			public void actionPerformed(ActionEvent e) {	
+				try{
+					if(!textFieldASyear.getText().equals("")){
+						if(tennisService.addSeason(Integer.valueOf(textFieldASyear.getText()))){
+							comboBoxYears.addItem(textFieldASyear.getText());
+							comboAddTourYear.addItem(textFieldASyear.getText());
+							addResultLbl.setText("Season successfully added!");
+						}else{
+							addResultLbl.setText("Add season failed!");
+						}
+						textFieldASyear.setText("");		
+					} else {
+						addResultLbl.setText("Please fill season details!");
+					}
+				}catch (NumberFormatException f) {
+					textFieldASyear.setText("");
+					addResultLbl.setText("Year should be number!");
 				}
-				
 			}
 		});
         btnAddSeason.setBounds(400, 70, 89, 23);
         panel.add(btnAddSeason);
-        return panel;
-    }
-	
-	public JComponent makeRemovePanel(){
-		JPanel panel = new JPanel(true);
-        panel.setBackground(SystemColor.inactiveCaption);
-        panel.setLayout(null);
         
         JLabel lblAddMatch = new JLabel("Add match");
         lblAddMatch.setFont(new Font("Tahoma", Font.BOLD, 15));
         lblAddMatch.setBounds(570, 11, 157, 14);
         panel.add(lblAddMatch);
-        //-----------------------------------------------------------------------------------------
+
         JLabel lblSelectYear = new JLabel("Select year:");
         lblSelectYear.setBounds(570, 40, 200, 14);
         panel.add(lblSelectYear);
-        JLabel lblRemovePlayer = new JLabel("Remove player");
-        lblRemovePlayer.setFont(new Font("Tahoma", Font.BOLD, 15));
-        lblRemovePlayer.setBounds(10, 11, 123, 19);
-        panel.add(lblRemovePlayer);
         
         JLabel lblSelectTourName = new JLabel("Select tournament:");
         lblSelectTourName.setBounds(570, 65, 200, 14);
         panel.add(lblSelectTourName);
-        
-//        JComboBox<String> comboBoxYears = new JComboBox<>();
-//        JComboBox<String> comboBoxTours = new JComboBox<>();
-        
+
         for(String s : tennisService.findAllYears())
         	comboBoxYears.addItem(s);
         comboBoxYears.setBounds(700, 40, 100, 20);
@@ -591,19 +617,19 @@ public class CustomTabPanel extends JPanel {
         lblPlayer1.setBounds(570, 90, 200, 14);
         panel.add(lblPlayer1);
         
-        textFieldAMp1 = new JTextField();
-        textFieldAMp1.setBounds(700, 90, 86, 20);
-        panel.add(textFieldAMp1);
-        textFieldAMp1.setColumns(10);
-        
         JLabel lblPlayer2 = new JLabel("Player 2 id:");
         lblPlayer2.setBounds(570, 115, 200, 14);
         panel.add(lblPlayer2);
         
-        textFieldAMp2 = new JTextField();
-        textFieldAMp2.setBounds(700, 115, 86, 20);
-        panel.add(textFieldAMp2);
-        textFieldAMp2.setColumns(10);
+        for(Player p : tennisService.findAllPlayers())
+        	comboAddMatchPlayer1.addItem(p.getId());
+        comboAddMatchPlayer1.setBounds(700, 90, 86, 20);     
+        panel.add(comboAddMatchPlayer1);
+        
+        for(Player p : tennisService.findAllPlayers())
+        	comboAddMatchPlayer2.addItem(p.getId());
+        comboAddMatchPlayer2.setBounds(700, 115, 86, 20);    
+        panel.add(comboAddMatchPlayer2);
         
         JLabel lblSet1 = new JLabel("Set 1:");
         lblSet1.setBounds(570, 165, 200, 14);
@@ -700,12 +726,12 @@ public class CustomTabPanel extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(comboTourType.getSelectedItem().equals("Grand Slam")){
-					if( !textFieldAMp1.getText().equals("") && !textFieldAMp2.getText().equals("") && !textFieldAMset1.getText().equals("") 
+					if( !textFieldAMset1.getText().equals("") 
 							&& !textFieldAMset2.getText().equals("") && !textFieldAMset3.getText().equals("")){
 						Match newMatch = new Match();
 						List<PlayerRef> refs = new ArrayList<>();
-						refs.add(new PlayerRef(textFieldAMp1.getText()));
-						refs.add(new PlayerRef(textFieldAMp2.getText()));
+						refs.add(new PlayerRef((String)comboAddMatchPlayer1.getSelectedItem()));
+						refs.add(new PlayerRef((String)comboAddMatchPlayer2.getSelectedItem()));
 						newMatch.setPlayerRefs(refs);
 						List<Set> sets = new ArrayList<>();
 						if(!textFieldAMset1.getText().equals(""))sets.add(new Set(textFieldAMset1.getText()));
@@ -726,8 +752,6 @@ public class CustomTabPanel extends JPanel {
 									(String)comboBoxTours.getSelectedItem(),newMatch);
 						}
 						addResultLbl.setText("Match successfully added!");
-						textFieldAMp1.setText("");
-						textFieldAMp2.setText("");
 						textFieldAMset1.setText("");
 						textFieldAMset2.setText("");
 						textFieldAMset3.setText("");
@@ -738,12 +762,12 @@ public class CustomTabPanel extends JPanel {
 					}
 					 
 				} else if(comboTourType.getSelectedItem().equals("Masters 1000")){
-					if( !textFieldAMp1.getText().equals("") && !textFieldAMp2.getText().equals("") && !textFieldAMset1.getText().equals("") 
+					if(!textFieldAMset1.getText().equals("") 
 							&& !textFieldAMset2.getText().equals("")){
 						Match newMatch = new Match();
 						List<PlayerRef> refs = new ArrayList<>();
-						refs.add(new PlayerRef(textFieldAMp1.getText()));
-						refs.add(new PlayerRef(textFieldAMp2.getText()));
+						refs.add(new PlayerRef((String)comboAddMatchPlayer1.getSelectedItem()));
+						refs.add(new PlayerRef((String)comboAddMatchPlayer2.getSelectedItem()));
 						newMatch.setPlayerRefs(refs);
 						List<Set> sets = new ArrayList<>();
 						if(!textFieldAMset1.getText().equals(""))sets.add(new Set(textFieldAMset1.getText()));
@@ -762,8 +786,6 @@ public class CustomTabPanel extends JPanel {
 									(String)comboBoxTours.getSelectedItem(),newMatch);
 						}
 						addResultLbl.setText("Match successfully added!");
-						textFieldAMp1.setText("");
-						textFieldAMp2.setText("");
 						textFieldAMset1.setText("");
 						textFieldAMset2.setText("");
 						textFieldAMset3.setText("");
@@ -777,9 +799,22 @@ public class CustomTabPanel extends JPanel {
         btnAddMatch.setBounds(570, 290, 89, 23);
         panel.add(btnAddMatch);
         
-
-        
-        
+        return panel;
+    }
+	
+	public JComponent makeUpdatePanel(){
+		JPanel panel = new JPanel(true);
+        panel.setBackground(SystemColor.inactiveCaption);
+        panel.setLayout(null);
+    
+        return panel;
+	}
+	
+	public JComponent makeRemovePanel(){
+		JPanel panel = new JPanel(true);
+        panel.setBackground(SystemColor.inactiveCaption);
+        panel.setLayout(null);
+            
         JLabel lblNewLabel_9 = new JLabel("Remove Player");
         lblNewLabel_9.setFont(new Font("Tahoma", Font.BOLD, 12));
         lblNewLabel_9.setBounds(10, 45, 155, 14);
@@ -789,6 +824,11 @@ public class CustomTabPanel extends JPanel {
         lblNewLabel_10.setFont(new Font("Tahoma", Font.PLAIN, 12));
         lblNewLabel_10.setBounds(10, 75, 50, 14);
         panel.add(lblNewLabel_10);
+        
+        JLabel lblRemovePlayer = new JLabel("Remove player");
+        lblRemovePlayer.setFont(new Font("Tahoma", Font.BOLD, 15));
+        lblRemovePlayer.setBounds(10, 11, 123, 19);
+        panel.add(lblRemovePlayer);
         
         textFieldRemovePlayerId = new JTextField();
         textFieldRemovePlayerId.setBounds(150, 75, 86, 20);
