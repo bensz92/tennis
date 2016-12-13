@@ -18,6 +18,7 @@ import hu.unideb.inf.tennis.model.Match;
 import hu.unideb.inf.tennis.model.Player;
 import hu.unideb.inf.tennis.model.Season;
 import hu.unideb.inf.tennis.model.Tournament;
+import hu.unideb.inf.tennis.view.CustomTabPanel;
 
 public class TennisServiceImpl implements TennisService{
 	
@@ -597,6 +598,80 @@ public class TennisServiceImpl implements TennisService{
 		}
 	}
 
+	@Override
+	public Match findMatchForUpdate(int year, String tournamentName, String matchType, String p1,
+			String p2) {
+		List<Match> matches = new ArrayList<>();
+		Tournament t = findTournamentByNameAndYear(tournamentName, year);
+		switch (matchType) {
+		case CustomTabPanel.FINAL:
+			matches = t.getFinals();
+			break;
+		case CustomTabPanel.SEMIFINAL:
+			matches = t.getSemiFinals();
+			break;
+		case CustomTabPanel.QUARTERFINAL:
+			matches = t.getQuarterFinals();
+			break;
 
+		default:
+			break;
+		}
+		
+		for(Match m : matches){
+			if(m.getPlayerRefs().get(0).getPlayerId().equals(p1) && m.getPlayerRefs().get(1).getPlayerId().equals(p2))
+				return m;
+		}
+		return null;
+	}
 
+	@Override
+	public boolean updateMatch(int year, String tournamentName, String matchType, String p1, String p2, Match updatedMatch) {
+		Match match = findMatchForUpdate(year, tournamentName, matchType, p1, p2);
+		
+		List<Match> matches = new ArrayList<>();
+		Tournament t = findTournamentByNameAndYear(tournamentName, year);
+		switch (matchType) {
+		case CustomTabPanel.FINAL:
+			matches = t.getFinals();
+			break;
+		case CustomTabPanel.SEMIFINAL:
+			matches = t.getSemiFinals();
+			break;
+		case CustomTabPanel.QUARTERFINAL:
+			matches = t.getQuarterFinals();
+			break;
+		default:
+			break;
+		}
+		
+		Match mToUpdate = new Match();
+		
+		for(Match m : matches){
+			if(m.getPlayerRefs().get(0).getPlayerId().equals(p1) && m.getPlayerRefs().get(1).getPlayerId().equals(p2)){
+				m = updatedMatch;
+				mToUpdate = m;
+			}
+		}
+	
+		if(mToUpdate == null){
+			return false;
+		} else {
+			switch (matchType) {
+			case CustomTabPanel.FINAL:
+				updateFinalsMatch(year, tournamentName, mToUpdate);
+				break;
+			case CustomTabPanel.SEMIFINAL:
+				updateSemiFinals(year, tournamentName, matches);
+				break;
+			case CustomTabPanel.QUARTERFINAL:
+				updateQuarterFinals(year, tournamentName, matches);
+				break;
+			default:
+				break;
+			}
+			
+			return true;
+		} 
+	}
 }

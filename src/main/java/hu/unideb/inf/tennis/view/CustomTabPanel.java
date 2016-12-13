@@ -65,6 +65,11 @@ public class CustomTabPanel extends JPanel {
 	private JTextField textFieldAMset3;
 	private JTextField textFieldAMset4;
 	private JTextField textFieldAMset5;
+	private JTextField textFieldUMset1;
+	private JTextField textFieldUMset2;
+	private JTextField textFieldUMset3;
+	private JTextField textFieldUMset4;
+	private JTextField textFieldUMset5;
 	
     private JComboBox<String> comboAddMatchYears = new JComboBox<>();
     private JComboBox<String> comboAddMatchTours = new JComboBox<>();
@@ -82,10 +87,6 @@ public class CustomTabPanel extends JPanel {
     private JComboBox<String> comboUpdateMatchPlayer2 = new JComboBox<>();
     private JComboBox<String> comboUpdateMatchTournamentType = new JComboBox<>();
     private JComboBox<String> comboUpdateMatchType = new JComboBox<>();
-    private JComboBox<String> comboUpdateTournamentYear = new JComboBox<>();
-    private JComboBox<String> comboUpdateTournamentType = new JComboBox<>();
-    private JComboBox<String> comboUpdateTournamentSurface = new JComboBox<>();
-    
     
     private JComboBox<String> comboRemoveSeasonYear = new JComboBox<>();
     private JComboBox<String> comboRemoveTournamentYear = new JComboBox<>();
@@ -95,9 +96,9 @@ public class CustomTabPanel extends JPanel {
     
     private static final String GRAND_SLAM = "Grand_Slam";
     private static final String MASTERS_1000 = "Masters_1000";
-    private static final String FINAL = "Final";
-    private static final String SEMIFINAL = "Semifinal";
-    private static final String QUARTERFINAL = "Quarterfinal";
+    public static final String FINAL = "Final";
+    public static final String SEMIFINAL = "Semifinal";
+    public static final String QUARTERFINAL = "Quarterfinal";
    
 	
 	public CustomTabPanel() {
@@ -476,6 +477,8 @@ public class CustomTabPanel extends JPanel {
 							addResultLbl.setText("Player successfully added!");
 							comboAddMatchPlayer1.addItem(newPlayer.getId());
 							comboAddMatchPlayer2.addItem(newPlayer.getId());
+							comboUpdateMatchPlayer1.addItem(newPlayer.getId());
+							comboUpdateMatchPlayer2.addItem(newPlayer.getId());
 							comboUpdatePlayerID.addItem(newPlayer.getId());
 							comboRemovePlayerID.addItem(newPlayer.getId());
 						} else {
@@ -553,6 +556,7 @@ public class CustomTabPanel extends JPanel {
 								(String) comboAddTournamentType.getSelectedItem(), (String) comboAddTournamentSurface.getSelectedItem())){
 							addResultLbl.setText("Tournament successfully added!");
 							comboAddMatchTours.addItem(textFieldATname.getText());
+							comboUpdateMatchTours.addItem(textFieldATname.getText());
 						}else{
 							addResultLbl.setText("Add Tournament failed!");
 						}
@@ -588,6 +592,7 @@ public class CustomTabPanel extends JPanel {
 					if(!textFieldASyear.getText().equals("")){
 						if(tennisService.addSeason(Integer.valueOf(textFieldASyear.getText()))){
 							comboAddMatchYears.addItem(textFieldASyear.getText());
+							comboUpdateMatchYears.addItem(textFieldASyear.getText());
 							comboAddTournamentYear.addItem(textFieldASyear.getText());
 							comboRemoveSeasonYear.addItem(textFieldASyear.getText());
 							comboRemoveTournamentYear.addItem(textFieldASyear.getText());
@@ -625,7 +630,7 @@ public class CustomTabPanel extends JPanel {
         
         for(String s : tennisService.findAllYears())
         	comboAddMatchYears.addItem(s);
-        comboAddMatchYears.setBounds(700, 40, 100, 20);
+        comboAddMatchYears.setBounds(700, 40, 120, 20);
         comboAddMatchYears.addActionListener(new ActionListener() {
 			
 			@Override
@@ -661,7 +666,7 @@ public class CustomTabPanel extends JPanel {
         
         comboAddMatchTournamentType.addItem(GRAND_SLAM);
         comboAddMatchTournamentType.addItem(MASTERS_1000);
-        comboAddMatchTournamentType.setBounds(700, 65, 100, 20);        
+        comboAddMatchTournamentType.setBounds(700, 65, 120, 20);        
         comboAddMatchTournamentType.addActionListener(new ActionListener() {
 			
 			@Override
@@ -697,7 +702,7 @@ public class CustomTabPanel extends JPanel {
  
         for(Tournament t : tennisService.findAllTournamentsByYear(Integer.parseInt((String)comboAddMatchYears.getSelectedItem())))
         	comboAddMatchTours.addItem(t.getName());
-        comboAddMatchTours.setBounds(700, 90, 86, 20);
+        comboAddMatchTours.setBounds(700, 90, 120, 20);
         panel.add(comboAddMatchTours);
         
         JLabel lblComboMType = new JLabel("Match type:");
@@ -1016,6 +1021,307 @@ public class CustomTabPanel extends JPanel {
         btnUpdatePlayer.setBounds(10, 238, 89, 23);
         panel.add(btnUpdatePlayer);
     
+        JLabel lblAddMatch = new JLabel("Update match");
+        lblAddMatch.setFont(new Font("Tahoma", Font.BOLD, 15));
+        lblAddMatch.setBounds(570, 11, 157, 14);
+        panel.add(lblAddMatch);
+        
+        JLabel lblSet1 = new JLabel("Set 1:");
+        JLabel lblSet2 = new JLabel("Set 2:");
+        JLabel lblSet3 = new JLabel("Set 3:");
+        JLabel lblSet4 = new JLabel("Set 4:");
+        JLabel lblSet5 = new JLabel("Set 5:");
+
+        JLabel lblSelectYear = new JLabel("Select year:");
+        lblSelectYear.setBounds(570, 40, 200, 14);
+        panel.add(lblSelectYear);
+        
+        for(String s : tennisService.findAllYears())
+        comboUpdateMatchYears.addItem(s);
+        comboUpdateMatchYears.setBounds(700, 40, 120, 20);
+        comboUpdateMatchYears.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(comboUpdateMatchTournamentType.getSelectedItem().equals(GRAND_SLAM)){
+					comboUpdateMatchTours.removeAllItems();
+					for(Tournament t : tennisService.findAllTournamentsByYear(Integer.parseInt((String)comboUpdateMatchYears.getSelectedItem()))){
+						if(t.getType().equals(GRAND_SLAM))
+							comboUpdateMatchTours.addItem(t.getName());
+					}
+					lblSet4.setVisible(true);
+					lblSet5.setVisible(true);
+					textFieldUMset4.setVisible(true);
+					textFieldUMset5.setVisible(true);
+				} else {
+					comboUpdateMatchTours.removeAllItems();
+					for(Tournament t : tennisService.findAllTournamentsByYear(Integer.parseInt((String)comboUpdateMatchYears.getSelectedItem()))){
+						if(t.getType().equals(MASTERS_1000))
+							comboUpdateMatchTours.addItem(t.getName());			
+					}
+					lblSet4.setVisible(false);
+					lblSet5.setVisible(false);
+					textFieldUMset4.setVisible(false);
+					textFieldUMset5.setVisible(false);
+				}	
+			}
+		});
+        panel.add(comboUpdateMatchYears);
+        
+        JLabel lblCombo = new JLabel("Tournament type:");
+        lblCombo.setBounds(570, 65, 200, 14);
+        panel.add(lblCombo);
+        
+        comboUpdateMatchTournamentType.addItem(GRAND_SLAM);
+        comboUpdateMatchTournamentType.addItem(MASTERS_1000);
+        comboUpdateMatchTournamentType.setBounds(700, 65, 120, 20);        
+        comboUpdateMatchTournamentType.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(comboUpdateMatchTournamentType.getSelectedItem().equals(GRAND_SLAM)){
+					comboUpdateMatchTours.removeAllItems();
+					for(Tournament t : tennisService.findAllTournamentsByYear(Integer.parseInt((String)comboUpdateMatchYears.getSelectedItem()))){
+						if(t.getType().equals(GRAND_SLAM))
+							comboUpdateMatchTours.addItem(t.getName());
+					}
+					lblSet4.setVisible(true);
+					lblSet5.setVisible(true);
+					textFieldUMset4.setVisible(true);
+					textFieldUMset5.setVisible(true);
+				} else {
+					comboUpdateMatchTours.removeAllItems();
+					for(Tournament t : tennisService.findAllTournamentsByYear(Integer.parseInt((String)comboUpdateMatchYears.getSelectedItem()))){
+						if(t.getType().equals(MASTERS_1000))
+							comboUpdateMatchTours.addItem(t.getName());			
+					}
+					lblSet4.setVisible(false);
+					lblSet5.setVisible(false);
+					textFieldUMset4.setVisible(false);
+					textFieldUMset5.setVisible(false);
+				}				
+			}
+		});
+        panel.add(comboUpdateMatchTournamentType);
+        
+        JLabel lblSelectTourName = new JLabel("Select tournament:");
+        lblSelectTourName.setBounds(570, 90, 200, 14);
+        panel.add(lblSelectTourName);
+ 
+        for(Tournament t : tennisService.findAllTournamentsByYear(Integer.parseInt((String)comboUpdateMatchYears.getSelectedItem())))
+        	comboUpdateMatchTours.addItem(t.getName());
+        comboUpdateMatchTours.setBounds(700, 90, 120, 20);
+        panel.add(comboUpdateMatchTours);
+        
+        JLabel lblComboMType = new JLabel("Match type:");
+        lblComboMType.setBounds(570, 115, 100, 14);
+        panel.add(lblComboMType);
+        
+        comboUpdateMatchType.addItem(FINAL);
+        comboUpdateMatchType.addItem(SEMIFINAL);
+        comboUpdateMatchType.addItem(QUARTERFINAL);
+        comboUpdateMatchType.setBounds(700, 115, 86, 20);        
+        panel.add(comboUpdateMatchType);
+ 
+        JLabel lblPlayer1 = new JLabel("Player 1 id:");
+        lblPlayer1.setBounds(570, 140, 200, 14);
+        panel.add(lblPlayer1);
+        
+        for(Player p : tennisService.findAllPlayers())
+        	comboUpdateMatchPlayer1.addItem(p.getId());
+        comboUpdateMatchPlayer1.setBounds(700, 140, 86, 20);     
+        panel.add(comboUpdateMatchPlayer1);
+        
+        JLabel lblPlayer2 = new JLabel("Player 2 id:");
+        lblPlayer2.setBounds(570, 165, 200, 14);
+        panel.add(lblPlayer2);
+        
+        for(Player p : tennisService.findAllPlayers())
+        	comboUpdateMatchPlayer2.addItem(p.getId());
+        comboUpdateMatchPlayer2.setBounds(700, 165, 86, 20);    
+        panel.add(comboUpdateMatchPlayer2);
+        
+        lblSet1.setBounds(570, 190, 200, 14);
+        panel.add(lblSet1);
+        
+        textFieldUMset1 = new JTextField();
+        textFieldUMset1.setBounds(700, 190, 86, 20);
+        textFieldUMset1.setVisible(true);
+        panel.add(textFieldUMset1);
+        textFieldUMset1.setColumns(10);
+        
+        lblSet2.setBounds(570, 215, 200, 14);
+        panel.add(lblSet2);
+        
+        textFieldUMset2 = new JTextField();
+        textFieldUMset2.setBounds(700, 215, 86, 20);
+        textFieldUMset2.setVisible(true);
+        panel.add(textFieldUMset2);
+        textFieldUMset2.setColumns(10);
+      
+        lblSet3.setBounds(570, 240, 200, 14);
+        panel.add(lblSet3);
+        
+        textFieldUMset3 = new JTextField();
+        textFieldUMset3.setBounds(700, 240, 86, 20);
+        textFieldUMset3.setVisible(true);
+        panel.add(textFieldUMset3);
+        textFieldUMset3.setColumns(10);
+        
+        lblSet4.setBounds(570, 265, 200, 14);
+        panel.add(lblSet4);
+        
+        textFieldUMset4 = new JTextField();
+        textFieldUMset4.setBounds(700, 265, 86, 20);
+        textFieldUMset4.setVisible(true);
+        panel.add(textFieldUMset4);
+        textFieldUMset4.setColumns(10);
+       
+        lblSet5.setBounds(570, 290, 200, 14);
+        panel.add(lblSet5);
+        
+        textFieldUMset5 = new JTextField();
+        textFieldUMset5.setBounds(700, 290, 86, 20);
+        textFieldUMset5.setVisible(true);
+        panel.add(textFieldUMset5);
+        textFieldUMset5.setColumns(10);
+        
+        JButton btnUpdateMatch = new JButton("Update");
+        btnUpdateMatch.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(comboUpdateMatchTournamentType.getSelectedItem().equals(GRAND_SLAM)){
+					if( !textFieldUMset1.getText().equals("") 
+							&& !textFieldUMset2.getText().equals("") && !textFieldUMset3.getText().equals("")){
+						Match newMatch = new Match();
+						List<PlayerRef> refs = new ArrayList<>();
+						refs.add(new PlayerRef((String)comboUpdateMatchPlayer1.getSelectedItem()));
+						refs.add(new PlayerRef((String)comboUpdateMatchPlayer2.getSelectedItem()));
+						newMatch.setPlayerRefs(refs);
+						List<Set> sets = new ArrayList<>();
+						if(!textFieldUMset1.getText().equals(""))sets.add(new Set(textFieldUMset1.getText()));
+						if(!textFieldUMset2.getText().equals(""))sets.add(new Set(textFieldUMset2.getText()));
+						if(!textFieldUMset3.getText().equals(""))sets.add(new Set(textFieldUMset3.getText()));
+						if(!textFieldUMset4.getText().equals(""))sets.add(new Set(textFieldUMset4.getText()));
+						if(!textFieldUMset5.getText().equals(""))sets.add(new Set(textFieldUMset5.getText()));
+						Result result = new Result(sets);
+						newMatch.setResult(result);
+						if(comboUpdateMatchType.getSelectedItem().equals(FINAL)){
+							tennisService.addMatchToFinals(Integer.parseInt((String) comboUpdateMatchYears.getSelectedItem()),
+									(String)comboUpdateMatchTours.getSelectedItem(),newMatch);
+						} else if(comboUpdateMatchType.getSelectedItem().equals(SEMIFINAL)){
+							tennisService.addMatchToSemiFinals(Integer.parseInt((String) comboUpdateMatchYears.getSelectedItem()),
+									(String)comboUpdateMatchTours.getSelectedItem(),newMatch);
+						} else if(comboUpdateMatchType.getSelectedItem().equals(QUARTERFINAL)){
+							tennisService.addMatchToQuarterFinals(Integer.parseInt((String) comboUpdateMatchYears.getSelectedItem()),
+									(String)comboUpdateMatchTours.getSelectedItem(),newMatch);
+						}
+						updateResultLbl.setText("Match successfully updated!");
+						textFieldUMset1.setText("");
+						textFieldUMset2.setText("");
+						textFieldUMset3.setText("");
+						textFieldUMset4.setText("");
+						textFieldUMset5.setText("");
+					} else {
+						updateResultLbl.setText("Please fill sets information!");
+					}
+					 
+				} else if(comboUpdateMatchTournamentType.getSelectedItem().equals(MASTERS_1000)){
+					if(!textFieldUMset1.getText().equals("") 
+							&& !textFieldUMset2.getText().equals("")){
+						Match newMatch = new Match();
+						List<PlayerRef> refs = new ArrayList<>();
+						refs.add(new PlayerRef((String)comboUpdateMatchPlayer1.getSelectedItem()));
+						refs.add(new PlayerRef((String)comboUpdateMatchPlayer2.getSelectedItem()));
+						newMatch.setPlayerRefs(refs);
+						List<Set> sets = new ArrayList<>();
+						if(!textFieldUMset1.getText().equals(""))sets.add(new Set(textFieldUMset1.getText()));
+						if(!textFieldUMset2.getText().equals(""))sets.add(new Set(textFieldUMset2.getText()));
+						if(!textFieldUMset3.getText().equals(""))sets.add(new Set(textFieldUMset3.getText()));
+						Result result = new Result(sets);
+						newMatch.setResult(result);
+						if(comboUpdateMatchType.getSelectedItem().equals(FINAL)){
+							tennisService.addMatchToFinals(Integer.parseInt((String) comboUpdateMatchYears.getSelectedItem()),
+									(String)comboUpdateMatchTours.getSelectedItem(),newMatch);
+						} else if(comboUpdateMatchType.getSelectedItem().equals(SEMIFINAL)){
+							tennisService.addMatchToSemiFinals(Integer.parseInt((String) comboUpdateMatchYears.getSelectedItem()),
+									(String)comboUpdateMatchTours.getSelectedItem(),newMatch);
+						} else if(comboUpdateMatchType.getSelectedItem().equals(QUARTERFINAL)){
+							tennisService.addMatchToQuarterFinals(Integer.parseInt((String) comboUpdateMatchYears.getSelectedItem()),
+									(String)comboUpdateMatchTours.getSelectedItem(),newMatch);
+						}
+						updateResultLbl.setText("Match successfully updated!");
+						textFieldUMset1.setText("");
+						textFieldUMset2.setText("");
+						textFieldUMset3.setText("");
+					} else {
+						updateResultLbl.setText("Please fill sets information!");
+					}
+				}
+				
+			}
+		});
+        btnUpdateMatch.setBounds(570, 315, 89, 23);
+        btnUpdateMatch.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Match match = tennisService.findMatchForUpdate(
+						Integer.parseInt((String) comboUpdateMatchYears.getSelectedItem()),
+						(String) comboUpdateMatchTours.getSelectedItem(),
+						(String) comboUpdateMatchType.getSelectedItem(),
+						(String) comboUpdateMatchPlayer1.getSelectedItem(),
+						(String) comboUpdateMatchPlayer2.getSelectedItem());
+				List<Set> sets = new ArrayList<>();
+				if(!textFieldUMset1.getText().equals(""))sets.add(new Set(textFieldUMset1.getText()));
+				if(!textFieldUMset2.getText().equals(""))sets.add(new Set(textFieldUMset2.getText()));
+				if(!textFieldUMset3.getText().equals(""))sets.add(new Set(textFieldUMset3.getText()));
+				if(!textFieldUMset4.getText().equals(""))sets.add(new Set(textFieldUMset4.getText()));
+				if(!textFieldUMset5.getText().equals(""))sets.add(new Set(textFieldUMset5.getText()));
+				
+				match.getResult().setSets(sets);
+				if(tennisService.updateMatch(Integer.parseInt((String) comboUpdateMatchYears.getSelectedItem()),
+						(String) comboUpdateMatchTours.getSelectedItem(),
+						(String) comboUpdateMatchType.getSelectedItem(),
+						(String) comboUpdateMatchPlayer1.getSelectedItem(),
+						(String) comboUpdateMatchPlayer2.getSelectedItem(), match)){
+					updateResultLbl.setText("Match successfully updated!");
+				} else {
+					updateResultLbl.setText("Could not update match!");
+				}
+				
+			}
+		});
+        panel.add(btnUpdateMatch);
+        
+		JButton btnFindMatch = new JButton("Find match");
+		btnFindMatch.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+				Match match = tennisService.findMatchForUpdate(
+						Integer.parseInt((String) comboUpdateMatchYears.getSelectedItem()),
+						(String) comboUpdateMatchTours.getSelectedItem(),
+						(String) comboUpdateMatchType.getSelectedItem(),
+						(String) comboUpdateMatchPlayer1.getSelectedItem(),
+						(String) comboUpdateMatchPlayer2.getSelectedItem());
+				if (match != null) {
+					textFieldUMset1.setText(match.getResult().getSets().get(0).getValue());
+					textFieldUMset2.setText(match.getResult().getSets().get(1).getValue());
+					int size = match.getResult().getSets().size();
+					if( size > 2)textFieldUMset3.setText(match.getResult().getSets().get(2).getValue());
+					if( size > 3)textFieldUMset4.setText(match.getResult().getSets().get(3).getValue());
+					if( size > 4)textFieldUMset5.setText(match.getResult().getSets().get(4).getValue());
+				} else {
+					updateResultLbl.setText("Match can't be found!");
+				}
+			}
+		});
+		btnFindMatch.setBounds(800, 165, 100, 23);
+		panel.add(btnFindMatch);
+
         return panel;
 	}
 	
@@ -1056,6 +1362,8 @@ public class CustomTabPanel extends JPanel {
 					lblRemoveInfo.setText("Player removed!");
 					comboAddMatchPlayer1.removeItem(comboRemovePlayerID.getSelectedItem());
 					comboAddMatchPlayer2.removeItem(comboRemovePlayerID.getSelectedItem());
+					comboUpdateMatchPlayer1.removeItem(comboRemovePlayerID.getSelectedItem());
+					comboUpdateMatchPlayer2.removeItem(comboRemovePlayerID.getSelectedItem());
 					comboUpdatePlayerID.removeItem(comboRemovePlayerID.getSelectedItem());
 					comboRemovePlayerID.removeItem(comboRemovePlayerID.getSelectedItem());
 				} else {
@@ -1106,6 +1414,7 @@ public class CustomTabPanel extends JPanel {
 				if (tennisService.removeTournament((String) comboRemoveTournamentName.getSelectedItem(),
 						Integer.parseInt((String) comboRemoveTournamentYear.getSelectedItem()))) {
 					comboAddMatchTours.removeItem(comboRemoveTournamentName.getSelectedItem());
+					comboUpdateMatchTours.removeItem(comboRemoveTournamentName.getSelectedItem());
 					comboRemoveTournamentName.removeItem(comboRemoveTournamentName.getSelectedItem());
 					lblRemoveInfo.setText("Tournament removed successfully!");
 				} else {
@@ -1138,6 +1447,7 @@ public class CustomTabPanel extends JPanel {
 					comboAddTournamentYear.removeItem(comboRemoveSeasonYear.getSelectedItem());
 					comboRemoveTournamentYear.removeItem(comboRemoveSeasonYear.getSelectedItem());
 					comboAddMatchYears.removeItem(comboRemoveSeasonYear.getSelectedItem());
+					comboUpdateMatchYears.removeItem(comboRemoveSeasonYear.getSelectedItem());
 					comboRemoveSeasonYear.removeItem(comboRemoveSeasonYear.getSelectedItem());
 					lblRemoveInfo.setText("Season removed successfully!");
 				} else {

@@ -60,4 +60,9 @@ public interface TennisService {
 	//public Player getTournamentWinner(int year, String name);
 	
 	public List<String> findAllYears();
+	
+	public Match findMatchForUpdate(int year, String tournamentName, String matchType, String p1, String p2);
+	
+	public boolean updateMatch(int year, String tournamentName, String matchType, String p1, String p2, Match updatedMatch);
+	
 }
