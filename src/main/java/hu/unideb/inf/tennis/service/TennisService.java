@@ -19,9 +19,7 @@ public interface TennisService {
 
 	public boolean removePlayer(String id);
 
-	public boolean updatePlayerWeight(String id, int weight);
-
-	public boolean updatePlayerHeight(String id, int height);
+	public boolean updatePlayer(Player updatedPlayer);
 
 	// Tournament
 	public Tournament findTournamentByNameAndYear(String name, int year);

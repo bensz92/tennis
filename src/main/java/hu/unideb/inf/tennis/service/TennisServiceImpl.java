@@ -129,63 +129,6 @@ public class TennisServiceImpl implements TennisService{
 	}
 
 	@Override
-	public boolean updatePlayerWeight(String id, int weight) {
-
-		Player player;
-		if((player = findPlayerById(id)) == null)
-			return false;
-		else
-		{
-			try {
-				player.setWeight(weight);
-				String updatedPlayer = JAXBUtil.toXML(player);
-				 XQPreparedExpression expr = connection.prepareExpression(
-						    "declare variable $DB external;"
-						 	+" declare variable $id external;"
-						 	+" declare variable $updatedPlayer external;"
-						    + " replace node db:open($DB)//root/players/player[@id=$id] with $updatedPlayer");
-				
-				expr.bindString(new QName("DB"), DB, connection.createAtomicType(XQItemType.XQBASETYPE_STRING));
-				expr.bindString(new QName("id"), id, connection.createAtomicType(XQItemType.XQBASETYPE_STRING));
-				expr.bindDocument(new QName("updatedPlayer"), updatedPlayer, null,null);				
-				expr.executeQuery();
-				
-			} catch (JAXBException | XQException e) {
-				e.printStackTrace();
-			}
-			return true;
-		}
-	}
-
-	@Override
-	public boolean updatePlayerHeight(String id, int height) {
-		Player player;
-		if((player = findPlayerById(id)) == null)
-			return false;
-		else
-		{
-			try {
-				player.setHeight(height);
-				String updatedPlayer = JAXBUtil.toXML(player);
-				 XQPreparedExpression expr = connection.prepareExpression(
-						    "declare variable $DB external;"
-						 	+" declare variable $id external;"
-						 	+" declare variable $updatedPlayer external;"
-						    + " replace node db:open($DB)//root/players/player[@id=$id] with $updatedPlayer");
-				
-				expr.bindString(new QName("DB"), DB, connection.createAtomicType(XQItemType.XQBASETYPE_STRING));
-				expr.bindString(new QName("id"), id, connection.createAtomicType(XQItemType.XQBASETYPE_STRING));
-				expr.bindDocument(new QName("updatedPlayer"), updatedPlayer, null,null);				
-				expr.executeQuery();
-				
-			} catch (JAXBException | XQException e) {
-				e.printStackTrace();
-			}
-			return true;
-		}
-	}
-
-	@Override
 	public Tournament findTournamentByNameAndYear(String name, int year) {
 		Tournament tournament = null;
 
@@ -626,6 +569,32 @@ public class TennisServiceImpl implements TennisService{
 			e.printStackTrace();
 		}
 		return years;
+	}
+
+	@Override
+	public boolean updatePlayer(Player updatedPlayer) {
+		if(findPlayerById(updatedPlayer.getId()) == null)
+			return false;
+		else
+		{
+			try {
+				String UP = JAXBUtil.toXML(updatedPlayer);
+				 XQPreparedExpression expr = connection.prepareExpression(
+						    "declare variable $DB external;"
+						 	+" declare variable $id external;"
+						 	+" declare variable $UP external;"
+						    + " replace node db:open($DB)//root/players/player[@id=$id] with $UP");
+				
+				expr.bindString(new QName("DB"), DB, connection.createAtomicType(XQItemType.XQBASETYPE_STRING));
+				expr.bindString(new QName("id"), updatedPlayer.getId(), connection.createAtomicType(XQItemType.XQBASETYPE_STRING));
+				expr.bindDocument(new QName("UP"), UP, null,null);				
+				expr.executeQuery();
+				
+			} catch (JAXBException | XQException e) {
+				e.printStackTrace();
+			}
+			return true;
+		}
 	}
 
 

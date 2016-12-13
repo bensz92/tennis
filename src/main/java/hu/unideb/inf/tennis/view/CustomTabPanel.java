@@ -51,6 +51,13 @@ public class CustomTabPanel extends JPanel {
 	private JTextField textFieldAPheight;
 	private JTextField textFieldAPturnedpro;
 	private JTextField textFieldAPplays;
+	private JTextField textFieldUPname;
+	private JTextField textFieldUPyearofbirth;
+	private JTextField textFieldUPbirthplace;
+	private JTextField textFieldUPweight;
+	private JTextField textFieldUPheight;
+	private JTextField textFieldUPturnedpro;
+	private JTextField textFieldUPplays;
 	private JTextField textFieldATname;
 	private JTextField textFieldASyear;
 	private JTextField textFieldAMset1;
@@ -72,6 +79,8 @@ public class CustomTabPanel extends JPanel {
     private JComboBox<String> comboRemoveTournamentYear = new JComboBox<>();
     private JComboBox<String> comboRemoveTournamentName = new JComboBox<>();
     private JComboBox<String> comboRemovePlayerID = new JComboBox<>();
+    private JComboBox<String> comboUpdatePlayerID = new JComboBox<>();
+   
 	
 	public CustomTabPanel() {
 		super(new GridLayout(1, 1));
@@ -449,6 +458,8 @@ public class CustomTabPanel extends JPanel {
 							addResultLbl.setText("Player successfully added!");
 							comboAddMatchPlayer1.addItem(newPlayer.getId());
 							comboAddMatchPlayer2.addItem(newPlayer.getId());
+							comboUpdatePlayerID.addItem(newPlayer.getId());
+							comboRemovePlayerID.addItem(newPlayer.getId());
 						} else {
 							addResultLbl.setText("Add Player failed!");
 						}
@@ -803,6 +814,162 @@ public class CustomTabPanel extends JPanel {
 		JPanel panel = new JPanel(true);
         panel.setBackground(SystemColor.inactiveCaption);
         panel.setLayout(null);
+        
+        JLabel updateResultLbl = new JLabel("");
+        updateResultLbl.setBounds(10, 275, 413, 14);
+        panel.add(updateResultLbl);
+        
+        JLabel lblUpdatePlayer = new JLabel("Update player");
+        lblUpdatePlayer.setFont(new Font("Tahoma", Font.BOLD, 15));
+        lblUpdatePlayer.setBounds(10, 11, 150, 19);
+        panel.add(lblUpdatePlayer);
+        
+        JLabel lblId = new JLabel("ID:");
+        lblId.setBounds(10, 40, 90, 14);
+        panel.add(lblId);
+        
+        JLabel lblName_1 = new JLabel("Name:");
+        lblName_1.setBounds(10, 65, 90, 14);
+        panel.add(lblName_1);
+        
+        JLabel lblNewLabel_2 = new JLabel("Year of birth:");
+        lblNewLabel_2.setBounds(10, 90, 90, 14);
+        panel.add(lblNewLabel_2);
+        
+        JLabel lblBirthplace = new JLabel("Birthplace:");
+        lblBirthplace.setBounds(10, 115, 90, 14);
+        panel.add(lblBirthplace);
+        
+        JLabel lblWeight = new JLabel("Weight:");
+        lblWeight.setBounds(10, 140, 90, 14);
+        panel.add(lblWeight);
+        
+        JLabel lblHeight = new JLabel("Height:");
+        lblHeight.setBounds(10, 165, 90, 14);
+        panel.add(lblHeight);
+        
+        JLabel lblNewLabel_3 = new JLabel("Turned pro:");
+        lblNewLabel_3.setBounds(10, 190, 90, 14);
+        panel.add(lblNewLabel_3);
+        
+        JLabel lblPlays = new JLabel("Plays:");
+        lblPlays.setBounds(10, 215, 90, 14);
+        panel.add(lblPlays);
+        
+        for(Player p : tennisService.findAllPlayers())
+        	comboUpdatePlayerID.addItem(p.getId());
+        comboUpdatePlayerID.setBounds(100, 40, 86, 20);
+        comboUpdatePlayerID.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Player actualPlayer = tennisService.findPlayerById((String) comboUpdatePlayerID.getSelectedItem());
+		    	textFieldUPname.setText(actualPlayer.getName());
+		    	textFieldUPyearofbirth.setText(String.valueOf(actualPlayer.getYearOfBirth()));
+		    	textFieldUPbirthplace.setText(actualPlayer.getBirthplace());
+		    	textFieldUPweight.setText(String.valueOf(actualPlayer.getWeight()));
+		    	textFieldUPheight.setText(String.valueOf(actualPlayer.getHeight()));
+		    	textFieldUPturnedpro.setText(String.valueOf(actualPlayer.getTurnedPro()));
+		    	textFieldUPplays.setText(actualPlayer.getPlays());
+				
+			}
+		});
+        panel.add(comboUpdatePlayerID);
+        
+        textFieldUPname = new JTextField();
+        textFieldUPname.setBounds(100, 65, 86, 20);
+        panel.add(textFieldUPname);
+        textFieldUPname.setColumns(10);
+        
+        textFieldUPyearofbirth = new JTextField();
+        textFieldUPyearofbirth.setBounds(100, 90, 86, 20);
+        panel.add(textFieldUPyearofbirth);
+        textFieldUPyearofbirth.setColumns(10);
+        
+        textFieldUPbirthplace = new JTextField();
+        textFieldUPbirthplace.setBounds(100, 115, 86, 20);
+        panel.add(textFieldUPbirthplace);
+        textFieldUPbirthplace.setColumns(10);
+        
+        textFieldUPweight = new JTextField();
+        textFieldUPweight.setBounds(100, 140, 86, 20);
+        panel.add(textFieldUPweight);
+        textFieldUPweight.setColumns(10);
+        
+        textFieldUPheight = new JTextField();
+        textFieldUPheight.setBounds(100, 165, 86, 20);
+        panel.add(textFieldUPheight);
+        textFieldUPheight.setColumns(10);
+        
+        textFieldUPturnedpro = new JTextField();
+        textFieldUPturnedpro.setBounds(100, 190, 86, 20);
+        panel.add(textFieldUPturnedpro);
+        textFieldUPturnedpro.setColumns(10);
+        
+        textFieldUPplays = new JTextField();
+        textFieldUPplays.setBounds(100, 215, 86, 20);
+        panel.add(textFieldUPplays);
+        textFieldUPplays.setColumns(10);
+        
+        Player actualPlayer = tennisService.findPlayerById((String) comboUpdatePlayerID.getSelectedItem());
+    	textFieldUPname.setText(actualPlayer.getName());
+    	textFieldUPyearofbirth.setText(String.valueOf(actualPlayer.getYearOfBirth()));
+    	textFieldUPbirthplace.setText(actualPlayer.getBirthplace());
+    	textFieldUPweight.setText(String.valueOf(actualPlayer.getWeight()));
+    	textFieldUPheight.setText(String.valueOf(actualPlayer.getHeight()));
+    	textFieldUPturnedpro.setText(String.valueOf(actualPlayer.getTurnedPro()));
+    	textFieldUPplays.setText(actualPlayer.getPlays());
+        
+        JButton btnUpdatePlayer = new JButton("Update");
+        btnUpdatePlayer.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try {
+					if (!textFieldUPname.getText().equals("")
+							&& !textFieldUPyearofbirth.getText().equals("")
+							&& !textFieldUPbirthplace.getText().equals("") && !textFieldUPweight.getText().equals("")
+							&& !textFieldUPheight.getText().equals("") && !textFieldUPturnedpro.getText().equals("")
+							&& !textFieldUPplays.getText().equals("")) {
+						Player newPlayer = new Player((String)comboUpdatePlayerID.getSelectedItem(), textFieldUPname.getText(),
+								Integer.parseInt(textFieldUPyearofbirth.getText()), textFieldUPbirthplace.getText(),
+								Integer.parseInt(textFieldUPweight.getText()),
+								Integer.parseInt(textFieldUPheight.getText()),
+								Integer.parseInt(textFieldUPturnedpro.getText()), textFieldUPplays.getText());
+						if (tennisService.updatePlayer(newPlayer)) {
+							textFieldAPid.setText("");
+							textFieldAPname.setText("");
+							textFieldAPyearofbirth.setText("");
+							textFieldAPbirthplace.setText("");
+							textFieldAPweight.setText("");
+							textFieldAPheight.setText("");
+							textFieldAPturnedpro.setText("");
+							textFieldAPplays.setText("");
+							updateResultLbl.setText("Player successfully updated!");
+							comboAddMatchPlayer1.addItem(newPlayer.getId());
+							comboAddMatchPlayer2.addItem(newPlayer.getId());
+						} else {
+							updateResultLbl.setText("Update Player failed!");
+						}
+
+					} else {
+						updateResultLbl.setText("Please fill player details!");
+					}
+				} catch (NumberFormatException f) {
+					textFieldAPid.setText("");
+					textFieldAPname.setText("");
+					textFieldAPyearofbirth.setText("");
+					textFieldAPbirthplace.setText("");
+					textFieldAPweight.setText("");
+					textFieldAPheight.setText("");
+					textFieldAPturnedpro.setText("");
+					textFieldAPplays.setText("");
+					updateResultLbl.setText("Year, weight, height and turnedpro should be numbers!");
+				}
+			}
+		});
+        btnUpdatePlayer.setBounds(10, 238, 89, 23);
+        panel.add(btnUpdatePlayer);
     
         return panel;
 	}
@@ -844,6 +1011,7 @@ public class CustomTabPanel extends JPanel {
 					lblRemoveInfo.setText("Player removed!");
 					comboAddMatchPlayer1.removeItem(comboRemovePlayerID.getSelectedItem());
 					comboAddMatchPlayer2.removeItem(comboRemovePlayerID.getSelectedItem());
+					comboUpdatePlayerID.removeItem(comboRemovePlayerID.getSelectedItem());
 					comboRemovePlayerID.removeItem(comboRemovePlayerID.getSelectedItem());
 				} else {
 					lblRemoveInfo.setText("Player can't be removed!");
