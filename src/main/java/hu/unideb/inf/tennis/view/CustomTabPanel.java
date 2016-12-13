@@ -66,8 +66,8 @@ public class CustomTabPanel extends JPanel {
 	private JTextField textFieldAMset4;
 	private JTextField textFieldAMset5;
 	
-    private JComboBox<String> comboBoxAddMatchYears = new JComboBox<>();
-    private JComboBox<String> comboBoxAddMatchTours = new JComboBox<>();
+    private JComboBox<String> comboAddMatchYears = new JComboBox<>();
+    private JComboBox<String> comboAddMatchTours = new JComboBox<>();
     private JComboBox<String> comboAddMatchPlayer1 = new JComboBox<>();
     private JComboBox<String> comboAddMatchPlayer2 = new JComboBox<>();
     private JComboBox<String> comboAddMatchTournamentType = new JComboBox<>();
@@ -75,6 +75,18 @@ public class CustomTabPanel extends JPanel {
     private JComboBox<String> comboAddTournamentYear = new JComboBox<>();
     private JComboBox<String> comboAddTournamentType = new JComboBox<>();
     private JComboBox<String> comboAddTournamentSurface = new JComboBox<>();
+    
+    private JComboBox<String> comboUpdateMatchYears = new JComboBox<>();
+    private JComboBox<String> comboUpdateMatchTours = new JComboBox<>();
+    private JComboBox<String> comboUpdateMatchPlayer1 = new JComboBox<>();
+    private JComboBox<String> comboUpdateMatchPlayer2 = new JComboBox<>();
+    private JComboBox<String> comboUpdateMatchTournamentType = new JComboBox<>();
+    private JComboBox<String> comboUpdateMatchType = new JComboBox<>();
+    private JComboBox<String> comboUpdateTournamentYear = new JComboBox<>();
+    private JComboBox<String> comboUpdateTournamentType = new JComboBox<>();
+    private JComboBox<String> comboUpdateTournamentSurface = new JComboBox<>();
+    
+    
     private JComboBox<String> comboRemoveSeasonYear = new JComboBox<>();
     private JComboBox<String> comboRemoveTournamentYear = new JComboBox<>();
     private JComboBox<String> comboRemoveTournamentName = new JComboBox<>();
@@ -83,6 +95,9 @@ public class CustomTabPanel extends JPanel {
     
     private static final String GRAND_SLAM = "Grand_Slam";
     private static final String MASTERS_1000 = "Masters_1000";
+    private static final String FINAL = "Final";
+    private static final String SEMIFINAL = "Semifinal";
+    private static final String QUARTERFINAL = "Quarterfinal";
    
 	
 	public CustomTabPanel() {
@@ -537,7 +552,7 @@ public class CustomTabPanel extends JPanel {
 						if(tennisService.addTournament(Integer.parseInt((String)comboAddTournamentYear.getSelectedItem()), textFieldATname.getText(), 
 								(String) comboAddTournamentType.getSelectedItem(), (String) comboAddTournamentSurface.getSelectedItem())){
 							addResultLbl.setText("Tournament successfully added!");
-							comboBoxAddMatchTours.addItem(textFieldATname.getText());
+							comboAddMatchTours.addItem(textFieldATname.getText());
 						}else{
 							addResultLbl.setText("Add Tournament failed!");
 						}
@@ -572,7 +587,7 @@ public class CustomTabPanel extends JPanel {
 				try{
 					if(!textFieldASyear.getText().equals("")){
 						if(tennisService.addSeason(Integer.valueOf(textFieldASyear.getText()))){
-							comboBoxAddMatchYears.addItem(textFieldASyear.getText());
+							comboAddMatchYears.addItem(textFieldASyear.getText());
 							comboAddTournamentYear.addItem(textFieldASyear.getText());
 							comboRemoveSeasonYear.addItem(textFieldASyear.getText());
 							comboRemoveTournamentYear.addItem(textFieldASyear.getText());
@@ -609,27 +624,27 @@ public class CustomTabPanel extends JPanel {
         panel.add(lblSelectYear);
         
         for(String s : tennisService.findAllYears())
-        	comboBoxAddMatchYears.addItem(s);
-        comboBoxAddMatchYears.setBounds(700, 40, 100, 20);
-        comboBoxAddMatchYears.addActionListener(new ActionListener() {
+        	comboAddMatchYears.addItem(s);
+        comboAddMatchYears.setBounds(700, 40, 100, 20);
+        comboAddMatchYears.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(comboAddMatchTournamentType.getSelectedItem().equals(GRAND_SLAM)){
-					comboBoxAddMatchTours.removeAllItems();
-					for(Tournament t : tennisService.findAllTournamentsByYear(Integer.parseInt((String)comboBoxAddMatchYears.getSelectedItem()))){
+					comboAddMatchTours.removeAllItems();
+					for(Tournament t : tennisService.findAllTournamentsByYear(Integer.parseInt((String)comboAddMatchYears.getSelectedItem()))){
 						if(t.getType().equals(GRAND_SLAM))
-							comboBoxAddMatchTours.addItem(t.getName());
+							comboAddMatchTours.addItem(t.getName());
 					}
 					lblSet4.setVisible(true);
 					lblSet5.setVisible(true);
 					textFieldAMset4.setVisible(true);
 					textFieldAMset5.setVisible(true);
 				} else {
-					comboBoxAddMatchTours.removeAllItems();
-					for(Tournament t : tennisService.findAllTournamentsByYear(Integer.parseInt((String)comboBoxAddMatchYears.getSelectedItem()))){
+					comboAddMatchTours.removeAllItems();
+					for(Tournament t : tennisService.findAllTournamentsByYear(Integer.parseInt((String)comboAddMatchYears.getSelectedItem()))){
 						if(t.getType().equals(MASTERS_1000))
-							comboBoxAddMatchTours.addItem(t.getName());			
+							comboAddMatchTours.addItem(t.getName());			
 					}
 					lblSet4.setVisible(false);
 					lblSet5.setVisible(false);
@@ -638,7 +653,7 @@ public class CustomTabPanel extends JPanel {
 				}	
 			}
 		});
-        panel.add(comboBoxAddMatchYears);
+        panel.add(comboAddMatchYears);
         
         JLabel lblCombo = new JLabel("Tournament type:");
         lblCombo.setBounds(570, 65, 200, 14);
@@ -652,20 +667,20 @@ public class CustomTabPanel extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(comboAddMatchTournamentType.getSelectedItem().equals(GRAND_SLAM)){
-					comboBoxAddMatchTours.removeAllItems();
-					for(Tournament t : tennisService.findAllTournamentsByYear(Integer.parseInt((String)comboBoxAddMatchYears.getSelectedItem()))){
+					comboAddMatchTours.removeAllItems();
+					for(Tournament t : tennisService.findAllTournamentsByYear(Integer.parseInt((String)comboAddMatchYears.getSelectedItem()))){
 						if(t.getType().equals(GRAND_SLAM))
-							comboBoxAddMatchTours.addItem(t.getName());
+							comboAddMatchTours.addItem(t.getName());
 					}
 					lblSet4.setVisible(true);
 					lblSet5.setVisible(true);
 					textFieldAMset4.setVisible(true);
 					textFieldAMset5.setVisible(true);
 				} else {
-					comboBoxAddMatchTours.removeAllItems();
-					for(Tournament t : tennisService.findAllTournamentsByYear(Integer.parseInt((String)comboBoxAddMatchYears.getSelectedItem()))){
+					comboAddMatchTours.removeAllItems();
+					for(Tournament t : tennisService.findAllTournamentsByYear(Integer.parseInt((String)comboAddMatchYears.getSelectedItem()))){
 						if(t.getType().equals(MASTERS_1000))
-							comboBoxAddMatchTours.addItem(t.getName());			
+							comboAddMatchTours.addItem(t.getName());			
 					}
 					lblSet4.setVisible(false);
 					lblSet5.setVisible(false);
@@ -680,18 +695,18 @@ public class CustomTabPanel extends JPanel {
         lblSelectTourName.setBounds(570, 90, 200, 14);
         panel.add(lblSelectTourName);
  
-        for(Tournament t : tennisService.findAllTournamentsByYear(Integer.parseInt((String)comboBoxAddMatchYears.getSelectedItem())))
-        	comboBoxAddMatchTours.addItem(t.getName());
-        comboBoxAddMatchTours.setBounds(700, 90, 86, 20);
-        panel.add(comboBoxAddMatchTours);
+        for(Tournament t : tennisService.findAllTournamentsByYear(Integer.parseInt((String)comboAddMatchYears.getSelectedItem())))
+        	comboAddMatchTours.addItem(t.getName());
+        comboAddMatchTours.setBounds(700, 90, 86, 20);
+        panel.add(comboAddMatchTours);
         
         JLabel lblComboMType = new JLabel("Match type:");
         lblComboMType.setBounds(570, 115, 100, 14);
         panel.add(lblComboMType);
         
-        comboAddMatchType.addItem("Final");
-        comboAddMatchType.addItem("Semifinal");
-        comboAddMatchType.addItem("Quarterfinal");
+        comboAddMatchType.addItem(FINAL);
+        comboAddMatchType.addItem(SEMIFINAL);
+        comboAddMatchType.addItem(QUARTERFINAL);
         comboAddMatchType.setBounds(700, 115, 86, 20);        
         panel.add(comboAddMatchType);
  
@@ -779,15 +794,15 @@ public class CustomTabPanel extends JPanel {
 						if(!textFieldAMset5.getText().equals(""))sets.add(new Set(textFieldAMset5.getText()));
 						Result result = new Result(sets);
 						newMatch.setResult(result);
-						if(comboAddMatchType.getSelectedItem().equals("Final")){
-							tennisService.addMatchToFinals(Integer.parseInt((String) comboBoxAddMatchYears.getSelectedItem()),
-									(String)comboBoxAddMatchTours.getSelectedItem(),newMatch);
-						} else if(comboAddMatchType.getSelectedItem().equals("Semifinal")){
-							tennisService.addMatchToSemiFinals(Integer.parseInt((String) comboBoxAddMatchYears.getSelectedItem()),
-									(String)comboBoxAddMatchTours.getSelectedItem(),newMatch);
-						} else if(comboAddMatchType.getSelectedItem().equals("Quarterfinal")){
-							tennisService.addMatchToQuarterFinals(Integer.parseInt((String) comboBoxAddMatchYears.getSelectedItem()),
-									(String)comboBoxAddMatchTours.getSelectedItem(),newMatch);
+						if(comboAddMatchType.getSelectedItem().equals(FINAL)){
+							tennisService.addMatchToFinals(Integer.parseInt((String) comboAddMatchYears.getSelectedItem()),
+									(String)comboAddMatchTours.getSelectedItem(),newMatch);
+						} else if(comboAddMatchType.getSelectedItem().equals(SEMIFINAL)){
+							tennisService.addMatchToSemiFinals(Integer.parseInt((String) comboAddMatchYears.getSelectedItem()),
+									(String)comboAddMatchTours.getSelectedItem(),newMatch);
+						} else if(comboAddMatchType.getSelectedItem().equals(QUARTERFINAL)){
+							tennisService.addMatchToQuarterFinals(Integer.parseInt((String) comboAddMatchYears.getSelectedItem()),
+									(String)comboAddMatchTours.getSelectedItem(),newMatch);
 						}
 						addResultLbl.setText("Match successfully added!");
 						textFieldAMset1.setText("");
@@ -813,15 +828,15 @@ public class CustomTabPanel extends JPanel {
 						if(!textFieldAMset3.getText().equals(""))sets.add(new Set(textFieldAMset3.getText()));
 						Result result = new Result(sets);
 						newMatch.setResult(result);
-						if(comboAddMatchType.getSelectedItem().equals("Final")){
-							tennisService.addMatchToFinals(Integer.parseInt((String) comboBoxAddMatchYears.getSelectedItem()),
-									(String)comboBoxAddMatchTours.getSelectedItem(),newMatch);
-						} else if(comboAddMatchType.getSelectedItem().equals("Semifinal")){
-							tennisService.addMatchToSemiFinals(Integer.parseInt((String) comboBoxAddMatchYears.getSelectedItem()),
-									(String)comboBoxAddMatchTours.getSelectedItem(),newMatch);
-						} else if(comboAddMatchType.getSelectedItem().equals("Quarterinal")){
-							tennisService.addMatchToQuarterFinals(Integer.parseInt((String) comboBoxAddMatchYears.getSelectedItem()),
-									(String)comboBoxAddMatchTours.getSelectedItem(),newMatch);
+						if(comboAddMatchType.getSelectedItem().equals(FINAL)){
+							tennisService.addMatchToFinals(Integer.parseInt((String) comboAddMatchYears.getSelectedItem()),
+									(String)comboAddMatchTours.getSelectedItem(),newMatch);
+						} else if(comboAddMatchType.getSelectedItem().equals(SEMIFINAL)){
+							tennisService.addMatchToSemiFinals(Integer.parseInt((String) comboAddMatchYears.getSelectedItem()),
+									(String)comboAddMatchTours.getSelectedItem(),newMatch);
+						} else if(comboAddMatchType.getSelectedItem().equals(QUARTERFINAL)){
+							tennisService.addMatchToQuarterFinals(Integer.parseInt((String) comboAddMatchYears.getSelectedItem()),
+									(String)comboAddMatchTours.getSelectedItem(),newMatch);
 						}
 						addResultLbl.setText("Match successfully added!");
 						textFieldAMset1.setText("");
@@ -1090,7 +1105,7 @@ public class CustomTabPanel extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				if (tennisService.removeTournament((String) comboRemoveTournamentName.getSelectedItem(),
 						Integer.parseInt((String) comboRemoveTournamentYear.getSelectedItem()))) {
-					comboBoxAddMatchTours.removeItem(comboRemoveTournamentName.getSelectedItem());
+					comboAddMatchTours.removeItem(comboRemoveTournamentName.getSelectedItem());
 					comboRemoveTournamentName.removeItem(comboRemoveTournamentName.getSelectedItem());
 					lblRemoveInfo.setText("Tournament removed successfully!");
 				} else {
@@ -1122,7 +1137,7 @@ public class CustomTabPanel extends JPanel {
 				if (tennisService.removeSeason(Integer.parseInt((String) comboRemoveSeasonYear.getSelectedItem()))) {
 					comboAddTournamentYear.removeItem(comboRemoveSeasonYear.getSelectedItem());
 					comboRemoveTournamentYear.removeItem(comboRemoveSeasonYear.getSelectedItem());
-					comboBoxAddMatchYears.removeItem(comboRemoveSeasonYear.getSelectedItem());
+					comboAddMatchYears.removeItem(comboRemoveSeasonYear.getSelectedItem());
 					comboRemoveSeasonYear.removeItem(comboRemoveSeasonYear.getSelectedItem());
 					lblRemoveInfo.setText("Season removed successfully!");
 				} else {
