@@ -147,7 +147,7 @@ public class CustomTabPanel extends JPanel {
         textArea.setEditable(false);
         
         JScrollPane scroll = new JScrollPane (textArea);
-        scroll.setBounds(10, 320, 993, 383);
+        scroll.setBounds(10, 320, 993, 335);
         scroll.setVerticalScrollBarPolicy ( ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS );
         
         panel.add(scroll);
@@ -257,7 +257,7 @@ public class CustomTabPanel extends JPanel {
 				} catch (NumberFormatException e) {
 					textFieldTournamentName.setText("");
 					textFieldTournamentYear.setText("");
-					textArea.setText("Year is number!");
+					textArea.setText("Year should be number!");
 				}
 			}
 		});
@@ -296,7 +296,7 @@ public class CustomTabPanel extends JPanel {
 					textFieldTournamentJustbyYear.setText("");
 				} catch (NumberFormatException f) {
 					textFieldTournamentJustbyYear.setText("");
-					textArea.setText("Year is number!");
+					textArea.setText("Year should be number!");
 				}
 			}
 		});
@@ -329,7 +329,7 @@ public class CustomTabPanel extends JPanel {
             		}
         		}catch (NumberFormatException f) {
         			textFieldSeasonByYear.setText("");
-					textArea.setText("Year is number!");
+					textArea.setText("Year should be number!");
 				}
         	}
         });
@@ -359,6 +359,27 @@ public class CustomTabPanel extends JPanel {
         });
         btnAllSeasons.setBounds(330, 255, 89, 23);
         panel.add(btnAllSeasons);
+        
+//        JLabel lblAdvancedQueries = new JLabel("Advanced queries:");
+//        lblAdvancedQueries.setFont(new Font("Tahoma", Font.BOLD, 15));
+//        lblAdvancedQueries.setBounds(500, 11, 157, 14);
+//        panel.add(lblAdvancedQueries);
+//        
+//        JLabel lblAdvancedQueries = new JLabel("Advanced queries:");
+//        lblAdvancedQueries.setFont(new Font("Tahoma", Font.BOLD, 15));
+//        lblAdvancedQueries.setBounds(500, 45, 157, 14);
+//        panel.add(lblAdvancedQueries);
+//        
+//        JLabel lblAdvancedQueries = new JLabel("Advanced queries:");
+//        lblAdvancedQueries.setFont(new Font("Tahoma", Font.BOLD, 15));
+//        lblAdvancedQueries.setBounds(500, 75, 157, 14);
+//        panel.add(lblAdvancedQueries);
+//        
+//        JLabel lblAdvancedQueries = new JLabel("Advanced queries:");
+//        lblAdvancedQueries.setFont(new Font("Tahoma", Font.BOLD, 15));
+//        lblAdvancedQueries.setBounds(500, 105, 157, 14);
+//        panel.add(lblAdvancedQueries);
+        
         
         return panel;
     }
@@ -783,6 +804,7 @@ public class CustomTabPanel extends JPanel {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				boolean success = false;
 				if(comboAddMatchTournamentType.getSelectedItem().equals(GRAND_SLAM)){
 					if( !textFieldAMset1.getText().equals("") 
 							&& !textFieldAMset2.getText().equals("") && !textFieldAMset3.getText().equals("")){
@@ -800,16 +822,19 @@ public class CustomTabPanel extends JPanel {
 						Result result = new Result(sets);
 						newMatch.setResult(result);
 						if(comboAddMatchType.getSelectedItem().equals(FINAL)){
-							tennisService.addMatchToFinals(Integer.parseInt((String) comboAddMatchYears.getSelectedItem()),
+							success = tennisService.addMatchToFinals(Integer.parseInt((String) comboAddMatchYears.getSelectedItem()),
 									(String)comboAddMatchTours.getSelectedItem(),newMatch);
 						} else if(comboAddMatchType.getSelectedItem().equals(SEMIFINAL)){
-							tennisService.addMatchToSemiFinals(Integer.parseInt((String) comboAddMatchYears.getSelectedItem()),
+							success = tennisService.addMatchToSemiFinals(Integer.parseInt((String) comboAddMatchYears.getSelectedItem()),
 									(String)comboAddMatchTours.getSelectedItem(),newMatch);
 						} else if(comboAddMatchType.getSelectedItem().equals(QUARTERFINAL)){
-							tennisService.addMatchToQuarterFinals(Integer.parseInt((String) comboAddMatchYears.getSelectedItem()),
+							success = tennisService.addMatchToQuarterFinals(Integer.parseInt((String) comboAddMatchYears.getSelectedItem()),
 									(String)comboAddMatchTours.getSelectedItem(),newMatch);
 						}
-						addResultLbl.setText("Match successfully added!");
+						if(success)
+							addResultLbl.setText("Match successfully added!");
+						else
+							addResultLbl.setText("Failed to add match!");
 						textFieldAMset1.setText("");
 						textFieldAMset2.setText("");
 						textFieldAMset3.setText("");
@@ -834,16 +859,19 @@ public class CustomTabPanel extends JPanel {
 						Result result = new Result(sets);
 						newMatch.setResult(result);
 						if(comboAddMatchType.getSelectedItem().equals(FINAL)){
-							tennisService.addMatchToFinals(Integer.parseInt((String) comboAddMatchYears.getSelectedItem()),
+							success = tennisService.addMatchToFinals(Integer.parseInt((String) comboAddMatchYears.getSelectedItem()),
 									(String)comboAddMatchTours.getSelectedItem(),newMatch);
 						} else if(comboAddMatchType.getSelectedItem().equals(SEMIFINAL)){
-							tennisService.addMatchToSemiFinals(Integer.parseInt((String) comboAddMatchYears.getSelectedItem()),
+							success = tennisService.addMatchToSemiFinals(Integer.parseInt((String) comboAddMatchYears.getSelectedItem()),
 									(String)comboAddMatchTours.getSelectedItem(),newMatch);
 						} else if(comboAddMatchType.getSelectedItem().equals(QUARTERFINAL)){
-							tennisService.addMatchToQuarterFinals(Integer.parseInt((String) comboAddMatchYears.getSelectedItem()),
+							success = tennisService.addMatchToQuarterFinals(Integer.parseInt((String) comboAddMatchYears.getSelectedItem()),
 									(String)comboAddMatchTours.getSelectedItem(),newMatch);
 						}
-						addResultLbl.setText("Match successfully added!");
+						if(success)
+							addResultLbl.setText("Match successfully added!");
+						else
+							addResultLbl.setText("Failed to add match!");
 						textFieldAMset1.setText("");
 						textFieldAMset2.setText("");
 						textFieldAMset3.setText("");
@@ -1467,8 +1495,8 @@ public class CustomTabPanel extends JPanel {
 		UIManager.put("swing.boldMetal", Boolean.FALSE);
 		JFrame frame = new JFrame("TennisData");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setMinimumSize(new Dimension(1024, 768));
-		frame.setPreferredSize(new Dimension(1024, 768));
+		frame.setMinimumSize(new Dimension(1024, 720));
+		frame.setPreferredSize(new Dimension(1024, 720));
 		frame.setBackground(SystemColor.inactiveCaption);
 		frame.setResizable(false);
 		frame.getContentPane().add(new CustomTabPanel(), BorderLayout.CENTER);
