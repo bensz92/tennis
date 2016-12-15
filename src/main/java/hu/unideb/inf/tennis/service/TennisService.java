@@ -72,7 +72,7 @@ public interface TennisService {
 
 	public String getPlayerWhoHasWonMostTournamentsBySurface(String surface);
 
-	public double getPlayersAvgAgeWhoHasWonMatchWithoutLosingSetByYear(int year, String type);
+	public String getPlayersAvgAgeWhoHasWonMatchWithoutLosingSetByYear(int year, String type);
 
 	public String getTheTwoPlayersWhoHaveBeenPlayedAgainstEachOtherTheMost();
 

@@ -868,7 +868,7 @@ public class TennisServiceImpl implements TennisService{
 	}
 
 	@Override
-	public double getPlayersAvgAgeWhoHasWonMatchWithoutLosingSetByYear(int year, String type) {
+	public String getPlayersAvgAgeWhoHasWonMatchWithoutLosingSetByYear(int year, String type) {
 		String result = null;
 		try {
 			 XQPreparedExpression expr = connection.prepareExpression(
@@ -904,7 +904,7 @@ public class TennisServiceImpl implements TennisService{
 		} catch (XQException e) {
 			e.printStackTrace();
 		}
-		return new Double(result);
+		return result;
 	}
 
 	@Override
