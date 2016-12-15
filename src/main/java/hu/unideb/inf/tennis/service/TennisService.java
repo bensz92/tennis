@@ -63,20 +63,18 @@ public interface TennisService {
 	public List<Player> getPlayersParticipatedTournament(int year, String name);	
 
 	public Player getTournamentWinner(int year, String name);
-
-	public List<Match> getAllMatchesFromTournament(int year, String name);
 	
 	public List<Player> getPlayersWhoHasWonTournamentByType(String type);
 
-	public Player getPlayerWhoHadTheMostFinals();
+	public String getPlayerWhoHadTheMostFinals();
 
 	public Player getOldestPlayerWhoHasWonTournamentByType(String type);
 
-	public Player getPlayerWhoHasWonMostTournamentsBySurface(String surface);
+	public String getPlayerWhoHasWonMostTournamentsBySurface(String surface);
 
 	public double getPlayersAvgAgeWhoHasWonMatchWithoutLosingSetByYear(int year, String type);
 
-	public List<Player> getTheTwoPlayersWhoHaveBeenPlayedAgainstEachOtherTheMost();
+	public String getTheTwoPlayersWhoHaveBeenPlayedAgainstEachOtherTheMost();
 
 	public List<Player> getPlayersWhoHaveWonMastersButNotGrandSlam();
 }
