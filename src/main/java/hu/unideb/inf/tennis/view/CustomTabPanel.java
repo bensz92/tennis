@@ -94,11 +94,26 @@ public class CustomTabPanel extends JPanel {
     private JComboBox<String> comboRemovePlayerID = new JComboBox<>();
     private JComboBox<String> comboUpdatePlayerID = new JComboBox<>();
     
+    private JComboBox<String> comboFindPlayersParticipatedTournamentYear = new JComboBox<>();
+    private JComboBox<String> comboFindPlayersParticipatedTournamentName= new JComboBox<>();
+    private JComboBox<String> comboFindTournamentWinnerYear = new JComboBox<>();
+    private JComboBox<String> comboFindTournamentWinnerName= new JComboBox<>();
+    private JComboBox<String> comboFindAllMatchesFromTournamentYear = new JComboBox<>();
+    private JComboBox<String> comboFindAllMatchesFromTournamentName= new JComboBox<>();
+    private JComboBox<String> comboFindPlayersWhoHasWonTournamentByType= new JComboBox<>();
+    private JComboBox<String> comboFindOldestPlayerWhoHasWonTournamentByType= new JComboBox<>();
+    private JComboBox<String> comboFindPlayerWhoHasWonMostTournamentsBySurface= new JComboBox<>();
+    private JComboBox<String> comboFindPlayersAvgAgeWhoHasWonMatchWithoutLosingSetByYear= new JComboBox<>();
+    private JComboBox<String> comboFindPlayersAvgAgeWhoHasWonMatchWithoutLosingSetByType= new JComboBox<>();
+    
     private static final String GRAND_SLAM = "Grand_Slam";
     private static final String MASTERS_1000 = "Masters_1000";
     public static final String FINAL = "Final";
     public static final String SEMIFINAL = "Semifinal";
     public static final String QUARTERFINAL = "Quarterfinal";
+    public static final String CLAY = "Clay";
+    public static final String HARD = "Hard";
+    public static final String GRASS = "Grass";
    
 	
 	public CustomTabPanel() {
@@ -154,7 +169,7 @@ public class CustomTabPanel extends JPanel {
         
         JLabel lblBasicQueries = new JLabel("Basic queries:");
         lblBasicQueries.setFont(new Font("Tahoma", Font.BOLD, 15));
-        lblBasicQueries.setBounds(10, 11, 108, 14);
+        lblBasicQueries.setBounds(10, 11, 108, 20);
         panel.add(lblBasicQueries);
         
         JLabel lblFindPlayerBy = new JLabel("Find Player by ID");
@@ -188,7 +203,7 @@ public class CustomTabPanel extends JPanel {
         		}
         	}
         });
-        btnAllPlayers.setBounds(330, 75, 89, 23);
+        btnAllPlayers.setBounds(330, 75, 50, 23);
         panel.add(btnAllPlayers);
         
         JLabel lblFindTournamentBy = new JLabel("Find Tournament by name and year");
@@ -214,7 +229,7 @@ public class CustomTabPanel extends JPanel {
         		textFieldPlayerId.setText("");
         	}
         });
-        btnPlayerId.setBounds(330, 45, 89, 23);
+        btnPlayerId.setBounds(330, 45, 50, 23);
         panel.add(btnPlayerId);
         
         JLabel lblName = new JLabel("Name:");
@@ -261,7 +276,7 @@ public class CustomTabPanel extends JPanel {
 				}
 			}
 		});
-        btnTournamentByYandN.setBounds(330, 165, 89, 23);
+        btnTournamentByYandN.setBounds(330, 165, 50, 23);
         panel.add(btnTournamentByYandN);
         
         JLabel lblFindAllTournament = new JLabel("Find all Tournaments by year");
@@ -300,7 +315,7 @@ public class CustomTabPanel extends JPanel {
 				}
 			}
 		});
-        btnAllTournaments.setBounds(330, 195, 89, 23);
+        btnAllTournaments.setBounds(330, 195, 50, 23);
         panel.add(btnAllTournaments);
         
         JLabel lblNewLabel_1 = new JLabel("Find Season by year");
@@ -333,7 +348,7 @@ public class CustomTabPanel extends JPanel {
 				}
         	}
         });
-        btnSeasonByYear.setBounds(330, 225, 89, 23);
+        btnSeasonByYear.setBounds(330, 225, 50, 23);
         panel.add(btnSeasonByYear);
         
         JLabel lblFindAllSeasons = new JLabel("Find all Seasons");
@@ -357,30 +372,260 @@ public class CustomTabPanel extends JPanel {
         		}
         	}
         });
-        btnAllSeasons.setBounds(330, 255, 89, 23);
+        btnAllSeasons.setBounds(330, 255, 50, 23);
         panel.add(btnAllSeasons);
         
-//        JLabel lblAdvancedQueries = new JLabel("Advanced queries:");
-//        lblAdvancedQueries.setFont(new Font("Tahoma", Font.BOLD, 15));
-//        lblAdvancedQueries.setBounds(500, 11, 157, 14);
-//        panel.add(lblAdvancedQueries);
-//        
-//        JLabel lblAdvancedQueries = new JLabel("Advanced queries:");
-//        lblAdvancedQueries.setFont(new Font("Tahoma", Font.BOLD, 15));
-//        lblAdvancedQueries.setBounds(500, 45, 157, 14);
-//        panel.add(lblAdvancedQueries);
-//        
-//        JLabel lblAdvancedQueries = new JLabel("Advanced queries:");
-//        lblAdvancedQueries.setFont(new Font("Tahoma", Font.BOLD, 15));
-//        lblAdvancedQueries.setBounds(500, 75, 157, 14);
-//        panel.add(lblAdvancedQueries);
-//        
-//        JLabel lblAdvancedQueries = new JLabel("Advanced queries:");
-//        lblAdvancedQueries.setFont(new Font("Tahoma", Font.BOLD, 15));
-//        lblAdvancedQueries.setBounds(500, 105, 157, 14);
-//        panel.add(lblAdvancedQueries);
+        JLabel lblAdvancedQueries = new JLabel("Advanced queries:");
+        lblAdvancedQueries.setFont(new Font("Tahoma", Font.BOLD, 15));
+        lblAdvancedQueries.setBounds(390, 11, 157, 20);
+        panel.add(lblAdvancedQueries);
         
+        //FIND PLAYERS WHO PARTICIPATED IN TOURNAMENT
         
+        JLabel lblFindPlayersParticipatedTournament = new JLabel("Find players who participated in tournament: ");
+        lblFindPlayersParticipatedTournament.setFont(new Font("Tahoma", Font.PLAIN, 12));
+        lblFindPlayersParticipatedTournament.setBounds(390, 45, 250, 14);
+        panel.add(lblFindPlayersParticipatedTournament);
+        
+        for(String s : tennisService.findAllYears())
+        	comboFindPlayersParticipatedTournamentYear.addItem(s);
+        comboFindPlayersParticipatedTournamentYear.setBounds(650, 45, 90, 20);
+        comboFindPlayersParticipatedTournamentYear.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				comboFindPlayersParticipatedTournamentName.removeAllItems();
+				for(Tournament t : tennisService.findAllTournamentsByYear(Integer.parseInt((String)comboFindPlayersParticipatedTournamentYear.getSelectedItem())))
+	        		comboFindPlayersParticipatedTournamentName.addItem(t.getName());
+				
+			}
+		});
+        panel.add(comboFindPlayersParticipatedTournamentYear);
+        
+        for(Tournament t : tennisService.findAllTournamentsByYear(Integer.parseInt((String)comboFindPlayersParticipatedTournamentYear.getSelectedItem())))
+        		comboFindPlayersParticipatedTournamentName.addItem(t.getName());
+        comboFindPlayersParticipatedTournamentName.setBounds(750, 45, 130, 20);
+        panel.add(comboFindPlayersParticipatedTournamentName);
+        
+        JButton btnFindPlayersParticipatedTournament = new JButton("Go");
+        btnFindPlayersParticipatedTournament.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent arg0) {
+        		
+        	}
+        });
+        btnFindPlayersParticipatedTournament.setBounds(890, 45, 50, 23);
+        panel.add(btnFindPlayersParticipatedTournament);
+        
+        //FIND TOURNAMENT WINNER
+        JLabel lblFindTournamentWinner = new JLabel("Find tournament winner: ");
+        lblFindTournamentWinner.setFont(new Font("Tahoma", Font.PLAIN, 12));
+        lblFindTournamentWinner.setBounds(390, 70, 150, 14);
+        panel.add(lblFindTournamentWinner);
+        
+        for(String s : tennisService.findAllYears())
+        	comboFindTournamentWinnerYear.addItem(s);
+        comboFindTournamentWinnerYear.setBounds(650, 70, 90, 20);
+        comboFindTournamentWinnerYear.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				comboFindTournamentWinnerName.removeAllItems();
+				for(Tournament t : tennisService.findAllTournamentsByYear(Integer.parseInt((String)comboFindTournamentWinnerYear.getSelectedItem())))
+					comboFindTournamentWinnerName.addItem(t.getName());
+				
+			}
+		});
+        panel.add(comboFindTournamentWinnerYear);
+        
+        for(Tournament t : tennisService.findAllTournamentsByYear(Integer.parseInt((String)comboFindPlayersParticipatedTournamentYear.getSelectedItem())))
+        		comboFindTournamentWinnerName.addItem(t.getName());
+        comboFindTournamentWinnerName.setBounds(750, 70, 130, 20);
+        panel.add(comboFindTournamentWinnerName);
+        
+        JButton btnFindTournamentWinner = new JButton("Go");
+        btnFindTournamentWinner.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent arg0) {
+        		
+        	}
+        });
+        btnFindTournamentWinner.setBounds(890, 70, 50, 23);
+        panel.add(btnFindTournamentWinner);
+        
+        //FIND ALL MATCHES FROM TOURNAMENT
+        JLabel lblFindAllMatchesFromTournament = new JLabel("Find all matches from tournament: ");
+        lblFindAllMatchesFromTournament.setFont(new Font("Tahoma", Font.PLAIN, 12));
+        lblFindAllMatchesFromTournament.setBounds(390, 95, 250, 14);
+        panel.add(lblFindAllMatchesFromTournament);
+        
+        for(String s : tennisService.findAllYears())
+        	comboFindAllMatchesFromTournamentYear.addItem(s);
+        comboFindAllMatchesFromTournamentYear.setBounds(650, 95, 90, 20);
+        comboFindAllMatchesFromTournamentYear.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				comboFindAllMatchesFromTournamentName.removeAllItems();
+				for(Tournament t : tennisService.findAllTournamentsByYear(Integer.parseInt((String) comboFindAllMatchesFromTournamentYear.getSelectedItem())))
+					comboFindAllMatchesFromTournamentName.addItem(t.getName());
+				
+			}
+		});
+        panel.add(comboFindAllMatchesFromTournamentYear);
+        
+        for(Tournament t : tennisService.findAllTournamentsByYear(Integer.parseInt((String)comboFindAllMatchesFromTournamentYear.getSelectedItem())))
+        	comboFindAllMatchesFromTournamentName.addItem(t.getName());
+        comboFindAllMatchesFromTournamentName.setBounds(750, 95, 130, 20);
+        panel.add(comboFindAllMatchesFromTournamentName);
+        
+        JButton btnFindAllMatchesFromTournament = new JButton("Go");
+        btnFindAllMatchesFromTournament.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent arg0) {
+        		
+        	}
+        });
+        btnFindAllMatchesFromTournament.setBounds(890, 95, 50, 23);
+        panel.add(btnFindAllMatchesFromTournament);
+        
+        //FIND PLAYERS WHO HAVE WON TOURNAMENT BY TYPE getPlayersWhoHasWonTournamentByType
+        
+        JLabel lblFindPlayersWhoHasWonTournamentByType = new JLabel("Find players who have won tournament by tournament type: ");
+        lblFindPlayersWhoHasWonTournamentByType.setFont(new Font("Tahoma", Font.PLAIN, 12));
+        lblFindPlayersWhoHasWonTournamentByType.setBounds(390, 120, 350, 14);
+        panel.add(lblFindPlayersWhoHasWonTournamentByType);
+        
+        comboFindPlayersWhoHasWonTournamentByType.addItem(GRAND_SLAM);
+        comboFindPlayersWhoHasWonTournamentByType.addItem(MASTERS_1000);
+        comboFindPlayersWhoHasWonTournamentByType.setBounds(750, 120, 130, 20);
+        panel.add(comboFindPlayersWhoHasWonTournamentByType);
+
+        
+        JButton btnFindPlayersWhoHasWonTournamentByType = new JButton("Go");
+        btnFindPlayersWhoHasWonTournamentByType.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent arg0) {
+        		
+        	}
+        });
+        btnFindPlayersWhoHasWonTournamentByType.setBounds(890, 120, 50, 23);
+        panel.add(btnFindPlayersWhoHasWonTournamentByType);
+        
+        //FIND PLAYERS WHO HAD THE MOST FINALS getPlayerWhoHadTheMostFinals
+        
+        JLabel lblFindPlayerWhoHadTheMostFinals = new JLabel("Find player who had the most finals: ");
+        lblFindPlayerWhoHadTheMostFinals.setFont(new Font("Tahoma", Font.PLAIN, 12));
+        lblFindPlayerWhoHadTheMostFinals.setBounds(390, 145, 350, 14);
+        panel.add(lblFindPlayerWhoHadTheMostFinals);
+        
+        JButton btnFindPlayerWhoHadTheMostFinals = new JButton("Go");
+        btnFindPlayerWhoHadTheMostFinals.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent arg0) {
+        		
+        	}
+        });
+        btnFindPlayerWhoHadTheMostFinals.setBounds(890, 145, 50, 23);
+        panel.add(btnFindPlayerWhoHadTheMostFinals);
+        
+        //FIND OLDEST PLAYER WHO HAVE WON BY TOURNAMENT TYPE getOldestPlayerWhoHasWonTournamentByType
+        
+        JLabel lblFindOldestPlayerWhoHasWonTournamentByType = new JLabel("Find oldest player who have won tournament by type: ");
+        lblFindOldestPlayerWhoHasWonTournamentByType.setFont(new Font("Tahoma", Font.PLAIN, 12));
+        lblFindOldestPlayerWhoHasWonTournamentByType.setBounds(390, 170, 350, 14);
+        panel.add(lblFindOldestPlayerWhoHasWonTournamentByType);
+        
+        comboFindOldestPlayerWhoHasWonTournamentByType.addItem(GRAND_SLAM);
+        comboFindOldestPlayerWhoHasWonTournamentByType.addItem(MASTERS_1000);
+        comboFindOldestPlayerWhoHasWonTournamentByType.setBounds(750, 170, 130, 20);
+        panel.add(comboFindOldestPlayerWhoHasWonTournamentByType);
+
+        
+        JButton btnFindOldestPlayerWhoHasWonTournamentByType = new JButton("Go");
+        btnFindOldestPlayerWhoHasWonTournamentByType.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent arg0) {
+        		
+        	}
+        });
+        btnFindOldestPlayerWhoHasWonTournamentByType.setBounds(890, 170, 50, 23);
+        panel.add(btnFindOldestPlayerWhoHasWonTournamentByType);
+        
+        //FIND PLAYER WHO HAS WON MOST TOURNAMENTS BY SURFACE getPlayerWhoHasWonMostTournamentsBySurface
+        
+        JLabel lblPlayerWhoHasWonMostTournamentsBySurface = new JLabel("Find player who has won most tournaments by surface: ");
+        lblPlayerWhoHasWonMostTournamentsBySurface.setFont(new Font("Tahoma", Font.PLAIN, 12));
+        lblPlayerWhoHasWonMostTournamentsBySurface.setBounds(390, 195, 350, 14);
+        panel.add(lblPlayerWhoHasWonMostTournamentsBySurface);
+        
+        comboFindPlayerWhoHasWonMostTournamentsBySurface.addItem(CLAY);
+        comboFindPlayerWhoHasWonMostTournamentsBySurface.addItem(GRASS);
+        comboFindPlayerWhoHasWonMostTournamentsBySurface.addItem(HARD);
+        comboFindPlayerWhoHasWonMostTournamentsBySurface.setBounds(750, 195, 130, 20);
+        panel.add(comboFindPlayerWhoHasWonMostTournamentsBySurface);
+
+        
+        JButton btnFindPlayerWhoHasWonMostTournamentsBySurface = new JButton("Go");
+        btnFindPlayerWhoHasWonMostTournamentsBySurface.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent arg0) {
+        		
+        	}
+        });
+        btnFindPlayerWhoHasWonMostTournamentsBySurface.setBounds(890, 195, 50, 23);
+        panel.add(btnFindPlayerWhoHasWonMostTournamentsBySurface);
+        
+       
+        //FIND PLAYERS WHO PARTICIPATED IN TOURNAMENT  getPlayersAvgAgeWhoHasWonMatchWithoutLosingSetByYear
+        
+        JLabel lblFindPlayersAvgAgeWhoHasWonMatchWithoutLosingSetByYear = new JLabel("F avg age of p-s who won m. w/o lose set: ");
+        lblFindPlayersAvgAgeWhoHasWonMatchWithoutLosingSetByYear.setFont(new Font("Tahoma", Font.PLAIN, 12));
+        lblFindPlayersAvgAgeWhoHasWonMatchWithoutLosingSetByYear.setBounds(390, 220, 250, 14);
+        panel.add(lblFindPlayersAvgAgeWhoHasWonMatchWithoutLosingSetByYear);
+        
+        for(String s : tennisService.findAllYears())
+        	comboFindPlayersAvgAgeWhoHasWonMatchWithoutLosingSetByYear.addItem(s);
+        comboFindPlayersAvgAgeWhoHasWonMatchWithoutLosingSetByYear.setBounds(650, 220, 90, 20);
+        panel.add(comboFindPlayersAvgAgeWhoHasWonMatchWithoutLosingSetByYear);
+        
+        comboFindPlayersAvgAgeWhoHasWonMatchWithoutLosingSetByType.setBounds(750, 220, 130, 20);
+        comboFindPlayersAvgAgeWhoHasWonMatchWithoutLosingSetByType.addItem(GRAND_SLAM);
+        comboFindPlayersAvgAgeWhoHasWonMatchWithoutLosingSetByType.addItem(MASTERS_1000);
+        panel.add(comboFindPlayersAvgAgeWhoHasWonMatchWithoutLosingSetByType);
+        
+        JButton btnFindPlayersAvgAgeWhoHasWonMatchWithoutLosingSetByType = new JButton("Go");
+        btnFindPlayersAvgAgeWhoHasWonMatchWithoutLosingSetByType.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent arg0) {
+        		
+        	}
+        });
+        btnFindPlayersAvgAgeWhoHasWonMatchWithoutLosingSetByType.setBounds(890, 220, 50, 23);
+        panel.add(btnFindPlayersAvgAgeWhoHasWonMatchWithoutLosingSetByType);
+        
+      //FIND PLAYERS WHO HAVE BEEN PLAYED AGAINST EACH OTHER THE MOST  FindPlayersWhoHaveBeenPlayedAgainstEachOtherTheMost
+        JLabel lblFindPlayersWhoHaveBeenPlayedAgainstEachOtherTheMost = new JLabel("Find players who played against each other most times: ");
+        lblFindPlayersWhoHaveBeenPlayedAgainstEachOtherTheMost.setFont(new Font("Tahoma", Font.PLAIN, 12));
+        lblFindPlayersWhoHaveBeenPlayedAgainstEachOtherTheMost.setBounds(390, 245, 350, 14);
+        panel.add(lblFindPlayersWhoHaveBeenPlayedAgainstEachOtherTheMost);
+        
+        JButton btnFindPlayersWhoHaveBeenPlayedAgainstEachOtherTheMost = new JButton("Go");
+        btnFindPlayersWhoHaveBeenPlayedAgainstEachOtherTheMost.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent arg0) {
+        		
+        	}
+        });
+        btnFindPlayersWhoHaveBeenPlayedAgainstEachOtherTheMost.setBounds(890, 245, 50, 23);
+        panel.add(btnFindPlayersWhoHaveBeenPlayedAgainstEachOtherTheMost);
+        
+        //FIND PLAYERS WHO HAVE BEEN PLAYED AGAINST EACH OTHER THE MOST  FindPlayersWhoHaveWonMastersButNotGrandSlam
+        JLabel lblFindPlayersWhoHaveWonMastersButNotGrandSlam = new JLabel("Find players who have won masters, but not grand slam: ");
+        lblFindPlayersWhoHaveWonMastersButNotGrandSlam.setFont(new Font("Tahoma", Font.PLAIN, 12));
+        lblFindPlayersWhoHaveWonMastersButNotGrandSlam.setBounds(390, 270, 350, 14);
+        panel.add(lblFindPlayersWhoHaveWonMastersButNotGrandSlam);
+        
+        JButton btnFindPlayersWhoHaveWonMastersButNotGrandSlam = new JButton("Go");
+        btnFindPlayersWhoHaveWonMastersButNotGrandSlam.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent arg0) {
+        		
+        	}
+        });
+        btnFindPlayersWhoHaveWonMastersButNotGrandSlam.setBounds(890, 270, 50, 23);
+        panel.add(btnFindPlayersWhoHaveWonMastersButNotGrandSlam);
+
         return panel;
     }
     
@@ -578,6 +823,9 @@ public class CustomTabPanel extends JPanel {
 							addResultLbl.setText("Tournament successfully added!");
 							comboAddMatchTours.addItem(textFieldATname.getText());
 							comboUpdateMatchTours.addItem(textFieldATname.getText());
+							comboFindAllMatchesFromTournamentName.addItem(textFieldATname.getText());
+							comboFindTournamentWinnerName.addItem(textFieldATname.getText());
+							comboFindPlayersParticipatedTournamentName.addItem(textFieldATname.getText());
 						}else{
 							addResultLbl.setText("Add Tournament failed!");
 						}
@@ -617,6 +865,10 @@ public class CustomTabPanel extends JPanel {
 							comboAddTournamentYear.addItem(textFieldASyear.getText());
 							comboRemoveSeasonYear.addItem(textFieldASyear.getText());
 							comboRemoveTournamentYear.addItem(textFieldASyear.getText());
+							comboFindAllMatchesFromTournamentYear.addItem(textFieldASyear.getText());
+							comboFindPlayersAvgAgeWhoHasWonMatchWithoutLosingSetByYear.addItem(textFieldASyear.getText());
+							comboFindPlayersParticipatedTournamentYear.addItem(textFieldASyear.getText());
+							comboFindTournamentWinnerYear.addItem(textFieldASyear.getText());
 							addResultLbl.setText("Season successfully added!");
 						}else{
 							addResultLbl.setText("Add season failed!");
@@ -1444,6 +1696,9 @@ public class CustomTabPanel extends JPanel {
 					comboAddMatchTours.removeItem(comboRemoveTournamentName.getSelectedItem());
 					comboUpdateMatchTours.removeItem(comboRemoveTournamentName.getSelectedItem());
 					comboRemoveTournamentName.removeItem(comboRemoveTournamentName.getSelectedItem());
+					comboFindAllMatchesFromTournamentName.removeItem(comboRemoveTournamentName.getSelectedItem());
+					comboFindTournamentWinnerName.removeItem(comboRemoveTournamentName.getSelectedItem());
+					comboFindPlayersParticipatedTournamentName.removeItem(comboRemoveTournamentName.getSelectedItem());
 					lblRemoveInfo.setText("Tournament removed successfully!");
 				} else {
 					lblRemoveInfo.setText("Tournament can't be removed!");
@@ -1477,6 +1732,10 @@ public class CustomTabPanel extends JPanel {
 					comboAddMatchYears.removeItem(comboRemoveSeasonYear.getSelectedItem());
 					comboUpdateMatchYears.removeItem(comboRemoveSeasonYear.getSelectedItem());
 					comboRemoveSeasonYear.removeItem(comboRemoveSeasonYear.getSelectedItem());
+					comboFindAllMatchesFromTournamentYear.removeItem(comboRemoveSeasonYear.getSelectedItem());
+					comboFindPlayersAvgAgeWhoHasWonMatchWithoutLosingSetByYear.removeItem(comboRemoveSeasonYear.getSelectedItem());
+					comboFindPlayersParticipatedTournamentYear.removeItem(comboRemoveSeasonYear.getSelectedItem());
+					comboFindTournamentWinnerYear.removeItem(comboRemoveSeasonYear.getSelectedItem());
 					lblRemoveInfo.setText("Season removed successfully!");
 				} else {
 					lblRemoveInfo.setText("Season can't be removed!");
