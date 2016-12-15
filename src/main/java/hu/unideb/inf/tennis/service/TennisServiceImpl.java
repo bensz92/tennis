@@ -674,4 +674,158 @@ public class TennisServiceImpl implements TennisService{
 			return true;
 		} 
 	}
+
+	@Override
+	public List<Player> getPlayersParticipatedTournament(int year, String name) {
+//		let $r := db:open("tennis")//root/tennis_seasons/tennis_season[@year="2016"]/tournaments/tournament[@name="Cincinnati"]
+//		let $matches := (for $match in ($r/finals/*, $r/semi-finals/*, $r/quarter-finals/*)
+//		return $match)
+//		let $players := (for $player in ($matches)/players/*/@id return $player)
+//		return distinct-values($players)
+		return null;
+	}
+
+	@Override
+	public Player getTournamentWinner(int year, String name) {
+		//(for $player in db:open("tennis")//root/tennis_seasons/tennis_season[@year="2016"]/tournaments/tournament[@name="Cincinnati"]/finals/match/players/*
+		//return $player)[1]
+		return null;
+	}
+
+	@Override
+	public List<Match> getAllMatchesFromTournament(int year, String name) {
+		//adjuk vissza a torna összes lejátszott match-ét
+//		let $r := db:open("tennis")//root/tennis_seasons/tennis_season[@year="2016"]/tournaments/tournament[@name="Cincinnati"]
+//				for $matches in ($r/finals/*, $r/semi-finals/*, $r/quarter-finals/*)
+//				return $matches
+		return null;
+	}
+
+	@Override
+	public List<Player> getPlayersWhoHasWonTournamentByType(String type) {
+		//Azok a playerek akik nyertek grand slament
+//		let $gs := (for $t in db:open("tennis")//root/tennis_seasons/tennis_season/tournaments/tournament[@type="Grand_Slam"]
+//				return $t)
+//				let $finals := (for $final in $gs/finals/*
+//				return $final)
+//				let $winners := (for $player in $finals/players/player-ref/@id[1] return $player)
+//				for $winner in distinct-values($winners)
+//				return $winner
+		return null;
+	}
+
+	@Override
+	public Player getPlayerWhoHadTheMostFinals() {
+		//a legtöbbször döntőt játszó player
+//		let $tournaments := (for $t in db:open("tennis")//root/tennis_seasons/tennis_season/tournaments/tournament
+//				return $t)
+//				let $finals := (for $final in $tournaments/finals/*
+//				return $final)
+//				let $finalists := (for $player in $finals/players/player-ref return $player)
+//				let $result := (for $finalist in $finalists
+//				let $id := $finalist/@id
+//				group by $id
+//				order by count($finalist) descending
+//				return $id || ":" || count($finalist))[1]
+//				return $result
+		return null;
+	}
+
+	@Override
+	public Player getOldestPlayerWhoHasWonTournamentByType(String type) {
+		//a legidősebb játékos aki masters-t nyert
+//		let $masters := (for $t in db:open("tennis")//root/tennis_seasons/tennis_season/tournaments/tournament[@type="Masters_1000"]
+//				return $t)
+//				let $finals := (for $final in $masters/finals/*
+//				return $final)
+//				let $finalists := distinct-values(for $player in $finals/players/player-ref/@id return $player)
+	//
+//				let $players :=(
+//				for $finalist in $finalists
+//				for $player in db:open("tennis")//root/players/*
+//				where $finalist = $player/@id
+//				order by $player/year_of_birth
+//				return $player)
+	//
+//				return $players[1]
+		return null;
+	}
+
+	@Override
+	public Player getPlayerWhoHasWonMostTournamentsBySurface(String surface) {
+		// a legtöbb salakos tornát nyert player
+//		let $tBySurface := (for $t in db:open("tennis")//root/tennis_seasons/tennis_season/tournaments/tournament[@surface="Hard"]
+//				return $t)
+//				let $winner := (for $player in $tBySurface/finals/match/players/*[1]
+//				return $player)
+//				let $ result := (for $player in $winner
+//				let $id := $player/@id
+//				group by $id
+//				order by count($player) descending
+//				return $id || ": " || count($player))
+//				return $result[1]
+		return null;
+	}
+
+	@Override
+	public double getPlayersAvgAgeWhoHasWonMatchWithoutLosingSetByYear(int year, String type) {
+		//azon playerek "átlaga" (életkor, magasság súly) aki setvesztés nélkül nyert meccset 
+//		declare variable $type external := "Grand_Slam";
+//		declare variable $year external := 2016;
+//		let $sub := (function($x, $y) { $x - $y })
+//		let $setCount := if($type = "Masters_1000") then (2) else (3)
+//		let $r := db:open("tennis")//root/tennis_seasons/tennis_season/tournaments/tournament[@type=$type]
+//		let $allMatches :=(for $match in ($r/finals/*, $r/semi-finals/*, $r/quarter-finals/*) return $match)
+//		let $matchesNeeded := (for $match in $allMatches
+//		where count($match/result/set) = $setCount
+//		return $match)
+//		let $playersNeeded := (for $match in $matchesNeeded
+//		return $match/players/player-ref[1]/@id)
+//		let $playersNeededId := (for $p in distinct-values($playersNeeded) return $p) 
+//		let $actualPlayers := (for $id in $playersNeededId
+//		for $p in db:open("tennis")//root/players/*
+//		where $id = $p/@id
+//		return $p)
+//		let $ages := 
+//		(for $p in $actualPlayers
+//		return $sub ($year, $p/year_of_birth))
+//		return avg($ages)
+		return 0;
+	}
+
+	@Override
+	public List<Player> getTheTwoPlayersWhoHaveBeenPlayedAgainstEachOtherTheMost() {
+		//az a 2 player akik a legtöbbször játszottak egymás ellen
+//		let $r := db:open("tennis")//root/tennis_seasons/tennis_season/tournaments/tournament
+//				let $playerPairs := (for $matches in ($r/finals/match/players, $r/semi-finals/match/players, $r/quarter-finals/match/players)
+//				return $matches)
+//				let $pairsWithCount := (for $playerPair in $playerPairs
+//				let $id1 := $playerPair/player-ref[1]/@id
+//				let $id2 := $playerPair/player-ref[2]/@id 
+//				group by $id1, $id2
+//				order by count($playerPair) descending
+//				return $id1 || " " || $id2 || ": " || count($playerPair))
+//				return $pairsWithCount[1]
+		return null;
+	}
+
+	@Override
+	public List<Player> getPlayersWhoHaveWonMastersButNotGrandSlam() {
+//		declare namespace functx = "http://www.functx.com";
+//		declare function functx:value-except
+//		  ( $arg1 as xs:anyAtomicType* ,
+//		    $arg2 as xs:anyAtomicType* )  as xs:anyAtomicType* {
+//		  distinct-values($arg1[not(.=$arg2)])
+//		 } ;
+//		let $mastersWinners := 
+//		(for $mWinner in db:open("tennis")//root/tennis_seasons/tennis_season/tournaments/tournament[@type="Masters_1000"]/finals/match/players/player-ref[1]/@id return $mWinner)
+//		let $grandslamWinners :=
+//		(for $gsWinner in db:open("tennis")//root/tennis_seasons/tennis_season/tournaments/tournament[@type="Grand_Slam"]/finals/match/players/player-ref[1]/@id return $gsWinner)
+//		let $result := functx:value-except($mastersWinners, $grandslamWinners)
+//		for $r in $result
+//		for $p in db:open("tennis")//root/players/*
+//		where $r = $p/@id
+//		return $p
+		return null;
+	}
 }

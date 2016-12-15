@@ -53,39 +53,30 @@ public interface TennisService {
 
 	public boolean removeSeason(int year);
 	
-	//Other
+	//Real functionality :D
 	public List<String> findAllYears();
 	
 	public Match findMatchForUpdate(int year, String tournamentName, String matchType, String p1, String p2);
 	
 	public boolean updateMatch(int year, String tournamentName, String matchType, String p1, String p2, Match updatedMatch);
 	
-	//public Set<Player> getPlayersParticipatedTournament(int year, String name);
+	public List<Player> getPlayersParticipatedTournament(int year, String name);	
+
+	public Player getTournamentWinner(int year, String name);
+
+	public List<Match> getAllMatchesFromTournament(int year, String name);
 	
-	//public Player getTournamentWinner(int year, String name);
-	
-	//Azok a playerek akik nyertek grand slament
-	
-	//a legtöbbször döntőt játszó player
-	
-	//az a 2 player akik a legtöbbször játszottak egymás ellen
-	
-	//a legidősebb játékos aki masters-t nyert
-	
-	//a döntősök "átlaga" életkor, magasság súly
-	
-	//az a player aki a legkevesebb gamet vesztette egy tornán
-	//a legjobb game aránnyal bajnok player
-	
-	//az a player aki setvesztés nélkül nyert meccset
-	
-	//azok a playerek akik úgy nyertek meeccset, hogy feladták ellenük
-	
-	//azon döntősök aki 2000 után váltak profivá
-	
-	//azok playerek akik ugyanonnan származnak és játszottak egymással
-	
-	//Azok a playerek akiknek jobb a gamearánya mint Nadalnak
-	
-	// a legtöbb salakos tornát nyert player
+	public List<Player> getPlayersWhoHasWonTournamentByType(String type);
+
+	public Player getPlayerWhoHadTheMostFinals();
+
+	public Player getOldestPlayerWhoHasWonTournamentByType(String type);
+
+	public Player getPlayerWhoHasWonMostTournamentsBySurface(String surface);
+
+	public double getPlayersAvgAgeWhoHasWonMatchWithoutLosingSetByYear(int year, String type);
+
+	public List<Player> getTheTwoPlayersWhoHaveBeenPlayedAgainstEachOtherTheMost();
+
+	public List<Player> getPlayersWhoHaveWonMastersButNotGrandSlam();
 }
